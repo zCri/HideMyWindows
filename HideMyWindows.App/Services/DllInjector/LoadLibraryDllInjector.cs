@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vanara.PInvoke;
 using static Vanara.PInvoke.Kernel32;
 
 namespace HideMyWindows.App.Services.DllInjector
@@ -20,15 +21,15 @@ namespace HideMyWindows.App.Services.DllInjector
 
             var memSize = Encoding.Unicode.GetByteCount(DLLPath);
             var mem = VirtualAllocEx(process.Handle, IntPtr.Zero, memSize, MEM_ALLOCATION_TYPE.MEM_RESERVE | MEM_ALLOCATION_TYPE.MEM_COMMIT, MEM_PROTECTION.PAGE_READWRITE);
-            if (mem == IntPtr.Zero) throw HandleError();
+            if (mem == IntPtr.Zero) Win32Error.ThrowLastError();
 
-            if (!WriteProcessMemory(process.Handle, mem, Encoding.Unicode.GetBytes(DLLPath), memSize, out _)) throw HandleError();
+            if (!WriteProcessMemory(process.Handle, mem, Encoding.Unicode.GetBytes(DLLPath), memSize, out _)) Win32Error.ThrowLastError();
 
             var loadLibraryAddr = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryW"); // Critical system libraries are always initialized at the same address
-            if (loadLibraryAddr == IntPtr.Zero) throw HandleError();
+            if (loadLibraryAddr == IntPtr.Zero) Win32Error.ThrowLastError();
 
             var thread = CreateRemoteThread(process.Handle, null, 0, loadLibraryAddr, mem, CREATE_THREAD_FLAGS.RUN_IMMEDIATELY, out _);
-            if (thread == IntPtr.Zero) throw HandleError();
+            if (thread == IntPtr.Zero) Win32Error.ThrowLastError();
         }
 
         private bool IsProcess64Bit(Process process)
@@ -37,15 +38,9 @@ namespace HideMyWindows.App.Services.DllInjector
                 return false;
 
             if (!IsWow64Process(process.Handle, out bool isWow64Process))
-                throw HandleError();
+                Win32Error.ThrowLastError();
 
             return !isWow64Process;
-        }
-
-        private Exception HandleError()
-        {
-            //TODO: handle error
-            return new Exception();
         }
     }
 }

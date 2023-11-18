@@ -5,6 +5,7 @@
 
 using HideMyWindows.App.Services;
 using HideMyWindows.App.Services.DllInjector;
+using HideMyWindows.App.Services.ProcessWatcher;
 using HideMyWindows.App.ViewModels.Pages;
 using HideMyWindows.App.ViewModels.Windows;
 using HideMyWindows.App.Views.Pages;
@@ -48,8 +49,10 @@ namespace HideMyWindows.App
                 services.AddSingleton<SettingsPage>();
                 services.AddSingleton<SettingsViewModel>();
 
-                //App services
+                // App services
                 services.AddSingleton<IDllInjector, LoadLibraryDllInjector>();
+                services.AddSingleton<IProcessWatcher, WMIProcessWatcher>();
+                services.AddSingleton<NotificationsService>();
             }).Build();
 
         /// <summary>

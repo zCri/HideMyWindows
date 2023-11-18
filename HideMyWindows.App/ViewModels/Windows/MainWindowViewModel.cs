@@ -3,6 +3,7 @@
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
 // All Rights Reserved.
 
+using HideMyWindows.App.Services;
 using System.Collections.ObjectModel;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
@@ -11,6 +12,13 @@ namespace HideMyWindows.App.ViewModels.Windows
 {
     public partial class MainWindowViewModel : ObservableObject
     {
+        public NotificationsService NotificationsService { get; }
+
+        public MainWindowViewModel(NotificationsService notificationsService)
+        {
+            NotificationsService = notificationsService;
+        }
+
         [ObservableProperty]
         private string _applicationTitle = "WPF UI - HideMyWindows.App";
 

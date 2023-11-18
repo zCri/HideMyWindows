@@ -46,7 +46,10 @@
             PaneDisplayMode="Left"
             TitleBar="{Binding ElementName=TitleBar, Mode=OneWay}">
             <ui:NavigationView.Header>
-                <ui:BreadcrumbBar x:Name="BreadcrumbBar" Margin="42,32,42,20" />
+                <StackPanel>
+                    <ItemsControl ItemsSource="{Binding ViewModel.NotificationsService.Notifications}"/>
+                    <ui:BreadcrumbBar x:Name="BreadcrumbBar" Margin="42,32,42,20" />
+                </StackPanel>
             </ui:NavigationView.Header>
             <ui:NavigationView.ContentOverlay>
                 <Grid>

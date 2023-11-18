@@ -41,21 +41,25 @@
             <ui:Button
                 Icon="{ui:SymbolIcon ArrowEnterLeft24}"
                 Appearance="Primary"
-                Content="Run Process"
+                Content="Run hidden process"
                 Command="{Binding ViewModel.StartProcessCommand, Mode=OneWay}"/>
         </StackPanel>
 
         <StackPanel
             Grid.Row="1">
             <Label>Hide a running process</Label>
-            <!-- Fix combobox template -->
-            <ComboBox IsEditable="True" ItemsSource="{Binding ViewModel.RunningProcesses, Mode=OneWay}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding ProcessName}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
+            <ComboBox
+                IsEditable="True"
+                ItemsSource="{Binding ViewModel.RunningProcesses, Mode=OneWay}"
+                SelectedItem="{Binding ViewModel.SelectedProcess, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                IsSynchronizedWithCurrentItem="True">
             </ComboBox>
+            <ui:Button
+                Icon="{ui:SymbolIcon ArrowEnterLeft24}"
+                Appearance="Primary"
+                Content="Hide process windows"
+                Command="{Binding ViewModel.InjectIntoProcessCommand, Mode=OneWay}"
+                />
         </StackPanel>
     </Grid>
 </Page>
