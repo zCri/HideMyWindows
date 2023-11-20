@@ -3,65 +3,54 @@
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
 // All Rights Reserved.
 
+using HideMyWindows.App.Services.ConfigProvider;
+using System.Reflection;
+using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 
 namespace HideMyWindows.App.ViewModels.Pages
 {
-    public partial class SettingsViewModel : ObservableObject, INavigationAware
+    public partial class SettingsViewModel : ObservableObject
     {
-        private bool _isInitialized = false;
+        public IConfigProvider ConfigProvider { get; }
 
         [ObservableProperty]
-        private string _appVersion = String.Empty;
+        private string _appVersion = string.Empty;
 
-        [ObservableProperty]
-        private Wpf.Ui.Appearance.ThemeType _currentTheme = Wpf.Ui.Appearance.ThemeType.Unknown;
-
-        public void OnNavigatedTo()
+        public SettingsViewModel(IConfigProvider configProvider)
         {
-            if (!_isInitialized)
-                InitializeViewModel();
-        }
+            ConfigProvider = configProvider;
 
-        public void OnNavigatedFrom() { }
-
-        private void InitializeViewModel()
-        {
-            CurrentTheme = Wpf.Ui.Appearance.Theme.GetAppTheme();
+            configProvider.Load();
+            ConfigProvider.Config!.CurrentTheme = Theme.GetAppTheme();
             AppVersion = $"HideMyWindows.App - {GetAssemblyVersion()}";
-
-            _isInitialized = true;
         }
 
         private string GetAssemblyVersion()
         {
-            return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString()
-                ?? String.Empty;
+            return Assembly.GetExecutingAssembly().GetName().Version?.ToString()
+                ?? string.Empty;
         }
 
         [RelayCommand]
-        private void OnChangeTheme(string parameter)
+        private void ChangeTheme(string parameter)
         {
             switch (parameter)
             {
                 case "theme_light":
-                    if (CurrentTheme == Wpf.Ui.Appearance.ThemeType.Light)
-                        break;
-
-                    Wpf.Ui.Appearance.Theme.Apply(Wpf.Ui.Appearance.ThemeType.Light);
-                    CurrentTheme = Wpf.Ui.Appearance.ThemeType.Light;
-
+                    ConfigProvider.Config!.CurrentTheme = ThemeType.Light;
                     break;
 
                 default:
-                    if (CurrentTheme == Wpf.Ui.Appearance.ThemeType.Dark)
-                        break;
-
-                    Wpf.Ui.Appearance.Theme.Apply(Wpf.Ui.Appearance.ThemeType.Dark);
-                    CurrentTheme = Wpf.Ui.Appearance.ThemeType.Dark;
-
+                    ConfigProvider.Config!.CurrentTheme = ThemeType.Dark;
                     break;
             }
+        }
+
+        [RelayCommand]
+        private void SaveConfig()
+        {
+            ConfigProvider.Save();
         }
     }
 }

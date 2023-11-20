@@ -3,6 +3,7 @@
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
 // All Rights Reserved.
 
+using HideMyWindows.App.Services.ConfigProvider;
 using HideMyWindows.App.Views.Pages;
 using HideMyWindows.App.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
@@ -51,6 +52,9 @@ namespace HideMyWindows.App.Services
             {
                 var navigationWindow = _serviceProvider.GetRequiredService<MainWindow>();
                 navigationWindow.Loaded += OnNavigationWindowLoaded;
+
+                _serviceProvider.GetService<IConfigProvider>()?.Load();
+
                 navigationWindow.Show();
             }
         }

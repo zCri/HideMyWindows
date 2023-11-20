@@ -1,0 +1,32 @@
+﻿using System.Windows.Interop;
+using Wpf.Ui.Appearance;
+using static Vanara.PInvoke.User32;
+
+namespace HideMyWindows.App.Models
+{
+    public partial class Config : ObservableObject
+    {
+        [ObservableProperty]
+        private ThemeType _currentTheme = ThemeType.Dark;
+
+        partial void OnCurrentThemeChanged(ThemeType value)
+        {
+            Theme.Apply(value);
+        }
+
+        [ObservableProperty]
+        private bool _hideSelf = false;
+
+        // Weird behaviour with the JSON deserialization (?), not calling the property setter if the value in the config is equal to the default, so by default HideSelf is now set as false, might be fixable with JsonSerializerOptions.PreferredObjectCreationHandling (?) but it's .NET 8+.
+        partial void OnHideSelfChanged(bool value)
+        {
+            foreach (var window in Application.Current.Windows)
+            {
+                var interop = new WindowInteropHelper((Window) window);
+                var hwnd = interop.EnsureHandle();
+
+                SetWindowDisplayAffinity(hwnd, value ? (WindowDisplayAffinity) 0x11 : WindowDisplayAffinity.WDA_NONE);
+            }
+        }
+    }
+}

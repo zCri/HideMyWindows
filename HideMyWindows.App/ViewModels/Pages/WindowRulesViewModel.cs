@@ -9,22 +9,12 @@ using Wpf.Ui.Controls;
 
 namespace HideMyWindows.App.ViewModels.Pages
 {
-    public partial class WindowRulesViewModel : ObservableObject, INavigationAware
+    public partial class WindowRulesViewModel : ObservableObject
     {
-        private bool _isInitialized = false;
-
         [ObservableProperty]
         private IEnumerable<DataColor> _colors;
 
-        public void OnNavigatedTo()
-        {
-            if (!_isInitialized)
-                InitializeViewModel();
-        }
-
-        public void OnNavigatedFrom() { }
-
-        private void InitializeViewModel()
+        public WindowRulesViewModel()
         {
             var random = new Random();
             var colorCollection = new List<DataColor>();
@@ -45,8 +35,6 @@ namespace HideMyWindows.App.ViewModels.Pages
                 );
 
             Colors = colorCollection;
-
-            _isInitialized = true;
         }
     }
 }

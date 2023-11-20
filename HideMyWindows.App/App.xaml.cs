@@ -4,6 +4,7 @@
 // All Rights Reserved.
 
 using HideMyWindows.App.Services;
+using HideMyWindows.App.Services.ConfigProvider;
 using HideMyWindows.App.Services.DllInjector;
 using HideMyWindows.App.Services.ProcessWatcher;
 using HideMyWindows.App.ViewModels.Pages;
@@ -16,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using System.IO;
 using System.Reflection;
 using System.Windows.Threading;
+using Wpf.Ui.Appearance;
 
 namespace HideMyWindows.App
 {
@@ -52,6 +54,7 @@ namespace HideMyWindows.App
                 // App services
                 services.AddSingleton<IDllInjector, LoadLibraryDllInjector>();
                 services.AddSingleton<IProcessWatcher, WMIProcessWatcher>();
+                services.AddSingleton<IConfigProvider, JSONConfigProvider>();
                 services.AddSingleton<NotificationsService>();
             }).Build();
 
