@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace HideMyWindows.App.Services.ProcessWatcher
 {
-    public class ProcessWatchEventArgs : EventArgs
+    public class ProcessWatchedEventArgs : EventArgs
     {
-        public string Name { get; set; } = string.Empty;
-        public int ID { get; set; }
+        public string Name { get; init; } = string.Empty;
+        public int Id { get; init; }
     }
 
     public interface IProcessWatcher
     {
-        public event EventHandler<ProcessWatchEventArgs> ProcessStarted;
-        public event EventHandler<ProcessWatchEventArgs> ProcessStopped;
+        public event EventHandler<ProcessWatchedEventArgs> ProcessStarted;
+        public event EventHandler<ProcessWatchedEventArgs> ProcessStopped;
 
-        public bool IsWatching { get; set; }
+        public bool IsWatching { get; }
     }
 }

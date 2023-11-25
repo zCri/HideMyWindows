@@ -49,7 +49,6 @@ namespace HideMyWindows.App.ViewModels.Pages
         [ObservableProperty]
         private string _processArguments = string.Empty;
 
-        // TODO: Make it update using processwatcher
         public IEnumerable<ProcessProxy> RunningProcesses { get => Process.GetProcesses().Select(process => new ProcessProxy(process)); }
 
         [ObservableProperty]
@@ -61,7 +60,7 @@ namespace HideMyWindows.App.ViewModels.Pages
         {
             try
             {
-                //TODO: if process forces runas
+                //TODO: if process forces runas?
                 var commandLine = new StringBuilder(ProcessArguments);
                 var workingDirectory = new FileInfo(ProcessPath)?.Directory?.FullName;
 

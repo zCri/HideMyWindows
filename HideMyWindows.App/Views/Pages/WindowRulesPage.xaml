@@ -6,7 +6,9 @@
     xmlns:local="clr-namespace:HideMyWindows.App.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:HideMyWindows.App.Models"
+    xmlns:helpers="clr-namespace:HideMyWindows.App.Helpers"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
     Title="DataPage"
     d:DataContext="{d:DesignInstance local:WindowRulesPage,
                                      IsDesignTimeCreatable=False}"
@@ -17,27 +19,126 @@
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     ScrollViewer.CanContentScroll="False"
     mc:Ignorable="d">
-
+    <Page.Resources>
+        <ObjectDataProvider
+            x:Key="WindowRuleTargetValues"
+            MethodName="GetValues"
+            ObjectType="{x:Type system:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type
+                    TypeName="models:WindowRuleTarget"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider
+            x:Key="WindowRuleComparatorValues"
+            MethodName="GetValues"
+            ObjectType="{x:Type system:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type
+                    TypeName="models:WindowRuleComparator"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider
+            x:Key="WindowRuleActionValues"
+            MethodName="GetValues"
+            ObjectType="{x:Type system:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type
+                    TypeName="models:WindowRuleAction"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Page.Resources>
+    
     <Grid>
-        <ui:VirtualizingItemsControl
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ItemsControl
+            Grid.Row="0"
             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-            ItemsSource="{Binding ViewModel.Colors, Mode=OneWay}"
-            VirtualizingPanel.CacheLengthUnit="Item">
+            ItemsSource="{Binding ViewModel.ConfigProvider.Config.WindowRules, Mode=OneWay}">
             <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type models:DataColor}">
-                    <ui:Button
-                        Width="80"
-                        Height="80"
-                        Margin="2"
-                        Padding="0"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        Appearance="Secondary"
-                        Background="{Binding Color, Mode=OneWay}"
-                        FontSize="25"
-                        Icon="Fluent24" />
+                <DataTemplate DataType="{x:Type models:WindowRule}">
+                    <Border
+                            Grid.Row="1"
+                            Padding="16"
+                            Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="8">
+                        <StackPanel>
+                            <Grid>
+                                <ui:ToggleSwitch
+                                    x:Name="EnabledToggleSwitch"
+                                    Content="Enabled"
+                                    IsChecked="{Binding Enabled}"
+                                    IsEnabled="{Binding ElementName=ValueTextBox, Path=Text.Length, Mode=OneWay}"/>
+                                <ui:Button
+                                    Command="{Binding Path=ViewModel.RemoveRuleCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"
+                                    CommandParameter="{Binding}"
+                                    Icon="{ui:SymbolIcon Delete24}"
+                                    Appearance="Danger"
+                                    HorizontalAlignment="Right"/>
+                            </Grid>
+                            
+                            <Grid
+                                Margin="0,12,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox
+                                    Grid.Column="0"
+                                    ItemsSource="{Binding Source={StaticResource WindowRuleTargetValues}}"
+                                    SelectedItem="{Binding Target}"/>
+                                <ComboBox
+                                    Grid.Column="1"
+                                    Margin="10,0,0,0"
+                                    ItemsSource="{Binding Source={StaticResource WindowRuleComparatorValues}}"
+                                    SelectedItem="{Binding Comparator}"/>
+                            </Grid>
+                            <Grid
+                                Margin="0,8,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ui:TextBox
+                                    x:Name="ValueTextBox"
+                                    Grid.Column="0"
+                                    PlaceholderText="Filter value"
+                                    Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"/>
+                                <ComboBox
+                                    Grid.Column="1"
+                                    Margin="10,0,0,0"
+                                    ItemsSource="{Binding Source={StaticResource WindowRuleActionValues}}"
+                                    SelectedItem="{Binding Action}"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ui:VirtualizingItemsControl>
+        </ItemsControl>
+        <StackPanel
+            Grid.Row="1"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right"
+            Margin="0,0,0,20">
+            <ui:Button
+                Margin="0,0,10,0"
+                Icon="{ui:SymbolIcon Save24}"
+                Appearance="Secondary"
+                HorizontalAlignment="Right"
+                Content="Save rules"
+                Command="{Binding ViewModel.SaveConfigCommand}"/>
+            <ui:Button
+                Icon="{ui:SymbolIcon AddCircle24}"
+                Appearance="Primary"
+                HorizontalAlignment="Right"
+                Content="Add new rule"
+                Command="{Binding ViewModel.AddRuleCommand}"/>
+        </StackPanel>
+        
     </Grid>
 </Page>

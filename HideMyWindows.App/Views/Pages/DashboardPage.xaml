@@ -16,7 +16,7 @@
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
 
-    <Grid VerticalAlignment="Top">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -24,21 +24,33 @@
 
         <StackPanel
             Grid.Row="0">
-            <Label>Run a hidden process</Label>
-            <StackPanel
-                Orientation="Horizontal">
+            <TextBlock
+                FontSize="20"
+                FontWeight="Medium"
+                Text="Run a hidden process"/>
+            <Grid
+                Margin="0,12,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
                 <ui:TextBox
+                    Grid.Column="0"
                     PlaceholderText="Process path"
                     Text="{Binding ViewModel.ProcessPath, UpdateSourceTrigger=PropertyChanged, Delay=100}"/>
                 <ui:Button
+                    Grid.Column="1"
+                    Margin="10,0,0,0"
                     Icon="{ui:SymbolIcon Folder24}"
                     Appearance="Secondary"
                     Command="{Binding ViewModel.BrowsePathCommand, Mode=OneWay}"/>
-                <ui:TextBox
-                    PlaceholderText="Process arguments"
-                    Text="{Binding ViewModel.ProcessArguments}"/>
-            </StackPanel>
+            </Grid>
+            <ui:TextBox
+                Margin="0,8,0,0"
+                PlaceholderText="Process arguments"
+                Text="{Binding ViewModel.ProcessArguments}"/>
             <ui:Button
+                Margin="0,8,0,0"
                 Icon="{ui:SymbolIcon ArrowEnterLeft24}"
                 Appearance="Primary"
                 Content="Run hidden process"
@@ -46,15 +58,21 @@
         </StackPanel>
 
         <StackPanel
+            Margin="0,24,0,0"
             Grid.Row="1">
-            <Label>Hide a running process</Label>
+            <TextBlock
+                FontSize="20"
+                FontWeight="Medium"
+                Text="Hide a running process"/>
             <ComboBox
+                Margin="0,12,0,0"
                 IsEditable="True"
-                ItemsSource="{Binding ViewModel.RunningProcesses, Mode=OneWay}"
+                ItemsSource="{Binding ViewModel.RunningProcesses, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding ViewModel.SelectedProcess, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 IsSynchronizedWithCurrentItem="True">
             </ComboBox>
             <ui:Button
+                Margin="0,8,0,0"
                 Icon="{ui:SymbolIcon ArrowEnterLeft24}"
                 Appearance="Primary"
                 Content="Hide process windows"

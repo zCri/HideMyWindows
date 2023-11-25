@@ -6,35 +6,35 @@
 using HideMyWindows.App.Models;
 using System.Windows.Media;
 using Wpf.Ui.Controls;
+using HideMyWindows.App.Services.ConfigProvider;
 
 namespace HideMyWindows.App.ViewModels.Pages
 {
     public partial class WindowRulesViewModel : ObservableObject
     {
-        [ObservableProperty]
-        private IEnumerable<DataColor> _colors;
+        public IConfigProvider ConfigProvider { get; }
 
-        public WindowRulesViewModel()
+        public WindowRulesViewModel(IConfigProvider configProvider)
         {
-            var random = new Random();
-            var colorCollection = new List<DataColor>();
+            ConfigProvider = configProvider;
+        }
 
-            for (int i = 0; i < 8192; i++)
-                colorCollection.Add(
-                    new DataColor
-                    {
-                        Color = new SolidColorBrush(
-                            Color.FromArgb(
-                                (byte)200,
-                                (byte)random.Next(0, 250),
-                                (byte)random.Next(0, 250),
-                                (byte)random.Next(0, 250)
-                            )
-                        )
-                    }
-                );
+        [RelayCommand]
+        private void SaveConfig()
+        {
+            ConfigProvider.Save();
+        }
 
-            Colors = colorCollection;
+        [RelayCommand]
+        private void AddRule()
+        {
+            ConfigProvider.Config?.WindowRules.AddNew();
+        }
+
+        [RelayCommand]
+        private void RemoveRule(WindowRule rule)
+        {
+            ConfigProvider?.Config?.WindowRules.Remove(rule);
         }
     }
 }

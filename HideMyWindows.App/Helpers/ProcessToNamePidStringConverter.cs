@@ -13,7 +13,7 @@ namespace HideMyWindows.App.Helpers
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is null) return "";
+            if (value is null) return string.Empty;
             if (value is not Process process)
             {
                 throw new ArgumentException("ExceptionProcessToNamePidStringConverterValueMustBeAProcess");

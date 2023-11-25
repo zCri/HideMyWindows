@@ -7,6 +7,7 @@ using HideMyWindows.App.Services;
 using HideMyWindows.App.Services.ConfigProvider;
 using HideMyWindows.App.Services.DllInjector;
 using HideMyWindows.App.Services.ProcessWatcher;
+using HideMyWindows.App.Services.WindowWatcher;
 using HideMyWindows.App.ViewModels.Pages;
 using HideMyWindows.App.ViewModels.Windows;
 using HideMyWindows.App.Views.Pages;
@@ -53,9 +54,12 @@ namespace HideMyWindows.App
 
                 // App services
                 services.AddSingleton<IDllInjector, LoadLibraryDllInjector>();
-                services.AddSingleton<IProcessWatcher, WMIProcessWatcher>();
+                services.AddSingleton<IProcessWatcher, WMIProcessWatcher>(); //TODO: Add other non-admin watcher
+                services.AddSingleton<IWindowWatcher, UIAutomationWindowWatcher>(); //TODO: Win32 hooks ?
                 services.AddSingleton<IConfigProvider, JSONConfigProvider>();
                 services.AddSingleton<NotificationsService>();
+
+                services.AddHostedService<WindowRulesMatcherService>();
             }).Build();
 
         /// <summary>

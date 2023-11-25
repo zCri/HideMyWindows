@@ -14,21 +14,20 @@ namespace HideMyWindows.App.Services.ProcessWatcher
         private readonly ManagementEventWatcher startWatcher;
         private readonly ManagementEventWatcher stopWatcher;
 
-        public event EventHandler<ProcessWatchEventArgs> ProcessStarted;
-        public event EventHandler<ProcessWatchEventArgs> ProcessStopped;
+        public event EventHandler<ProcessWatchedEventArgs> ProcessStarted;
+        public event EventHandler<ProcessWatchedEventArgs> ProcessStopped;
 
-        public bool IsWatching { get; set; } = false;
+        public bool IsWatching { get; private set; } = false;
 
-        protected virtual void OnProcessStarted(ProcessWatchEventArgs e)
+        protected virtual void OnProcessStarted(ProcessWatchedEventArgs e)
         {
             ProcessStarted?.Invoke(this, e);
         }
 
-        protected virtual void OnProcessStopped(ProcessWatchEventArgs e)
+        protected virtual void OnProcessStopped(ProcessWatchedEventArgs e)
         {
             ProcessStopped?.Invoke(this, e);
         }
-
 
         public WMIProcessWatcher(NotificationsService notificationsService)
         {
@@ -68,12 +67,12 @@ namespace HideMyWindows.App.Services.ProcessWatcher
             }
         }
 
-        private ProcessWatchEventArgs GetEventArgs(EventArrivedEventArgs e)
+        private ProcessWatchedEventArgs GetEventArgs(EventArrivedEventArgs e)
         {
-            return new ProcessWatchEventArgs
+            return new ProcessWatchedEventArgs
             {
-                Name = (string)e.NewEvent.Properties["ProcessName"].Value,
-                ID = Convert.ToInt32(e.NewEvent.Properties["ProcessID"].Value)
+                Name = (string) e.NewEvent.Properties["ProcessName"].Value,
+                Id = Convert.ToInt32(e.NewEvent.Properties["ProcessID"].Value)
             };
         }
 

@@ -25,7 +25,7 @@ namespace HideMyWindows.App.Helpers
 
         public override string ToString()
         {
-            return ProcessToNamePidStringConverter.Convert(Process, typeof(string), null!, CultureInfo.CurrentCulture) as string ?? "";
+            return ProcessToNamePidStringConverter.Convert(Process, typeof(string), null!, CultureInfo.CurrentCulture) as string ?? string.Empty;
         }
     }
 }
