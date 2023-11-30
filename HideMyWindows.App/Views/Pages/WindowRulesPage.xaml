@@ -54,7 +54,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ItemsControl
+        <ui:DynamicScrollViewer>
+            <ItemsControl
             Grid.Row="0"
             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
             ItemsSource="{Binding ViewModel.ConfigProvider.Config.WindowRules, Mode=OneWay}">
@@ -120,6 +121,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        </ui:DynamicScrollViewer>
         <StackPanel
             Grid.Row="1"
             Orientation="Horizontal"
