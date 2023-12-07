@@ -14,8 +14,8 @@ namespace HideMyWindows.App.Services.ProcessWatcher
         private readonly ManagementEventWatcher startWatcher;
         private readonly ManagementEventWatcher stopWatcher;
 
-        public event EventHandler<ProcessWatchedEventArgs> ProcessStarted;
-        public event EventHandler<ProcessWatchedEventArgs> ProcessStopped;
+        public event EventHandler<ProcessWatchedEventArgs>? ProcessStarted;
+        public event EventHandler<ProcessWatchedEventArgs>? ProcessStopped;
 
         public bool IsWatching { get; private set; } = false;
 

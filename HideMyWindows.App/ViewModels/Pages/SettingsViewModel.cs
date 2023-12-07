@@ -30,18 +30,18 @@ namespace HideMyWindows.App.ViewModels.Pages
         }
 
         public ProcessWatcherType? ProcessWatcherType { 
-            get => ConfigProvider.Config?.ProcessWatcherType;
+            get => ConfigProvider.Config!.ProcessWatcherType;
             set
             {
-                if(ConfigProvider.Config is not null) ConfigProvider.Config.ProcessWatcherType = value ?? default;
+                ConfigProvider.Config!.ProcessWatcherType = value ?? default;
                 SnackbarService.Show("Settings", "To apply these settings, save the settings and restart the application", ControlAppearance.Info, new SymbolIcon(SymbolRegular.Info24));
             }
         }
         public WindowWatcherType? WindowWatcherType { 
-            get => ConfigProvider.Config?.WindowWatcherType; 
+            get => ConfigProvider.Config!.WindowWatcherType; 
             set 
             {
-                if (ConfigProvider.Config is not null)  ConfigProvider.Config.WindowWatcherType = value ?? default;
+                ConfigProvider.Config!.WindowWatcherType = value ?? default;
                 SnackbarService.Show("Settings", "To apply these settings, save the settings and restart the application", ControlAppearance.Info, new SymbolIcon(SymbolRegular.Info24));
             }
         }

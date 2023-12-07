@@ -108,10 +108,11 @@ namespace HideMyWindows.App.ViewModels.Pages
         {
             try
             {
-                DllInjector.InjectDll(SelectedProcess!.Process);
+                if(SelectedProcess is not null)
+                    DllInjector.InjectDll(SelectedProcess.Process);
             } catch (Exception e)
             {
-                SnackbarService.Show("An error occurred!", e.Message, Wpf.Ui.Controls.ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+                SnackbarService.Show("An error occurred!", e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
             }
         }
 

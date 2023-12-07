@@ -49,7 +49,9 @@ namespace HideMyWindows.App.Services.ConfigProvider
             try
             {
                 var json = JsonSerializer.Serialize(Config, JsonOptions);
-                Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+
+                if(Path.GetDirectoryName(path) is string directory)
+                    Directory.CreateDirectory(directory);
                 File.WriteAllText(path, json);
             } catch (Exception e) when (e is JsonException or IOException)
             {

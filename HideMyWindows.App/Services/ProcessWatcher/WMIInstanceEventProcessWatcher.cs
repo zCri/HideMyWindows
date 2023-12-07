@@ -16,8 +16,8 @@ namespace HideMyWindows.App.Services.ProcessWatcher
         private readonly ManagementEventWatcher startWatcher = new();
         private readonly ManagementEventWatcher stopWatcher = new();
 
-        public event EventHandler<ProcessWatchedEventArgs> ProcessStarted;
-        public event EventHandler<ProcessWatchedEventArgs> ProcessStopped;
+        public event EventHandler<ProcessWatchedEventArgs>? ProcessStarted;
+        public event EventHandler<ProcessWatchedEventArgs>? ProcessStopped;
 
         public bool IsWatching { get; private set; } = false;
 
@@ -37,15 +37,8 @@ namespace HideMyWindows.App.Services.ProcessWatcher
             ConfigProvider = configProvider;
 
             configProvider.Load();
-
-            if (configProvider.Config is not null)
-            {
-                configProvider.Config.PropertyChanged += OnConfigChanged;
-                StartQueries(configProvider.Config.WMIInstanceEventProcessWatcherTimeoutMillis);
-            } else
-            {
-                StartQueries(1000);
-            }
+            configProvider.Config!.PropertyChanged += OnConfigChanged;
+            StartQueries(configProvider.Config.WMIInstanceEventProcessWatcherTimeoutMillis);
         }
 
         private void OnConfigChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
