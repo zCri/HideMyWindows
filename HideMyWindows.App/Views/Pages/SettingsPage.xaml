@@ -7,6 +7,9 @@
     xmlns:local="clr-namespace:HideMyWindows.App.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:processWatcher="clr-namespace:HideMyWindows.App.Services.ProcessWatcher"
+    xmlns:windowWatcher="clr-namespace:HideMyWindows.App.Services.WindowWatcher"
     Title="SettingsPage"
     d:DataContext="{d:DesignInstance local:SettingsPage,
                                      IsDesignTimeCreatable=False}"
@@ -18,6 +21,24 @@
     mc:Ignorable="d">
     <Page.Resources>
         <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <ObjectDataProvider
+            x:Key="ProcessWatcherTypeValues"
+            MethodName="GetValues"
+            ObjectType="{x:Type system:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type
+                    TypeName="processWatcher:ProcessWatcherType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider
+            x:Key="WindowWatcherTypeValues"
+            MethodName="GetValues"
+            ObjectType="{x:Type system:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type
+                    TypeName="windowWatcher:WindowWatcherType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </Page.Resources>
 
     <Grid>
@@ -26,6 +47,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel
+            HorizontalAlignment="Left"
             Grid.Row="0">
             <TextBlock
             FontSize="20"
@@ -35,6 +57,19 @@
                 IsChecked="{Binding ViewModel.ConfigProvider.Config.HideSelf}"
                 Margin="0,12,0,0"
                 Content="Hide this app automatically"/>
+
+            <Label Margin="0,16,0,0">Process watching method</Label>
+            <ComboBox
+                Margin="0,6,0,0"
+                ItemsSource="{Binding Source={StaticResource ProcessWatcherTypeValues}}"
+                SelectedItem="{Binding ViewModel.ProcessWatcherType}"/>
+            
+            <Label Margin="0,16,0,0">Window watching method</Label>
+            <ComboBox
+                Margin="0,6,0,0"
+                ItemsSource="{Binding Source={StaticResource WindowWatcherTypeValues}}"
+                SelectedItem="{Binding ViewModel.WindowWatcherType}"/>
+
             <TextBlock
             FontSize="20"
             FontWeight="Medium"
@@ -60,7 +95,7 @@
             Margin="0,24,0,0"
             FontSize="20"
             FontWeight="Medium"
-            Text="About HideMyWindows.App" />
+            Text="About HideMyWindows" />
             <Label Margin="0,12,0,0" Content="{Binding ViewModel.AppVersion, Mode=OneWay}" />
         </StackPanel>
         <ui:Button

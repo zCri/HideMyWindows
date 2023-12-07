@@ -103,9 +103,9 @@ namespace HideMyWindows.App.Services
                         {
                             return;
                         }
-                        catch (Exception) // TODO: Handle errors
+                        catch (Exception ex) // TODO: Handle errors
                         {
-
+                            SnackbarService.Show("An error occurred!", ex.Message, Wpf.Ui.Controls.ControlAppearance.Danger, new SymbolIcon(Wpf.Ui.Common.SymbolRegular.ErrorCircle24));
                         }
                     }
                 }

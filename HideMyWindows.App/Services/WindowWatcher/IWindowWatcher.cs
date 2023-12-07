@@ -19,4 +19,9 @@ namespace HideMyWindows.App.Services.WindowWatcher
         public event EventHandler<WindowWatchedEventArgs> WindowDestroyed;
         public bool IsWatching { get; }
     }
+
+    public enum WindowWatcherType
+    {
+        UIAutomationWindowWatcher
+    }
 }

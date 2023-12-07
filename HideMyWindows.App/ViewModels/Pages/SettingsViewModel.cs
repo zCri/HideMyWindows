@@ -4,6 +4,8 @@
 // All Rights Reserved.
 
 using HideMyWindows.App.Services.ConfigProvider;
+using HideMyWindows.App.Services.ProcessWatcher;
+using HideMyWindows.App.Services.WindowWatcher;
 using System.Reflection;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -13,18 +15,37 @@ namespace HideMyWindows.App.ViewModels.Pages
     public partial class SettingsViewModel : ObservableObject
     {
         public IConfigProvider ConfigProvider { get; }
+        private ISnackbarService SnackbarService { get; }
 
-        [ObservableProperty]
-        private string _appVersion = string.Empty;
-
-        public SettingsViewModel(IConfigProvider configProvider)
+        public SettingsViewModel(IConfigProvider configProvider, ISnackbarService snackbarService)
         {
             ConfigProvider = configProvider;
+            SnackbarService = snackbarService;
 
             configProvider.Load();
             ConfigProvider.Config!.CurrentTheme = Theme.GetAppTheme();
             AppVersion = $"HideMyWindows.App - {GetAssemblyVersion()}";
         }
+
+        public ProcessWatcherType? ProcessWatcherType { 
+            get => ConfigProvider.Config?.ProcessWatcherType;
+            set
+            {
+                if(ConfigProvider.Config is not null) ConfigProvider.Config.ProcessWatcherType = value ?? default;
+                SnackbarService.Show("Settings", "To apply these settings, save the settings and restart the application", ControlAppearance.Info);
+            }
+        }
+        public WindowWatcherType? WindowWatcherType { 
+            get => ConfigProvider.Config?.WindowWatcherType; 
+            set 
+            {
+                if (ConfigProvider.Config is not null)  ConfigProvider.Config.WindowWatcherType = value ?? default;
+                SnackbarService.Show("Settings", "To apply these settings, save the settings and restart the application", ControlAppearance.Info);
+            }
+        }
+
+        [ObservableProperty]
+        private string _appVersion = string.Empty;
 
         private string GetAssemblyVersion()
         {

@@ -19,4 +19,10 @@ namespace HideMyWindows.App.Services.ProcessWatcher
 
         public bool IsWatching { get; }
     }
+
+    public enum ProcessWatcherType
+    {
+        WMIInstanceEventProcessWatcher,
+        WMIProcessTraceProcessWatcher
+    }
 }

@@ -7,6 +7,7 @@ using HideMyWindows.App.Services;
 using HideMyWindows.App.Services.ConfigProvider;
 using HideMyWindows.App.Services.DllInjector;
 using HideMyWindows.App.Services.ProcessWatcher;
+using HideMyWindows.App.Services.WindowClickFinder;
 using HideMyWindows.App.Services.WindowWatcher;
 using HideMyWindows.App.ViewModels.Pages;
 using HideMyWindows.App.ViewModels.Windows;
@@ -53,11 +54,37 @@ namespace HideMyWindows.App
                 services.AddSingleton<SettingsViewModel>();
 
                 // App services
-                services.AddSingleton<IDllInjector, LoadLibraryDllInjector>();
-                services.AddSingleton<IProcessWatcher, WMIProcessWatcher>(); //TODO: Add other non-admin watcher
-                services.AddSingleton<IWindowWatcher, UIAutomationWindowWatcher>(); //TODO: Win32 hooks ?
                 services.AddSingleton<IConfigProvider, JSONConfigProvider>();
+                services.AddSingleton<IDllInjector, LoadLibraryDllInjector>();
+                services.AddSingleton<IWindowClickFinder, MouseCaptureWindowClickFinder>();
                 services.AddSingleton<NotificationsService>();
+
+                // Really ugly way to do dynamic dependency type resolution
+                services.AddSingleton<IProcessWatcher>((serviceProvider) =>
+                {
+                    var configProvider = serviceProvider.GetRequiredService<IConfigProvider>();
+                    configProvider.Load();
+
+                    return configProvider.Config!.ProcessWatcherType switch
+                    {
+                        ProcessWatcherType.WMIInstanceEventProcessWatcher => (IProcessWatcher)ActivatorUtilities.CreateInstance(serviceProvider, typeof(WMIInstanceEventProcessWatcher)),
+                        ProcessWatcherType.WMIProcessTraceProcessWatcher => (IProcessWatcher)ActivatorUtilities.CreateInstance(serviceProvider, typeof(WMIProcessTraceProcessWatcher)),
+                        _ => throw new NotImplementedException()
+                    };
+                });
+
+                //TODO: Win32 hooks ?
+                services.AddSingleton<IWindowWatcher>((serviceProvider) =>
+                {
+                    var configProvider = serviceProvider.GetRequiredService<IConfigProvider>();
+                    configProvider.Load();
+
+                    return configProvider.Config!.WindowWatcherType switch
+                    {
+                        WindowWatcherType.UIAutomationWindowWatcher => (IWindowWatcher)ActivatorUtilities.CreateInstance(serviceProvider, typeof(UIAutomationWindowWatcher)),
+                        _ => throw new NotImplementedException()
+                    };
+                });
 
                 services.AddHostedService<WindowRulesMatcherService>();
             }).Build();

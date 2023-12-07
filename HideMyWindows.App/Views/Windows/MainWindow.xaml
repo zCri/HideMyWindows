@@ -47,7 +47,7 @@
             TitleBar="{Binding ElementName=TitleBar, Mode=OneWay}">
             <ui:NavigationView.Header>
                 <StackPanel>
-                    <ItemsControl ItemsSource="{Binding ViewModel.NotificationsService.Notifications}"/>
+                    <ItemsControl Padding="5" ItemsSource="{Binding ViewModel.NotificationsService.Notifications}"/>
                     <ui:BreadcrumbBar x:Name="BreadcrumbBar" Margin="42,32,42,20" />
                 </StackPanel>
             </ui:NavigationView.Header>

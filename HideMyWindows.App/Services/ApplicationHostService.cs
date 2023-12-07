@@ -8,6 +8,9 @@ using HideMyWindows.App.Views.Pages;
 using HideMyWindows.App.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Windows.Interop;
+using Wpf.Ui.Appearance;
+using static Vanara.PInvoke.User32;
 
 namespace HideMyWindows.App.Services
 {
@@ -53,9 +56,26 @@ namespace HideMyWindows.App.Services
                 var navigationWindow = _serviceProvider.GetRequiredService<MainWindow>();
                 navigationWindow.Loaded += OnNavigationWindowLoaded;
 
-                _serviceProvider.GetService<IConfigProvider>()?.Load();
+                var configProvider = _serviceProvider.GetService<IConfigProvider>();
+                configProvider?.Load();
+
+                // Weird behaviour with the JSON deserialization (?), not calling the property setter if the value in the config is equal to the default, might be fixable with JsonSerializerOptions.PreferredObjectCreationHandling (?) but it's .NET 8+.
+                // Just a quick hack before i actually decide what to do with it, also causes the configuration options to apply twice if they are not the default values.
+                if (configProvider is not null && configProvider.Config is not null)
+                {
+
+                }
+
+                foreach (var window in Application.Current.Windows)
+                {
+                    var interop = new WindowInteropHelper((Window)window);
+                    var hwnd = interop.EnsureHandle();
+
+                    SetWindowDisplayAffinity(hwnd, configProvider?.Config?.HideSelf ?? true ? (WindowDisplayAffinity)0x11 : WindowDisplayAffinity.WDA_NONE);
+                }
 
                 navigationWindow.Show();
+                Theme.Apply(configProvider?.Config?.CurrentTheme ?? Theme.GetAppTheme());
             }
         }
 

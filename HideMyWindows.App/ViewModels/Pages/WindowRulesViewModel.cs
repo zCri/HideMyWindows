@@ -7,16 +7,21 @@ using HideMyWindows.App.Models;
 using System.Windows.Media;
 using Wpf.Ui.Controls;
 using HideMyWindows.App.Services.ConfigProvider;
+using static Vanara.PInvoke.User32;
+using HideMyWindows.App.Services.WindowClickFinder;
+using System.IO;
 
 namespace HideMyWindows.App.ViewModels.Pages
 {
     public partial class WindowRulesViewModel : ObservableObject
     {
         public IConfigProvider ConfigProvider { get; }
+        private IWindowClickFinder WindowClickFinder { get; }
 
-        public WindowRulesViewModel(IConfigProvider configProvider)
+        public WindowRulesViewModel(IConfigProvider configProvider, IWindowClickFinder windowClickFinder)
         {
             ConfigProvider = configProvider;
+            WindowClickFinder = windowClickFinder;
         }
 
         [RelayCommand]
@@ -29,6 +34,19 @@ namespace HideMyWindows.App.ViewModels.Pages
         private void AddRule()
         {
             ConfigProvider.Config?.WindowRules.AddNew();
+        }
+
+        [RelayCommand]
+        private async Task FindByClick(WindowRule rule)
+        {
+            var windowInfo = await WindowClickFinder.FindWindowByClick();
+            rule.Value = rule.Target switch
+            {
+                WindowRuleTarget.ProcessName => Path.GetFileName(windowInfo.Process?.MainModule?.FileName) ?? string.Empty,
+                WindowRuleTarget.WindowClass => windowInfo.Class,
+                WindowRuleTarget.WindowTitle => windowInfo.Title,
+                _ => ""
+            };
         }
 
         [RelayCommand]

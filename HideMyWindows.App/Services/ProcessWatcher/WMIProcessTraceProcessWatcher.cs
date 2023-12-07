@@ -7,7 +7,7 @@ using System.Management;
 
 namespace HideMyWindows.App.Services.ProcessWatcher
 {
-    public class WMIProcessWatcher : IProcessWatcher
+    public class WMIProcessTraceProcessWatcher : IProcessWatcher
     {
         private NotificationsService NotificationsService { get; }
 
@@ -29,7 +29,7 @@ namespace HideMyWindows.App.Services.ProcessWatcher
             ProcessStopped?.Invoke(this, e);
         }
 
-        public WMIProcessWatcher(NotificationsService notificationsService)
+        public WMIProcessTraceProcessWatcher(NotificationsService notificationsService)
         {
             NotificationsService = notificationsService;
 
@@ -62,7 +62,7 @@ namespace HideMyWindows.App.Services.ProcessWatcher
             }
             catch (ManagementException)
             {
-                NotificationsService.AddNotification("t", "t", Wpf.Ui.Controls.InfoBarSeverity.Warning);
+                NotificationsService.AddNotification("Missing permissions", "Need admin permissions to use WMI Process Trace process watcher.", Wpf.Ui.Controls.InfoBarSeverity.Warning);
                 // Not running as admin
             }
         }

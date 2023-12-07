@@ -70,19 +70,32 @@
                             CornerRadius="8">
                         <StackPanel>
                             <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
                                 <ui:ToggleSwitch
+                                    Grid.Column="0"
                                     x:Name="EnabledToggleSwitch"
                                     Content="Enabled"
                                     IsChecked="{Binding Enabled}"
                                     IsEnabled="{Binding ElementName=ValueTextBox, Path=Text.Length, Mode=OneWay}"/>
                                 <ui:Button
+                                    Grid.Column="1"
                                     Command="{Binding Path=ViewModel.RemoveRuleCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"
                                     CommandParameter="{Binding}"
                                     Icon="{ui:SymbolIcon Delete24}"
                                     Appearance="Danger"
                                     HorizontalAlignment="Right"/>
+                                <ui:Button
+                                    Grid.Column="2"
+                                    Command="{Binding Path=ViewModel.FindByClickCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"
+                                    CommandParameter="{Binding}"
+                                    Icon="{ui:SymbolIcon WindowLocationTarget20}"
+                                    Appearance="Transparent"
+                                    HorizontalAlignment="Right"/>
                             </Grid>
-                            
                             <Grid
                                 Margin="0,12,0,0">
                                 <Grid.ColumnDefinitions>

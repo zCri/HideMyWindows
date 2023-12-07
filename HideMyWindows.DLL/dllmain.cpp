@@ -10,8 +10,8 @@ void HideWindow(HWND hwnd) {
 
 // Existing windows
 BOOL CALLBACK EnumThreadWndProc(
-    _In_ HWND   hwnd,
-    _In_ LPARAM lParam
+    HWND   hwnd,
+    LPARAM lParam
 ) {
     HideWindow(hwnd);
     return TRUE;
@@ -60,7 +60,7 @@ typedef HWND(*CreateWindowExAType)(
     HMENU     hMenu,
     HINSTANCE hInstance,
     LPVOID    lpParam
-    );
+);
 
 CreateWindowExAType fpCreateWindowExA = NULL;
 

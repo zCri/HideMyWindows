@@ -51,6 +51,7 @@ namespace HideMyWindows.App.ViewModels.Pages
 
         public IEnumerable<ProcessProxy> RunningProcesses { get => Process.GetProcesses().Select(process => new ProcessProxy(process)); }
 
+        //TODO: Select process by window click button
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(InjectIntoProcessCommand))]
         private ProcessProxy? _selectedProcess;
@@ -60,7 +61,6 @@ namespace HideMyWindows.App.ViewModels.Pages
         {
             try
             {
-                //TODO: if process forces runas?
                 var commandLine = new StringBuilder(ProcessArguments);
                 var workingDirectory = new FileInfo(ProcessPath)?.Directory?.FullName;
 
