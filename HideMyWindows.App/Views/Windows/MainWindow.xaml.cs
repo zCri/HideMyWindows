@@ -4,7 +4,7 @@
 // All Rights Reserved.
 
 using HideMyWindows.App.ViewModels.Windows;
-using Wpf.Ui.Controls;
+using Wpf.Ui.Appearance;
 
 namespace HideMyWindows.App.Views.Windows
 {
@@ -20,7 +20,7 @@ namespace HideMyWindows.App.Views.Windows
             IContentDialogService contentDialogService
         )
         {
-            Wpf.Ui.Appearance.Watcher.Watch(this);
+            SystemThemeWatcher.Watch(this);
 
             ViewModel = viewModel;
             DataContext = this;

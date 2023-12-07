@@ -1,7 +1,7 @@
-﻿using HideMyWindows.App.Models;
+﻿using HideMyWindows.App.Helpers;
+using HideMyWindows.App.Models;
 using System.IO;
 using System.Text.Json;
-using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 
 namespace HideMyWindows.App.Services.ConfigProvider

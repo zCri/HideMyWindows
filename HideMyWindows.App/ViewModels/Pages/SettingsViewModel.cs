@@ -3,12 +3,14 @@
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
 // All Rights Reserved.
 
+using HideMyWindows.App.Helpers;
 using HideMyWindows.App.Services.ConfigProvider;
 using HideMyWindows.App.Services.ProcessWatcher;
 using HideMyWindows.App.Services.WindowWatcher;
 using System.Reflection;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
+using Wpf.Ui.Extensions;
 
 namespace HideMyWindows.App.ViewModels.Pages
 {
@@ -23,7 +25,7 @@ namespace HideMyWindows.App.ViewModels.Pages
             SnackbarService = snackbarService;
 
             configProvider.Load();
-            ConfigProvider.Config!.CurrentTheme = Theme.GetAppTheme();
+            ConfigProvider.Config!.CurrentTheme = ApplicationThemeManager.GetAppTheme();
             AppVersion = $"HideMyWindows.App - {GetAssemblyVersion()}";
         }
 
@@ -32,7 +34,7 @@ namespace HideMyWindows.App.ViewModels.Pages
             set
             {
                 if(ConfigProvider.Config is not null) ConfigProvider.Config.ProcessWatcherType = value ?? default;
-                SnackbarService.Show("Settings", "To apply these settings, save the settings and restart the application", ControlAppearance.Info);
+                SnackbarService.Show("Settings", "To apply these settings, save the settings and restart the application", ControlAppearance.Info, new SymbolIcon(SymbolRegular.Info24));
             }
         }
         public WindowWatcherType? WindowWatcherType { 
@@ -40,7 +42,7 @@ namespace HideMyWindows.App.ViewModels.Pages
             set 
             {
                 if (ConfigProvider.Config is not null)  ConfigProvider.Config.WindowWatcherType = value ?? default;
-                SnackbarService.Show("Settings", "To apply these settings, save the settings and restart the application", ControlAppearance.Info);
+                SnackbarService.Show("Settings", "To apply these settings, save the settings and restart the application", ControlAppearance.Info, new SymbolIcon(SymbolRegular.Info24));
             }
         }
 
@@ -59,11 +61,11 @@ namespace HideMyWindows.App.ViewModels.Pages
             switch (parameter)
             {
                 case "theme_light":
-                    ConfigProvider.Config!.CurrentTheme = ThemeType.Light;
+                    ConfigProvider.Config!.CurrentTheme = ApplicationTheme.Light;
                     break;
 
                 default:
-                    ConfigProvider.Config!.CurrentTheme = ThemeType.Dark;
+                    ConfigProvider.Config!.CurrentTheme = ApplicationTheme.Dark;
                     break;
             }
         }

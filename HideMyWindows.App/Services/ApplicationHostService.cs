@@ -75,7 +75,7 @@ namespace HideMyWindows.App.Services
                 }
 
                 navigationWindow.Show();
-                Theme.Apply(configProvider?.Config?.CurrentTheme ?? Theme.GetAppTheme());
+                ApplicationThemeManager.Apply(configProvider?.Config?.CurrentTheme ?? ApplicationThemeManager.GetAppTheme());
             }
         }
 

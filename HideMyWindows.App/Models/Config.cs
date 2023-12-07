@@ -10,7 +10,7 @@ namespace HideMyWindows.App.Models
     public partial class Config : ObservableObject
     {
         [ObservableProperty]
-        private ThemeType _currentTheme = ThemeType.Dark;
+        private ApplicationTheme _currentTheme = ApplicationTheme.Dark;
 
         [ObservableProperty]
         private bool _hideSelf = true;
@@ -27,9 +27,9 @@ namespace HideMyWindows.App.Models
         [ObservableProperty]
         private BindingList<WindowRule> _windowRules = new();
 
-        partial void OnCurrentThemeChanged(ThemeType value)
+        partial void OnCurrentThemeChanged(ApplicationTheme value)
         {
-            Theme.Apply(value);
+            ApplicationThemeManager.Apply(value);
         }
 
         // Weird behaviour with the JSON deserialization (?), not calling the property setter if the value in the config is equal to the default, might be fixable with JsonSerializerOptions.PreferredObjectCreationHandling (?) but it's .NET 8+.

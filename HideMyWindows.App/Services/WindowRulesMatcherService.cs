@@ -1,4 +1,5 @@
-﻿using HideMyWindows.App.Models;
+﻿using HideMyWindows.App.Helpers;
+using HideMyWindows.App.Models;
 using HideMyWindows.App.Services.ConfigProvider;
 using HideMyWindows.App.Services.DllInjector;
 using HideMyWindows.App.Services.ProcessWatcher;
@@ -10,7 +11,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 using static Vanara.PInvoke.User32;
 
@@ -105,7 +105,7 @@ namespace HideMyWindows.App.Services
                         }
                         catch (Exception ex) // TODO: Handle errors
                         {
-                            SnackbarService.Show("An error occurred!", ex.Message, Wpf.Ui.Controls.ControlAppearance.Danger, new SymbolIcon(Wpf.Ui.Common.SymbolRegular.ErrorCircle24));
+                            SnackbarService.Show("An error occurred!", ex.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
                         }
                     }
                 }

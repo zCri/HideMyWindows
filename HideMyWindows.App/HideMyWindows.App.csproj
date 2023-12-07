@@ -19,9 +19,10 @@
     <PackageReference Include="Vanara.Core" Version="3.4.17" />
     <PackageReference Include="Vanara.PInvoke.Kernel32" Version="3.4.17" />
     <PackageReference Include="Vanara.PInvoke.User32" Version="3.4.17" />
-    <PackageReference Include="WPF-UI" Version="3.0.0-preview.4" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1 " />
+    <PackageReference Include="WPF-UI" Version="3.0.0-preview.11" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.10.0" />
   </ItemGroup>
 
   <ItemGroup>

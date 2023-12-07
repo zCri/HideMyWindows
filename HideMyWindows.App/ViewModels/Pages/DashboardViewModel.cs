@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using Wpf.Ui.Controls;
+using Wpf.Ui.Extensions;
 using static Vanara.PInvoke.Kernel32;
 
 namespace HideMyWindows.App.ViewModels.Pages
@@ -76,7 +77,7 @@ namespace HideMyWindows.App.ViewModels.Pages
             } catch (Exception e) 
             {
                 //TODO: handle errors
-                SnackbarService.Show("An error occurred!", e.Message, Wpf.Ui.Controls.ControlAppearance.Danger, new SymbolIcon(Wpf.Ui.Common.SymbolRegular.ErrorCircle24));
+                SnackbarService.Show("An error occurred!", e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
             }
         }
 
@@ -110,7 +111,7 @@ namespace HideMyWindows.App.ViewModels.Pages
                 DllInjector.InjectDll(SelectedProcess!.Process);
             } catch (Exception e)
             {
-                SnackbarService.Show("An error occurred!", e.Message, Wpf.Ui.Controls.ControlAppearance.Danger, new SymbolIcon(Wpf.Ui.Common.SymbolRegular.ErrorCircle24));
+                SnackbarService.Show("An error occurred!", e.Message, Wpf.Ui.Controls.ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
             }
         }
 
