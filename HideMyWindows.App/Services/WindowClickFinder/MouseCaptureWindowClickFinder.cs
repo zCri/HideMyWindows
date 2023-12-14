@@ -51,7 +51,7 @@ namespace HideMyWindows.App.Services.WindowClickFinder
             return IntPtr.Zero;
         }
 
-        public Task<WindowInfo> FindWindowByClick()
+        public Task<WindowInfo> FindWindowByClickAsync()
         {
             SetCapture(source.Handle);
             source.AddHook(WndProc);

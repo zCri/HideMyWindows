@@ -22,15 +22,15 @@ namespace HideMyWindows.App.Services.DllInjector
 
             var memSize = Encoding.Unicode.GetByteCount(DLLPath);
             var mem = VirtualAllocEx(process.Handle, IntPtr.Zero, memSize, MEM_ALLOCATION_TYPE.MEM_RESERVE | MEM_ALLOCATION_TYPE.MEM_COMMIT, MEM_PROTECTION.PAGE_READWRITE);
-            if (mem == IntPtr.Zero) Win32Error.ThrowLastError();
+            if (mem == IntPtr.Zero) throw GetLastError().GetException();
 
-            if (!WriteProcessMemory(process.Handle, mem, Encoding.Unicode.GetBytes(DLLPath), memSize, out _)) Win32Error.ThrowLastError();
+            if (!WriteProcessMemory(process.Handle, mem, Encoding.Unicode.GetBytes(DLLPath), memSize, out _)) throw GetLastError().GetException();
 
             var loadLibraryAddr = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryW"); // Critical system libraries are always initialized at the same address
-            if (loadLibraryAddr == IntPtr.Zero) Win32Error.ThrowLastError();
+            if (loadLibraryAddr == IntPtr.Zero) throw GetLastError().GetException();
 
             var thread = CreateRemoteThread(process.Handle, null, 0, loadLibraryAddr, mem, CREATE_THREAD_FLAGS.RUN_IMMEDIATELY, out _);
-            if (thread == IntPtr.Zero) Win32Error.ThrowLastError();
+            if (thread == IntPtr.Zero) throw GetLastError().GetException();
         }
 
         private bool IsProcess64Bit(Process process)
@@ -39,7 +39,7 @@ namespace HideMyWindows.App.Services.DllInjector
                 return false;
 
             if (!IsWow64Process(process.Handle, out bool isWow64Process))
-                Win32Error.ThrowLastError();
+                throw GetLastError().GetException();
 
             return !isWow64Process;
         }

@@ -83,14 +83,14 @@
                                     IsEnabled="{Binding ElementName=ValueTextBox, Path=Text.Length, Mode=OneWay}"/>
                                 <ui:Button
                                     Grid.Column="1"
-                                    Command="{Binding Path=ViewModel.RemoveRuleCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"
+                                    Command="{Binding ViewModel.RemoveRuleCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"
                                     CommandParameter="{Binding}"
                                     Icon="{ui:SymbolIcon Delete24}"
                                     Appearance="Danger"
                                     HorizontalAlignment="Right"/>
                                 <ui:Button
                                     Grid.Column="2"
-                                    Command="{Binding Path=ViewModel.FindByClickCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"
+                                    Command="{Binding ViewModel.FindByClickCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"
                                     CommandParameter="{Binding}"
                                     Icon="{ui:SymbolIcon WindowLocationTarget20}"
                                     Appearance="Transparent"
@@ -144,13 +144,11 @@
                 Margin="0,0,10,0"
                 Icon="{ui:SymbolIcon Save24}"
                 Appearance="Secondary"
-                HorizontalAlignment="Right"
                 Content="Save rules"
                 Command="{Binding ViewModel.SaveConfigCommand}"/>
             <ui:Button
                 Icon="{ui:SymbolIcon AddCircle24}"
                 Appearance="Primary"
-                HorizontalAlignment="Right"
                 Content="Add new rule"
                 Command="{Binding ViewModel.AddRuleCommand}"/>
         </StackPanel>

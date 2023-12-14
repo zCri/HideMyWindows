@@ -6,6 +6,7 @@
 using HideMyWindows.App.Helpers;
 using HideMyWindows.App.Services.DllInjector;
 using HideMyWindows.App.Services.ProcessWatcher;
+using HideMyWindows.App.Services.WindowClickFinder;
 using Microsoft.Win32;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -22,12 +23,14 @@ namespace HideMyWindows.App.ViewModels.Pages
         private IDllInjector DllInjector { get; }
         private IProcessWatcher ProcessWatcher { get; }
         private ISnackbarService SnackbarService { get; }
+        private IWindowClickFinder WindowClickFinder { get; }
 
-        public DashboardViewModel(IDllInjector dllInjector, IProcessWatcher processWatcher, ISnackbarService snackbarService)
+        public DashboardViewModel(IDllInjector dllInjector, IProcessWatcher processWatcher, ISnackbarService snackbarService, IWindowClickFinder windowClickFinder)
         {
             DllInjector = dllInjector;
             ProcessWatcher = processWatcher;
             SnackbarService = snackbarService;
+            WindowClickFinder = windowClickFinder;
 
             // TODO: Fix combobox selected item reset on RunningProcesses changed
             ProcessWatcher.ProcessStopped += (_, _) =>
@@ -52,7 +55,6 @@ namespace HideMyWindows.App.ViewModels.Pages
 
         public IEnumerable<ProcessProxy> RunningProcesses { get => Process.GetProcesses().Select(process => new ProcessProxy(process)); }
 
-        //TODO: Select process by window click button
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(InjectIntoProcessCommand))]
         private ProcessProxy? _selectedProcess;
@@ -70,13 +72,11 @@ namespace HideMyWindows.App.ViewModels.Pages
                 var process = Process.GetProcessById((int) processInformation.dwProcessId);
 
                 DllInjector.InjectDll(process);
-
                 if((int) ResumeThread(processInformation.hThread) == -1)
                     throw GetLastError().GetException();
-
             } catch (Exception e) 
             {
-                //TODO: handle errors
+                //TODO: Localization
                 SnackbarService.Show("An error occurred!", e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
             }
         }
@@ -119,6 +119,16 @@ namespace HideMyWindows.App.ViewModels.Pages
         private bool CanInjectIntoProcess()
         {
             return !SelectedProcess?.Process.HasExited ?? false;
+        }
+
+        [RelayCommand]
+        private async Task FindProcessByClick()
+        {
+            var window = await WindowClickFinder.FindWindowByClickAsync();
+
+            if(window.Process is not null)
+                //TODO: Combobox not updating
+                SelectedProcess = RunningProcesses.First(process => process.Process.Id == window.Process.Id);
         }
     }
 }

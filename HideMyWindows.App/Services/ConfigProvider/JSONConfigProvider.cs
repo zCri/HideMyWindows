@@ -36,7 +36,7 @@ namespace HideMyWindows.App.Services.ConfigProvider
                 }
                 catch (Exception e) when (e is JsonException or IOException)
                 {
-                    //TODO: Error handling
+                    //TODO: Localization
                     SnackbarService.Show("An error occurred!", "Error while loading the configuration, will fallback to default configuration, saving will overwrite the old one.", ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
                     Config = new();
                 }
@@ -55,7 +55,7 @@ namespace HideMyWindows.App.Services.ConfigProvider
                 File.WriteAllText(path, json);
             } catch (Exception e) when (e is JsonException or IOException)
             {
-                //TODO: Error handling
+                //TODO: Localization
                 SnackbarService.Show("An error occurred!", e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
             }
         }

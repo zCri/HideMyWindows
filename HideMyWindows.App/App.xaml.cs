@@ -52,6 +52,8 @@ namespace HideMyWindows.App
                 services.AddSingleton<WindowRulesViewModel>();
                 services.AddSingleton<SettingsPage>();
                 services.AddSingleton<SettingsViewModel>();
+                services.AddSingleton<QuickLaunchPage>();
+                services.AddSingleton<QuickLaunchViewModel>();
 
                 // App services
                 services.AddSingleton<IConfigProvider, JSONConfigProvider>();

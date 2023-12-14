@@ -39,7 +39,7 @@ namespace HideMyWindows.App.ViewModels.Pages
         [RelayCommand]
         private async Task FindByClick(WindowRule rule)
         {
-            var windowInfo = await WindowClickFinder.FindWindowByClick();
+            var windowInfo = await WindowClickFinder.FindWindowByClickAsync();
             rule.Value = rule.Target switch
             {
                 WindowRuleTarget.ProcessName => Path.GetFileName(windowInfo.Process?.MainModule?.FileName) ?? string.Empty,

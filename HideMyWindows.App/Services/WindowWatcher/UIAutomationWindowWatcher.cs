@@ -9,8 +9,8 @@ namespace HideMyWindows.App.Services.WindowWatcher
 {
     public class UIAutomationWindowWatcher : IWindowWatcher
     {
-        public event EventHandler<WindowWatchedEventArgs> WindowCreated;
-        public event EventHandler<WindowWatchedEventArgs> WindowDestroyed;
+        public event EventHandler<WindowWatchedEventArgs>? WindowCreated;
+        public event EventHandler<WindowWatchedEventArgs>? WindowDestroyed;
 
         public bool IsWatching { get; private set; } = false;
 

@@ -21,7 +21,6 @@ namespace HideMyWindows.App.ViewModels.Windows
         [ObservableProperty]
         private string _applicationTitle = "WPF UI - HideMyWindows.App";
 
-        //TODO: quick launch page
         [ObservableProperty]
         private ObservableCollection<object> _menuItems = new()
         {
@@ -30,6 +29,12 @@ namespace HideMyWindows.App.ViewModels.Windows
                 Content = "Home",
                 Icon = new SymbolIcon { Symbol = SymbolRegular.Home24 },
                 TargetPageType = typeof(Views.Pages.DashboardPage)
+            },
+            new NavigationViewItem()
+            {
+                Content = "Quick launch",
+                Icon = new SymbolIcon { Symbol = SymbolRegular.Rocket24 },
+                TargetPageType = typeof(Views.Pages.QuickLaunchPage)
             },
             new NavigationViewItem()
             {

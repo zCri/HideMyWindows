@@ -27,6 +27,9 @@ namespace HideMyWindows.App.Models
         [ObservableProperty]
         private BindingList<WindowRule> _windowRules = new();
 
+        [ObservableProperty]
+        private BindingList<QuickLaunchEntry> _quickLaunchEntries = new();
+
         partial void OnCurrentThemeChanged(ApplicationTheme value)
         {
             ApplicationThemeManager.Apply(value);

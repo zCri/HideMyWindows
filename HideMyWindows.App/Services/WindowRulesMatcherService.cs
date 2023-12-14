@@ -73,7 +73,7 @@ namespace HideMyWindows.App.Services
                         {
                             return;
                         }
-                        catch (Exception ex) // TODO: Handle errors
+                        catch (Exception ex) // TODO: Localization
                         {
                             SnackbarService.Show("An error occurred!", ex.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
                         }
@@ -103,7 +103,7 @@ namespace HideMyWindows.App.Services
                         {
                             return;
                         }
-                        catch (Exception ex) // TODO: Handle errors
+                        catch (Exception ex) // TODO: Localization
                         {
                             SnackbarService.Show("An error occurred!", ex.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
                         }

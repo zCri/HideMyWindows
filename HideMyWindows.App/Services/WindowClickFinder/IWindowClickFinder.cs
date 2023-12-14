@@ -17,6 +17,6 @@ namespace HideMyWindows.App.Services.WindowClickFinder
     
     public interface IWindowClickFinder
     {
-        public Task<WindowInfo> FindWindowByClick();
+        public Task<WindowInfo> FindWindowByClickAsync();
     }
 }

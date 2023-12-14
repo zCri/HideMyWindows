@@ -64,20 +64,31 @@
                 FontSize="20"
                 FontWeight="Medium"
                 Text="Hide a running process"/>
-            <ComboBox
-                Margin="0,12,0,0"
-                IsEditable="True"
-                ItemsSource="{Binding ViewModel.RunningProcesses, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                SelectedItem="{Binding ViewModel.SelectedProcess, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                IsSynchronizedWithCurrentItem="True">
-            </ComboBox>
+            <Grid
+                Margin="0,12,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox
+                    Grid.Column="0"
+                    IsEditable="True"
+                    ItemsSource="{Binding ViewModel.RunningProcesses, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding ViewModel.SelectedProcess, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    IsSynchronizedWithCurrentItem="True"/>
+                <ui:Button
+                    Grid.Column="1"
+                    Margin="10,0,0,0"
+                    Command="{Binding ViewModel.FindProcessByClickCommand}"
+                    Icon="{ui:SymbolIcon WindowLocationTarget20}"
+                    Appearance="Secondary"/>
+            </Grid>
             <ui:Button
                 Margin="0,8,0,0"
                 Icon="{ui:SymbolIcon ArrowEnterLeft24}"
                 Appearance="Primary"
                 Content="Hide process windows"
-                Command="{Binding ViewModel.InjectIntoProcessCommand, Mode=OneWay}"
-                />
+                Command="{Binding ViewModel.InjectIntoProcessCommand, Mode=OneWay}"/>
         </StackPanel>
     </Grid>
 </Page>
