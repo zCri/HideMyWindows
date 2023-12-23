@@ -10,6 +10,7 @@ using HideMyWindows.App.Services.ConfigProvider;
 using static Vanara.PInvoke.User32;
 using HideMyWindows.App.Services.WindowClickFinder;
 using System.IO;
+using HideMyWindows.App.Helpers;
 
 namespace HideMyWindows.App.ViewModels.Pages
 {
@@ -42,7 +43,8 @@ namespace HideMyWindows.App.ViewModels.Pages
             var windowInfo = await WindowClickFinder.FindWindowByClickAsync();
             rule.Value = rule.Target switch
             {
-                WindowRuleTarget.ProcessName => Path.GetFileName(windowInfo.Process?.MainModule?.FileName) ?? string.Empty,
+                WindowRuleTarget.ProcessName => windowInfo.Process?.TryGetProcessNameWithExtension()!,
+                WindowRuleTarget.ProcessId => (windowInfo.Process?.Id ?? 0).ToString(),
                 WindowRuleTarget.WindowClass => windowInfo.Class,
                 WindowRuleTarget.WindowTitle => windowInfo.Title,
                 _ => ""

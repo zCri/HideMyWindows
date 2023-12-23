@@ -9,18 +9,18 @@ using Wpf.Ui.Appearance;
 
 namespace HideMyWindows.App.Helpers
 {
-    public class EnumToBooleanConverter : IValueConverter
+    public class ApplicationThemeEnumToBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (parameter is not string enumString)
             {
-                throw new ArgumentException("ExceptionEnumToBooleanConverterParameterMustBeAnEnumName");
+                throw new ArgumentException("ExceptionApplicationThemeEnumToBooleanConverterParameterMustBeAnEnumName");
             }
 
             if (!Enum.IsDefined(typeof(ApplicationTheme), value))
             {
-                throw new ArgumentException("ExceptionEnumToBooleanConverterValueMustBeAnEnum");
+                throw new ArgumentException("ExceptionApplicationThemeEnumToBooleanConverterValueMustBeAnEnum");
             }
 
             var enumValue = Enum.Parse(typeof(ApplicationTheme), enumString);
@@ -32,7 +32,7 @@ namespace HideMyWindows.App.Helpers
         {
             if (parameter is not string enumString)
             {
-                throw new ArgumentException("ExceptionEnumToBooleanConverterParameterMustBeAnEnumName");
+                throw new ArgumentException("ExceptionApplicationThemeEnumToBooleanConverterParameterMustBeAnEnumName");
             }
 
             return Enum.Parse(typeof(ApplicationTheme), enumString);

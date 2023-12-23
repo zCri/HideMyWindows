@@ -37,11 +37,21 @@ namespace HideMyWindows.App.ViewModels.Pages
                 SnackbarService.Show("Settings", "To apply these settings, save the settings and restart the application", ControlAppearance.Info, new SymbolIcon(SymbolRegular.Info24));
             }
         }
+
         public WindowWatcherType? WindowWatcherType { 
             get => ConfigProvider.Config!.WindowWatcherType; 
             set 
             {
                 ConfigProvider.Config!.WindowWatcherType = value ?? default;
+                SnackbarService.Show("Settings", "To apply these settings, save the settings and restart the application", ControlAppearance.Info, new SymbolIcon(SymbolRegular.Info24));
+            }
+        }
+
+        public int? ProcessWatcherDelay {
+            get => ConfigProvider.Config!.WMIInstanceEventProcessWatcherTimeoutMillis;
+            set
+            {
+                ConfigProvider.Config!.WMIInstanceEventProcessWatcherTimeoutMillis = value ?? default;
                 SnackbarService.Show("Settings", "To apply these settings, save the settings and restart the application", ControlAppearance.Info, new SymbolIcon(SymbolRegular.Info24));
             }
         }

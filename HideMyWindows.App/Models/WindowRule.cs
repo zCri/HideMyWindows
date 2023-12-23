@@ -57,7 +57,8 @@ namespace HideMyWindows.App.Models
     {
         WindowTitle,
         WindowClass,
-        ProcessName
+        ProcessName,
+        ProcessId
     }
 
     public enum WindowRuleComparator

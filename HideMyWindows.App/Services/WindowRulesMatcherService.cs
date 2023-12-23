@@ -86,11 +86,17 @@ namespace HideMyWindows.App.Services
         {
             if (ConfigProvider.Config is not null)
             {
-                var rules = ConfigProvider.Config.WindowRules.Where(rule => rule.Enabled && rule.Target is WindowRuleTarget.ProcessName);
+                var rules = ConfigProvider.Config.WindowRules.Where(rule => rule.Enabled && rule.Target is WindowRuleTarget.ProcessName or WindowRuleTarget.ProcessId);
                 foreach (var rule in rules)
                 {
-                    var value = e.Name;
-                    
+                    var value = rule.Target switch
+                    {
+                        WindowRuleTarget.ProcessName => e.Name,
+                        WindowRuleTarget.ProcessId => e.Id.ToString(),
+                        _ => throw new NotImplementedException(),
+                    };
+
+
                     if (rule.Matches(value))
                     {
                         try

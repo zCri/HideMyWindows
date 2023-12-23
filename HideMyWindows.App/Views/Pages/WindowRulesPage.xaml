@@ -6,9 +6,8 @@
     xmlns:local="clr-namespace:HideMyWindows.App.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:HideMyWindows.App.Models"
-    xmlns:helpers="clr-namespace:HideMyWindows.App.Helpers"
+    xmlns:controls="clr-namespace:HideMyWindows.App.Controls"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:system="clr-namespace:System;assembly=mscorlib"
     Title="DataPage"
     d:DataContext="{d:DesignInstance local:WindowRulesPage,
                                      IsDesignTimeCreatable=False}"
@@ -19,36 +18,7 @@
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     ScrollViewer.CanContentScroll="False"
     mc:Ignorable="d">
-    <Page.Resources>
-        <ObjectDataProvider
-            x:Key="WindowRuleTargetValues"
-            MethodName="GetValues"
-            ObjectType="{x:Type system:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type
-                    TypeName="models:WindowRuleTarget"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-        <ObjectDataProvider
-            x:Key="WindowRuleComparatorValues"
-            MethodName="GetValues"
-            ObjectType="{x:Type system:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type
-                    TypeName="models:WindowRuleComparator"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-        <ObjectDataProvider
-            x:Key="WindowRuleActionValues"
-            MethodName="GetValues"
-            ObjectType="{x:Type system:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type
-                    TypeName="models:WindowRuleAction"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-    </Page.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -63,6 +33,7 @@
                 <DataTemplate DataType="{x:Type models:WindowRule}">
                     <Border
                             Grid.Row="1"
+                            Margin="2"
                             Padding="16"
                             Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
                             BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
@@ -80,7 +51,7 @@
                                     x:Name="EnabledToggleSwitch"
                                     Content="Enabled"
                                     IsChecked="{Binding Enabled}"
-                                    IsEnabled="{Binding ElementName=ValueTextBox, Path=Text.Length, Mode=OneWay}"/>
+                                    IsEnabled="{Binding Value.Length, Mode=OneWay}"/>
                                 <ui:Button
                                     Grid.Column="1"
                                     Command="{Binding ViewModel.RemoveRuleCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"
@@ -90,46 +61,17 @@
                                     HorizontalAlignment="Right"/>
                                 <ui:Button
                                     Grid.Column="2"
+                                    Margin="6,0,0,0"
                                     Command="{Binding ViewModel.FindByClickCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"
                                     CommandParameter="{Binding}"
                                     Icon="{ui:SymbolIcon WindowLocationTarget20}"
                                     Appearance="Transparent"
                                     HorizontalAlignment="Right"/>
                             </Grid>
-                            <Grid
-                                Margin="0,12,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <ComboBox
-                                    Grid.Column="0"
-                                    ItemsSource="{Binding Source={StaticResource WindowRuleTargetValues}}"
-                                    SelectedItem="{Binding Target}"/>
-                                <ComboBox
-                                    Grid.Column="1"
-                                    Margin="10,0,0,0"
-                                    ItemsSource="{Binding Source={StaticResource WindowRuleComparatorValues}}"
-                                    SelectedItem="{Binding Comparator}"/>
-                            </Grid>
-                            <Grid
-                                Margin="0,8,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <ui:TextBox
-                                    x:Name="ValueTextBox"
-                                    Grid.Column="0"
-                                    PlaceholderText="Filter value"
-                                    Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"/>
-                                <ComboBox
-                                    Grid.Column="1"
-                                    Margin="10,0,0,0"
-                                    ItemsSource="{Binding Source={StaticResource WindowRuleActionValues}}"
-                                    SelectedItem="{Binding Action}"/>
-                            </Grid>
-                        </StackPanel>
+                            <controls:WindowRuleDisplayControl
+                                Margin="0,12,0,0"
+                                WindowRule="{Binding}"/>
+                            </StackPanel>
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -139,7 +81,7 @@
             Grid.Row="1"
             Orientation="Horizontal"
             HorizontalAlignment="Right"
-            Margin="0,0,0,20">
+            Margin="0,6,0,20">
             <ui:Button
                 Margin="0,0,10,0"
                 Icon="{ui:SymbolIcon Save24}"
@@ -152,6 +94,5 @@
                 Content="Add new rule"
                 Command="{Binding ViewModel.AddRuleCommand}"/>
         </StackPanel>
-        
     </Grid>
 </Page>

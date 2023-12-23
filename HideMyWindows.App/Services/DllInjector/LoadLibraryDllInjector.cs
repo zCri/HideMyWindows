@@ -18,6 +18,7 @@ namespace HideMyWindows.App.Services.DllInjector
         // TODO: Hide from tray ?
         public void InjectDll(Process process)
         {
+            if (process.HasExited) return;
             var DLLPath = Path.Combine(Directory.GetCurrentDirectory(), IsProcess64Bit(process) ? DLLName64 : DLLName32);
 
             var memSize = Encoding.Unicode.GetByteCount(DLLPath);

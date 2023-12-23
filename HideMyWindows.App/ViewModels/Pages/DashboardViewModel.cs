@@ -4,17 +4,20 @@
 // All Rights Reserved.
 
 using HideMyWindows.App.Helpers;
+using HideMyWindows.App.Models;
 using HideMyWindows.App.Services.DllInjector;
 using HideMyWindows.App.Services.ProcessWatcher;
 using HideMyWindows.App.Services.WindowClickFinder;
 using Microsoft.Win32;
 using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
 using static Vanara.PInvoke.Kernel32;
+using static Vanara.PInvoke.User32;
 
 namespace HideMyWindows.App.ViewModels.Pages
 {
@@ -32,18 +35,22 @@ namespace HideMyWindows.App.ViewModels.Pages
             SnackbarService = snackbarService;
             WindowClickFinder = windowClickFinder;
 
-            // TODO: Fix combobox selected item reset on RunningProcesses changed
-            ProcessWatcher.ProcessStopped += (_, _) =>
+            ProcessWatcher.ProcessStarted += (_, e) =>
             {
-                Application.Current.Dispatcher.Invoke(() =>
+                Application.Current?.Dispatcher.Invoke(() => {
+                    RunningProcesses.Add(new ProcessProxy(Process.GetProcessById(e.Id)));
+                });
+            };
+
+            ProcessWatcher.ProcessStopped += (_, e) =>
+            {
+                Application.Current?.Dispatcher.Invoke(() =>
                 {
+                    RunningProcesses.Remove(RunningProcesses.First(x => x.Process.Id == e.Id));
                     InjectIntoProcessCommand.NotifyCanExecuteChanged();
                     OnPropertyChanged(nameof(RunningProcesses));
                 });
             };
-
-            ProcessWatcher.ProcessStarted += (_, _) =>
-                Application.Current.Dispatcher.Invoke(() => OnPropertyChanged(nameof(RunningProcesses)));
         }
 
         [ObservableProperty]
@@ -53,11 +60,15 @@ namespace HideMyWindows.App.ViewModels.Pages
         [ObservableProperty]
         private string _processArguments = string.Empty;
 
-        public IEnumerable<ProcessProxy> RunningProcesses { get => Process.GetProcesses().Select(process => new ProcessProxy(process)); }
+        [ObservableProperty]
+        private BindingList<ProcessProxy> _runningProcesses = new(Process.GetProcesses().Select(process => new ProcessProxy(process)).ToList());
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(InjectIntoProcessCommand))]
         private ProcessProxy? _selectedProcess;
+
+        [ObservableProperty]
+        private WindowRule _findWindowRule = new();
 
         [RelayCommand(CanExecute = nameof(CanStartProcess))]
         private void StartProcess()
@@ -127,8 +138,105 @@ namespace HideMyWindows.App.ViewModels.Pages
             var window = await WindowClickFinder.FindWindowByClickAsync();
 
             if(window.Process is not null)
-                //TODO: Combobox not updating
                 SelectedProcess = RunningProcesses.First(process => process.Process.Id == window.Process.Id);
+        }
+
+        [RelayCommand]
+        private async Task FindAndHide()
+        {
+            if(FindWindowRule.Target is WindowRuleTarget.WindowTitle or WindowRuleTarget.WindowClass)
+            {
+                await Task.Run(() => {
+                    EnumWindows((hwnd, _) =>
+                    {
+                        string value = string.Empty;
+
+                        switch(FindWindowRule.Target)
+                        {
+                            case WindowRuleTarget.WindowTitle:
+                            {
+                                var titleLen = GetWindowTextLength(hwnd) + 1;
+                                var titleBuilder = new StringBuilder(titleLen);
+                                GetWindowText(hwnd, titleBuilder, titleLen);
+                                value = titleBuilder.ToString();
+                                break;
+                            }
+                            case WindowRuleTarget.WindowClass:
+                            {
+                                var classBuilder = new StringBuilder(1024);
+                                GetClassName(hwnd, classBuilder, 1024);
+                                value = classBuilder.ToString();
+                                break;
+                            }
+                        }
+
+                        if (FindWindowRule.Matches(value))
+                        {
+                            GetWindowThreadProcessId(hwnd, out var pid);
+                            var process = Process.GetProcessById((int) pid);
+                            DllInjector.InjectDll(process);
+                        }
+
+                        return true;
+                    }, IntPtr.Zero);
+                });
+            } else
+            {
+                if (FindWindowRule.Comparator is WindowRuleComparator.StringEquals && FindWindowRule.Target is WindowRuleTarget.ProcessId)
+                {
+                    try
+                    {
+                        var process = Process.GetProcessById(int.Parse(FindWindowRule.Value));
+
+                        DllInjector.InjectDll(process);
+                    } //TODO: Localization
+                    catch (ArgumentException e)
+                    {
+                        SnackbarService.Show("No process found!", e.Message, ControlAppearance.Info, new SymbolIcon(SymbolRegular.Search24));
+                    }
+                    catch (Exception e)
+                    {
+                        SnackbarService.Show("An error occurred!", e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+                    }
+
+                }
+                else
+                {
+                    await Task.Run(() =>
+                    {
+                        var processes = Process.GetProcesses();
+
+                        foreach (var process in processes)
+                        {
+                            var value = FindWindowRule.Target switch
+                            {
+                                WindowRuleTarget.ProcessName => process.TryGetProcessNameWithExtension(),
+                                WindowRuleTarget.ProcessId => process.Id.ToString(),
+                                _ => throw new NotImplementedException(),
+                            };
+
+                            if (FindWindowRule.Matches(value))
+                            {
+                                DllInjector.InjectDll(process);
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
+        [RelayCommand]
+        private async Task FindWindowRuleTargetByClick()
+        {
+            var windowInfo = await WindowClickFinder.FindWindowByClickAsync();
+            FindWindowRule.Value = FindWindowRule.Target switch
+            {
+                WindowRuleTarget.ProcessName => windowInfo.Process?.TryGetProcessNameWithExtension()!,
+                WindowRuleTarget.ProcessId => (windowInfo.Process?.Id ?? 0).ToString(),
+                WindowRuleTarget.WindowClass => windowInfo.Class,
+                WindowRuleTarget.WindowTitle => windowInfo.Title,
+                _ => ""
+            };
         }
     }
 }

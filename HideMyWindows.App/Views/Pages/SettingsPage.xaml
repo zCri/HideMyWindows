@@ -20,7 +20,8 @@
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
     <Page.Resources>
-        <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <helpers:ApplicationThemeEnumToBooleanConverter x:Key="ApplicationThemeEnumToBooleanConverter"/>
+        <helpers:ProcessWatcherTypeEnumToVisibilityConverter x:Key="ProcessWatcherTypeEnumToVisibilityConverter"/>
         <ObjectDataProvider
             x:Key="ProcessWatcherTypeValues"
             MethodName="GetValues"
@@ -58,12 +59,44 @@
                 Margin="0,12,0,0"
                 Content="Hide this app automatically"/>
 
-            <Label Margin="0,16,0,0">Process watching method</Label>
+            <Label
+                Margin="0,16,0,0">Process watching method</Label>
             <ComboBox
                 Margin="0,6,0,0"
                 ItemsSource="{Binding Source={StaticResource ProcessWatcherTypeValues}}"
                 SelectedItem="{Binding ViewModel.ProcessWatcherType}"/>
-            
+            <Grid
+                Margin="0,6,0,0"
+                Visibility="{Binding ViewModel.ConfigProvider.Config.ProcessWatcherType, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ProcessWatcherTypeEnumToVisibilityConverter}, ConverterParameter=WMIInstanceEventProcessWatcher}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Content="Process watcher delay (in milliseconds)"/>
+                <Grid
+                    Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Slider
+                        Grid.Column="0"
+                        Margin="0,2,0,0"
+                        x:Name="ProcessWatcherDelaySlider"
+                        Minimum="50"
+                        Maximum="10000"
+                        TickFrequency="50"
+                        IsSnapToTickEnabled="True"
+                        Value="{Binding ViewModel.ProcessWatcherDelay, Delay=500}"/>
+                    <Label
+                        Grid.Column="1"
+                        Margin="5,0,0,0"
+                        Content="{Binding Value, ElementName=ProcessWatcherDelaySlider}"/>
+                </Grid>
+            </Grid>
+
             <Label Margin="0,16,0,0">Window watching method</Label>
             <ComboBox
                 Margin="0,6,0,0"
@@ -82,14 +115,14 @@
             CommandParameter="theme_light"
             Content="Light"
             GroupName="themeSelect"
-            IsChecked="{Binding ViewModel.ConfigProvider.Config.CurrentTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}" />
+            IsChecked="{Binding ViewModel.ConfigProvider.Config.CurrentTheme, Converter={StaticResource ApplicationThemeEnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}" />
             <RadioButton
             Margin="0,8,0,0"
             Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
             CommandParameter="theme_dark"
             Content="Dark"
             GroupName="themeSelect"
-            IsChecked="{Binding ViewModel.ConfigProvider.Config.CurrentTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}" />
+            IsChecked="{Binding ViewModel.ConfigProvider.Config.CurrentTheme, Converter={StaticResource ApplicationThemeEnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}" />
 
             <TextBlock
             Margin="0,24,0,0"

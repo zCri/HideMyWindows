@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HideMyWindows.App.Views.Pages"
+    xmlns:controls="clr-namespace:HideMyWindows.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="DashboardPage"
@@ -18,6 +19,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -56,10 +58,9 @@
                 Content="Run hidden process"
                 Command="{Binding ViewModel.StartProcessCommand, Mode=OneWay}"/>
         </StackPanel>
-
         <StackPanel
-            Margin="0,24,0,0"
-            Grid.Row="1">
+            Grid.Row="1"
+            Margin="0,24,0,0">
             <TextBlock
                 FontSize="20"
                 FontWeight="Medium"
@@ -89,6 +90,32 @@
                 Appearance="Primary"
                 Content="Hide process windows"
                 Command="{Binding ViewModel.InjectIntoProcessCommand, Mode=OneWay}"/>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="2"
+            Margin="0,24,0,0">
+            <TextBlock
+                FontSize="20"
+                FontWeight="Medium"
+                Text="Find and hide a running process / window"/>
+            <controls:WindowRuleDisplayControl
+                Margin="0,12,0,0"
+                WindowRule="{Binding ViewModel.FindWindowRule}"/>
+            <StackPanel 
+                Margin="0,8,0,0"
+                Orientation="Horizontal">
+                <ui:Button
+                    Icon="{ui:SymbolIcon ArrowEnterLeft24}"
+                    Appearance="Primary"
+                    Content="Find and hide"
+                    Command="{Binding ViewModel.FindAndHideCommand, Mode=OneWay}"/>
+                <ui:Button
+                    Grid.Column="1"
+                    Margin="10,0,0,0"
+                    Command="{Binding ViewModel.FindWindowRuleTargetByClickCommand}"
+                    Icon="{ui:SymbolIcon WindowLocationTarget20}"
+                    Appearance="Secondary"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>
