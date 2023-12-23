@@ -16,6 +16,9 @@ namespace HideMyWindows.App.Models
         private bool _hideSelf = true;
 
         [ObservableProperty]
+        private bool _showInTaskbar = true;
+
+        [ObservableProperty]
         private ProcessWatcherType _processWatcherType = ProcessWatcherType.WMIProcessTraceProcessWatcher;
 
         [ObservableProperty]

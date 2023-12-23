@@ -24,9 +24,9 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ui:DynamicScrollViewer>
+        <ui:DynamicScrollViewer
+            Grid.Row="0">
             <ItemsControl
-            Grid.Row="0"
             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
             ItemsSource="{Binding ViewModel.ConfigProvider.Config.WindowRules, Mode=OneWay}">
             <ItemsControl.ItemTemplate>

@@ -15,7 +15,6 @@ namespace HideMyWindows.App.Services.DllInjector
         public readonly static string DLLName64 = "HideMyWindows.DLL.x64.dll";
         public readonly static string DLLName32 = "HideMyWindows.DLL.Win32.dll";
 
-        // TODO: Hide from tray ?
         public void InjectDll(Process process)
         {
             if (process.HasExited) return;

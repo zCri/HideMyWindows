@@ -38,7 +38,10 @@ namespace HideMyWindows.App.ViewModels.Pages
             ProcessWatcher.ProcessStarted += (_, e) =>
             {
                 Application.Current?.Dispatcher.Invoke(() => {
-                    RunningProcesses.Add(new ProcessProxy(Process.GetProcessById(e.Id)));
+                    try
+                    {
+                        RunningProcesses.Add(new ProcessProxy(Process.GetProcessById(e.Id)));
+                    } catch (ArgumentException) { }
                 });
             };
 
@@ -46,7 +49,10 @@ namespace HideMyWindows.App.ViewModels.Pages
             {
                 Application.Current?.Dispatcher.Invoke(() =>
                 {
-                    RunningProcesses.Remove(RunningProcesses.First(x => x.Process.Id == e.Id));
+                    var process = RunningProcesses.FirstOrDefault(x => x.Process.Id == e.Id);
+                    if(process is not null)
+                        RunningProcesses.Remove(process);
+
                     InjectIntoProcessCommand.NotifyCanExecuteChanged();
                     OnPropertyChanged(nameof(RunningProcesses));
                 });

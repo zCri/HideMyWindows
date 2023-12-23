@@ -4,6 +4,7 @@
 // All Rights Reserved.
 
 using HideMyWindows.App.Services;
+using HideMyWindows.App.Services.ConfigProvider;
 using System.Collections.ObjectModel;
 using Wpf.Ui.Controls;
 
@@ -11,10 +12,12 @@ namespace HideMyWindows.App.ViewModels.Windows
 {
     public partial class MainWindowViewModel : ObservableObject
     {
+        public IConfigProvider ConfigProvider { get; }
         public NotificationsService NotificationsService { get; }
 
-        public MainWindowViewModel(NotificationsService notificationsService)
+        public MainWindowViewModel(IConfigProvider configProvider, NotificationsService notificationsService)
         {
+            ConfigProvider = configProvider;
             NotificationsService = notificationsService;
         }
 

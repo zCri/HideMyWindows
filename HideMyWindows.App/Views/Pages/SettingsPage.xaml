@@ -55,9 +55,14 @@
             FontWeight="Medium"
             Text="Functionality" />
             <ui:ToggleSwitch                                                                               
-                IsChecked="{Binding ViewModel.ConfigProvider.Config.HideSelf}"
                 Margin="0,12,0,0"
+                IsChecked="{Binding ViewModel.ConfigProvider.Config.HideSelf}"
                 Content="Hide this app automatically"/>
+            
+            <ui:ToggleSwitch    
+                Margin="0,12,0,0"
+                IsChecked="{Binding ViewModel.ConfigProvider.Config.ShowInTaskbar}"
+                Content="Show this app in the taskbar"/>
 
             <Label
                 Margin="0,16,0,0">Process watching method</Label>
