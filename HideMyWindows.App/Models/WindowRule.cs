@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using HideMyWindows.App.Services.WindowHider;
+using System.Text.RegularExpressions;
 
 namespace HideMyWindows.App.Models
 {
@@ -14,7 +15,7 @@ namespace HideMyWindows.App.Models
         private string _value = string.Empty;
 
         [ObservableProperty]
-        private WindowRuleAction _action = WindowRuleAction.HideProcess;
+        private WindowHiderAction _action = WindowHiderAction.HideProcess;
 
         [ObservableProperty]
         private bool _enabled = false;
@@ -68,10 +69,5 @@ namespace HideMyWindows.App.Models
         StringStartsWith,
         StringEndsWith,
         RegexMatch
-    }
-
-    public enum WindowRuleAction
-    {
-        HideProcess //TODO: Could implement single window hiding at a later time
     }
 }

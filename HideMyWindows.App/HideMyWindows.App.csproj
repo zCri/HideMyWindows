@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="PeNet" Version="4.0.4" />
     <PackageReference Include="System.Management" Version="8.0.0" />
     <PackageReference Include="Vanara.Core" Version="3.4.17" />
     <PackageReference Include="Vanara.PInvoke.Kernel32" Version="3.4.17" />

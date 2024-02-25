@@ -3,6 +3,7 @@ using HideMyWindows.App.Models;
 using HideMyWindows.App.Services.ConfigProvider;
 using HideMyWindows.App.Services.DllInjector;
 using HideMyWindows.App.Services.ProcessWatcher;
+using HideMyWindows.App.Services.WindowHider;
 using HideMyWindows.App.Services.WindowWatcher;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -21,15 +22,15 @@ namespace HideMyWindows.App.Services
         private IProcessWatcher ProcessWatcher { get; }
         private IWindowWatcher WindowWatcher { get; }
         private IConfigProvider ConfigProvider { get; }
-        private IDllInjector DllInjector { get; }
+        private IWindowHider WindowHider { get; }
         private ISnackbarService SnackbarService { get; }
 
-        public WindowRulesMatcherService(IProcessWatcher processWatcher, IWindowWatcher windowWatcher, IConfigProvider configProvider, IDllInjector dllInjector, ISnackbarService snackbarService)
+        public WindowRulesMatcherService(IProcessWatcher processWatcher, IWindowWatcher windowWatcher, IConfigProvider configProvider, IWindowHider windowHider, ISnackbarService snackbarService)
         {
             ProcessWatcher = processWatcher;
             WindowWatcher = windowWatcher;
             ConfigProvider = configProvider;
-            DllInjector = dllInjector;
+            WindowHider = windowHider;
             SnackbarService = snackbarService;
         }
 
@@ -64,10 +65,7 @@ namespace HideMyWindows.App.Services
                     {
                         try
                         {
-                            GetWindowThreadProcessId(e.Handle, out var pid);
-                            var process = Process.GetProcessById((int) pid);
-
-                            DllInjector.InjectDll(process);
+                            WindowHider.ApplyAction(rule.Action, e.Handle);
                         }
                         catch (ArgumentException)
                         {
@@ -103,7 +101,7 @@ namespace HideMyWindows.App.Services
                         {
                             var process = Process.GetProcessById(e.Id);
 
-                            DllInjector.InjectDll(process);
+                            WindowHider.ApplyAction(rule.Action, process);
                         }
                         catch (ArgumentException)
                         {

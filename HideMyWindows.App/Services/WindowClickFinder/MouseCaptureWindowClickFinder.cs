@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Interop;
 using Vanara.PInvoke;
 using static Vanara.PInvoke.User32;
+using static Vanara.PInvoke.Kernel32;
 
 namespace HideMyWindows.App.Services.WindowClickFinder
 {
@@ -27,10 +28,10 @@ namespace HideMyWindows.App.Services.WindowClickFinder
 
                 var titleLen = GetWindowTextLength(hwnd) + 1;
                 var titleBuilder = new StringBuilder(titleLen);
-                GetWindowText(hwnd, titleBuilder, titleLen);
+                if(GetWindowText(hwnd, titleBuilder, titleLen) == 0) throw GetLastError().GetException();
 
                 var classBuilder = new StringBuilder(1024);
-                GetClassName(hwnd, classBuilder, 1024);
+                if (GetClassName(hwnd, classBuilder, 1024) == 0) throw GetLastError().GetException();
 
                 GetWindowThreadProcessId(hwnd, out var pid);
 

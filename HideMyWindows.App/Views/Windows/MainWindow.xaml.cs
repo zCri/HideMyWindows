@@ -32,6 +32,8 @@ namespace HideMyWindows.App.Views.Windows
             contentDialogService.SetContentPresenter(RootContentDialog);
 
             NavigationView.SetServiceProvider(serviceProvider);
+
+            ViewModel.Initialize();
         }
     }
 }

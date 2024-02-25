@@ -8,6 +8,7 @@ using HideMyWindows.App.Services.ConfigProvider;
 using HideMyWindows.App.Services.DllInjector;
 using HideMyWindows.App.Services.ProcessWatcher;
 using HideMyWindows.App.Services.WindowClickFinder;
+using HideMyWindows.App.Services.WindowHider;
 using HideMyWindows.App.Services.WindowWatcher;
 using HideMyWindows.App.ViewModels.Pages;
 using HideMyWindows.App.ViewModels.Windows;
@@ -16,10 +17,12 @@ using HideMyWindows.App.Views.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Win32.SafeHandles;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Windows.Threading;
-using Wpf.Ui.Appearance;
+using static Vanara.PInvoke.Kernel32;
 
 namespace HideMyWindows.App
 {
@@ -58,8 +61,10 @@ namespace HideMyWindows.App
                 // App services
                 services.AddSingleton<IConfigProvider, JSONConfigProvider>();
                 services.AddSingleton<IDllInjector, LoadLibraryDllInjector>();
-                services.AddSingleton<IWindowClickFinder, MouseCaptureWindowClickFinder>();
+                services.AddSingleton<IWindowHider, DllInjectorWindowHider>();
                 services.AddSingleton<NotificationsService>();
+
+                services.AddTransient<IWindowClickFinder, MouseCaptureWindowClickFinder>();
 
                 // Really ugly way to do dynamic dependency type resolution
                 services.AddSingleton<IProcessWatcher>((serviceProvider) =>
@@ -89,6 +94,7 @@ namespace HideMyWindows.App
                 });
 
                 services.AddHostedService<WindowRulesMatcherService>();
+                services.AddHostedService<MailslotIPCService>();
             }).Build();
 
         /// <summary>
@@ -107,7 +113,17 @@ namespace HideMyWindows.App
         /// </summary>
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            _host.Start();
+            var hMailslot = CreateFile(@"\\.\mailslot\HideMyWindowsMailslot", Vanara.PInvoke.Kernel32.FileAccess.GENERIC_WRITE, 0, null, FileMode.Open, 0, null);
+            if (!hMailslot.IsInvalid)
+            {
+                var bytes = Encoding.Unicode.GetBytes("0");
+                WriteFile(hMailslot, bytes, (uint)bytes.Length, out _, IntPtr.Zero);
+                Shutdown();
+            }
+            else
+            {
+                _host.Start();
+            }
         }
 
         /// <summary>

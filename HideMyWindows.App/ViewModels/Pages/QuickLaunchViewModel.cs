@@ -9,20 +9,21 @@ using System.Diagnostics;
 using HideMyWindows.App.Helpers;
 using Vanara.PInvoke;
 using HideMyWindows.App.Controls;
+using HideMyWindows.App.Services.WindowHider;
 
 namespace HideMyWindows.App.ViewModels.Pages
 {
     public partial class QuickLaunchViewModel : ObservableObject
     {
         public IConfigProvider ConfigProvider { get; }
-        private IDllInjector DllInjector { get; }
+        private IWindowHider WindowHider { get; }
         private ISnackbarService SnackbarService { get; }
         private IContentDialogService ContentDialogService { get; }
 
-        public QuickLaunchViewModel(IConfigProvider configProvider, IDllInjector dllInjector, ISnackbarService snackbarService, IContentDialogService contentDialogService)
+        public QuickLaunchViewModel(IConfigProvider configProvider, IWindowHider windowHider, ISnackbarService snackbarService, IContentDialogService contentDialogService)
         {
             ConfigProvider = configProvider;
-            DllInjector = dllInjector;
+            WindowHider = windowHider;
             SnackbarService = snackbarService;
             ContentDialogService = contentDialogService;
 
@@ -86,7 +87,7 @@ namespace HideMyWindows.App.ViewModels.Pages
                     throw GetLastError().GetException();
                 var process = Process.GetProcessById((int)processInformation.dwProcessId);
 
-                DllInjector.InjectDll(process);
+                WindowHider.ApplyAction(WindowHiderAction.HideProcess, process);
 
                 if ((int)ResumeThread(processInformation.hThread) == -1)
                     throw GetLastError().GetException();

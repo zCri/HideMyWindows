@@ -19,7 +19,16 @@ namespace HideMyWindows.App.Helpers
                 throw new ArgumentException("ExceptionProcessToNamePidStringConverterValueMustBeAProcess");
             }
 
-            return $"{process.ProcessName} ({process.Id})";
+            string text;
+            try
+            {
+                text = $"{process.ProcessName} ({process.Id})";
+            } catch (InvalidOperationException)
+            {
+                text = string.Empty;
+            }
+
+            return text;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HideMyWindows.App.Controls"
     xmlns:models="clr-namespace:HideMyWindows.App.Models"
+    xmlns:windowHider="clr-namespace:HideMyWindows.App.Services.WindowHider"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
@@ -34,12 +35,12 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
         <ObjectDataProvider
-            x:Key="WindowRuleActionValues"
+            x:Key="WindowHiderActionValues"
             MethodName="GetValues"
             ObjectType="{x:Type system:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type
-                    TypeName="models:WindowRuleAction"/>
+                    TypeName="windowHider:WindowHiderAction"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
@@ -75,7 +76,7 @@
             <ComboBox
                 Grid.Column="1"
                 Margin="10,0,0,0"
-                ItemsSource="{Binding Source={StaticResource WindowRuleActionValues}}"
+                ItemsSource="{Binding Source={StaticResource WindowHiderActionValues}}"
                 SelectedItem="{Binding WindowRule.Action}"/>
         </Grid>
     </StackPanel>

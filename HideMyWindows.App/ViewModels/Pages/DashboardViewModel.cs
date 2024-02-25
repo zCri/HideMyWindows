@@ -8,12 +8,14 @@ using HideMyWindows.App.Models;
 using HideMyWindows.App.Services.DllInjector;
 using HideMyWindows.App.Services.ProcessWatcher;
 using HideMyWindows.App.Services.WindowClickFinder;
+using HideMyWindows.App.Services.WindowHider;
 using Microsoft.Win32;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using Vanara.PInvoke;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
 using static Vanara.PInvoke.Kernel32;
@@ -23,14 +25,14 @@ namespace HideMyWindows.App.ViewModels.Pages
 {
     public partial class DashboardViewModel : ObservableObject
     {
-        private IDllInjector DllInjector { get; }
+        private IWindowHider WindowHider { get; }
         private IProcessWatcher ProcessWatcher { get; }
         private ISnackbarService SnackbarService { get; }
         private IWindowClickFinder WindowClickFinder { get; }
 
-        public DashboardViewModel(IDllInjector dllInjector, IProcessWatcher processWatcher, ISnackbarService snackbarService, IWindowClickFinder windowClickFinder)
+        public DashboardViewModel(IWindowHider windowHider, IProcessWatcher processWatcher, ISnackbarService snackbarService, IWindowClickFinder windowClickFinder)
         {
-            DllInjector = dllInjector;
+            WindowHider = windowHider;
             ProcessWatcher = processWatcher;
             SnackbarService = snackbarService;
             WindowClickFinder = windowClickFinder;
@@ -79,8 +81,7 @@ namespace HideMyWindows.App.ViewModels.Pages
         [RelayCommand(CanExecute = nameof(CanStartProcess))]
         private void StartProcess()
         {
-            try
-            {
+            
                 var commandLine = new StringBuilder(ProcessArguments);
                 var workingDirectory = new FileInfo(ProcessPath)?.Directory?.FullName;
 
@@ -88,14 +89,10 @@ namespace HideMyWindows.App.ViewModels.Pages
                     throw GetLastError().GetException();
                 var process = Process.GetProcessById((int) processInformation.dwProcessId);
 
-                DllInjector.InjectDll(process);
+                WindowHider.ApplyAction(WindowHiderAction.HideProcess, process);
                 if((int) ResumeThread(processInformation.hThread) == -1)
                     throw GetLastError().GetException();
-            } catch (Exception e) 
-            {
-                //TODO: Localization
-                SnackbarService.Show("An error occurred!", e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
-            }
+            
         }
 
         private bool CanStartProcess()
@@ -126,7 +123,7 @@ namespace HideMyWindows.App.ViewModels.Pages
             try
             {
                 if(SelectedProcess is not null)
-                    DllInjector.InjectDll(SelectedProcess.Process);
+                    WindowHider.ApplyAction(WindowHiderAction.HideProcess, SelectedProcess.Process);
             } catch (Exception e)
             {
                 SnackbarService.Show("An error occurred!", e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
@@ -178,9 +175,7 @@ namespace HideMyWindows.App.ViewModels.Pages
 
                         if (FindWindowRule.Matches(value))
                         {
-                            GetWindowThreadProcessId(hwnd, out var pid);
-                            var process = Process.GetProcessById((int) pid);
-                            DllInjector.InjectDll(process);
+                            WindowHider.ApplyAction(FindWindowRule.Action, hwnd.DangerousGetHandle());
                         }
 
                         return true;
@@ -194,7 +189,7 @@ namespace HideMyWindows.App.ViewModels.Pages
                     {
                         var process = Process.GetProcessById(int.Parse(FindWindowRule.Value));
 
-                        DllInjector.InjectDll(process);
+                        WindowHider.ApplyAction(FindWindowRule.Action, process);
                     } //TODO: Localization
                     catch (ArgumentException e)
                     {
@@ -223,7 +218,7 @@ namespace HideMyWindows.App.ViewModels.Pages
 
                             if (FindWindowRule.Matches(value))
                             {
-                                DllInjector.InjectDll(process);
+                                WindowHider.ApplyAction(FindWindowRule.Action, process);
                             }
                         }
                     });
