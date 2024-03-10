@@ -92,7 +92,8 @@ namespace HideMyWindows.App
                         _ => throw new NotImplementedException()
                     };
                 });
-
+                
+                //TODO: Fix MSBuild
                 services.AddHostedService<WindowRulesMatcherService>();
                 services.AddHostedService<MailslotIPCService>();
             }).Build();

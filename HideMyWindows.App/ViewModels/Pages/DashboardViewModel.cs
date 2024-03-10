@@ -152,7 +152,7 @@ namespace HideMyWindows.App.ViewModels.Pages
                 await Task.Run(() => {
                     EnumWindows((hwnd, _) =>
                     {
-                        string value = string.Empty;
+                        var value = string.Empty;
 
                         switch(FindWindowRule.Target)
                         {

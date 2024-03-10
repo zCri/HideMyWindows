@@ -20,18 +20,23 @@ namespace HideMyWindows.App.Services.WindowClickFinder
 
         IntPtr WndProc(IntPtr _, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            // Handle messages...
             if (msg == (int) WindowMessage.WM_LBUTTONDOWN)
             {
                 GetCursorPos(out var pos);
                 IntPtr hwnd = (IntPtr) WindowFromPoint(pos);
 
+                var gwlStyle = GetWindowLongPtr(hwnd, WindowLongFlags.GWL_STYLE); // If hwnd is a handle to a control, get the parent window
+                if((gwlStyle.ToInt64() & (long)WindowStyles.WS_CHILD) > 0)
+                {
+                    hwnd = (IntPtr) GetAncestor(hwnd, GetAncestorFlag.GA_ROOT);
+                }
+
                 var titleLen = GetWindowTextLength(hwnd) + 1;
                 var titleBuilder = new StringBuilder(titleLen);
-                if(GetWindowText(hwnd, titleBuilder, titleLen) == 0) throw GetLastError().GetException();
+                if(GetWindowText(hwnd, titleBuilder, titleLen) == 0) GetLastError().ThrowIfFailed();
 
                 var classBuilder = new StringBuilder(1024);
-                if (GetClassName(hwnd, classBuilder, 1024) == 0) throw GetLastError().GetException();
+                if (GetClassName(hwnd, classBuilder, 1024) == 0) GetLastError().ThrowIfFailed();
 
                 GetWindowThreadProcessId(hwnd, out var pid);
 

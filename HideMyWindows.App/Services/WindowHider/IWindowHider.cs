@@ -15,7 +15,7 @@ namespace HideMyWindows.App.Services.WindowHider
 
     public enum WindowHiderAction
     {
-        HideProcess, //TODO: Could implement single window hiding at a later time TODO2: TEST IT
+        HideProcess,
         HideWindow
     }
 

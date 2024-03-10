@@ -12,8 +12,26 @@ bool followChildProcesses = false;
 
 HANDLE hMailslot;
 
-void HideWindow(HWND hwnd) {
-    SetWindowDisplayAffinity(hwnd, WDA_EXCLUDEFROMCAPTURE);
+LPSTR GetLastErrorAsString()
+{
+    //Get the error message ID, if any.
+    DWORD errorMessageID = ::GetLastError();
+
+    LPSTR messageBuffer = nullptr;
+
+    //Ask Win32 to give us the string version of that message ID.
+    //The parameters we pass in, tell Win32 to create the buffer that holds the message for us (because we don't yet know how long the message string will be).
+    size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+        NULL, errorMessageID, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
+
+    return messageBuffer;
+}
+
+void _HideWindow(HWND hwnd) {
+    //TODO: doesnt work for createwindow hook ?
+    if (!SetWindowDisplayAffinity(hwnd, WDA_EXCLUDEFROMCAPTURE)) {
+        //MessageBoxA(NULL, GetLastErrorAsString(), "Debug", MB_OK);
+    }
 }
 
 // Existing windows
@@ -21,8 +39,9 @@ BOOL CALLBACK EnumThreadWndProc(
     HWND   hwnd,
     LPARAM lParam
 ) {
+    //MessageBoxA(NULL, std::to_string((long)hwnd).c_str(), "enumwindows", MB_OK);
     if(hideAllWindows)
-        HideWindow(hwnd);
+        _HideWindow(hwnd);
     return TRUE;
 }
 
@@ -53,20 +72,6 @@ BOOL HideAllProcessWindows(DWORD dwOwnerPID)
 
     CloseHandle(hThreadSnap);
     return(TRUE);
-}
-LPSTR GetLastErrorAsString()
-{
-    //Get the error message ID, if any.
-    DWORD errorMessageID = ::GetLastError();
-
-    LPSTR messageBuffer = nullptr;
-
-    //Ask Win32 to give us the string version of that message ID.
-    //The parameters we pass in, tell Win32 to create the buffer that holds the message for us (because we don't yet know how long the message string will be).
-    size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-        NULL, errorMessageID, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
-
-    return messageBuffer;
 }
 
 void ConnectToMailslot() {
@@ -151,7 +156,7 @@ HWND WINAPI DetourCreateWindowExA(
 ) {
     HWND hwnd = fpCreateWindowExA(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam);
     if(hideAllWindows)
-        HideWindow(hwnd);
+        _HideWindow(hwnd);
     return hwnd;
 }
 
@@ -188,7 +193,7 @@ HWND WINAPI DetourCreateWindowExW(
 ) {
     HWND hwnd = fpCreateWindowExW(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam);
     if (hideAllWindows)
-        HideWindow(hwnd);
+        _HideWindow(hwnd);
     return hwnd;
 }
 
@@ -303,8 +308,8 @@ struct HideWindowParameter
     HWND hwnd;
 };
 
-extern "C" __declspec(dllexport) void HideWindow(HideWindowParameter param) {
-    HideWindow(param.hwnd);
+extern "C" __declspec(dllexport) void HideWindow(HideWindowParameter* param) {
+    _HideWindow(param->hwnd);
 }
 
 extern "C" __declspec(dllexport) void HideAllWindows() {
