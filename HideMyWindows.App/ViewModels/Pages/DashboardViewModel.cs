@@ -18,6 +18,7 @@ using System.Text;
 using Vanara.PInvoke;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
+using WPFLocalizeExtension.Engine;
 using static Vanara.PInvoke.Kernel32;
 using static Vanara.PInvoke.User32;
 
@@ -103,10 +104,12 @@ namespace HideMyWindows.App.ViewModels.Pages
         [RelayCommand]
         private void BrowsePath()
         {
+            var dir = Path.GetDirectoryName(ProcessPath);
             var dialog = new OpenFileDialog()
             {
                 Filter = "Executable file|*.exe|All files|*.*",
                 FileName = ProcessPath,
+                InitialDirectory = Directory.Exists(dir) ? dir : default,
             };
             
             bool? result = dialog.ShowDialog();
@@ -190,14 +193,14 @@ namespace HideMyWindows.App.ViewModels.Pages
                         var process = Process.GetProcessById(int.Parse(FindWindowRule.Value));
 
                         WindowHider.ApplyAction(FindWindowRule.Action, process);
-                    } //TODO: Localization
+                    }
                     catch (ArgumentException e)
                     {
-                        SnackbarService.Show("No process found!", e.Message, ControlAppearance.Info, new SymbolIcon(SymbolRegular.Search24));
+                        SnackbarService.Show(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "NoProcessFound", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, e.Message, ControlAppearance.Info, new SymbolIcon(SymbolRegular.Search24));
                     }
                     catch (Exception e)
                     {
-                        SnackbarService.Show("An error occurred!", e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+                        SnackbarService.Show(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "AnErrorOccurred", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
                     }
 
                 }

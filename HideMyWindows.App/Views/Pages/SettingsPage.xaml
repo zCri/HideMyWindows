@@ -18,6 +18,10 @@
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    lex:LocalizeDictionary.DesignCulture="en"
+    lex:ResxLocalizationProvider.DefaultAssembly="HideMyWindows.App"
+    lex:ResxLocalizationProvider.DefaultDictionary="Strings"
     mc:Ignorable="d">
     <Page.Resources>
         <helpers:ApplicationThemeEnumToBooleanConverter x:Key="ApplicationThemeEnumToBooleanConverter"/>
@@ -53,19 +57,20 @@
             <TextBlock
             FontSize="20"
             FontWeight="Medium"
-            Text="Functionality" />
+            Text="{lex:Loc Functionality}"/>
             <ui:ToggleSwitch                                                                               
                 Margin="0,12,0,0"
                 IsChecked="{Binding ViewModel.ConfigProvider.Config.HideSelf}"
-                Content="Hide this app automatically"/>
+                Content="{lex:Loc HideThisAppAutomatically}"/>
             
             <ui:ToggleSwitch    
                 Margin="0,12,0,0"
                 IsChecked="{Binding ViewModel.ConfigProvider.Config.ShowInTaskbar}"
-                Content="Show this app in the taskbar"/>
+                Content="{lex:Loc ShowThisAppInTheTaskbar}"/>
 
             <Label
-                Margin="0,16,0,0">Process watching method</Label>
+                Margin="0,16,0,0"
+                Content="{lex:Loc ProcessWatchingMethod}"/>
             <ComboBox
                 Margin="0,6,0,0"
                 ItemsSource="{Binding Source={StaticResource ProcessWatcherTypeValues}}"
@@ -79,7 +84,8 @@
                 </Grid.RowDefinitions>
                 <Label
                     Grid.Row="0"
-                    Content="Process watcher delay (in milliseconds)"/>
+                    Content="{lex:Loc ProcessWatcherDelay_InMilliseconds}"/>
+                <!--Process watcher delay (in milliseconds)-->
                 <Grid
                     Grid.Row="1">
                     <Grid.ColumnDefinitions>
@@ -102,7 +108,8 @@
                 </Grid>
             </Grid>
 
-            <Label Margin="0,16,0,0">Window watching method</Label>
+            <Label Margin="0,16,0,0"
+                   Content="{lex:Loc WindowWatchingMethod}"/>
             <ComboBox
                 Margin="0,6,0,0"
                 ItemsSource="{Binding Source={StaticResource WindowWatcherTypeValues}}"
@@ -112,20 +119,21 @@
             FontSize="20"
             FontWeight="Medium"
             Margin="0,24,0,0"
-            Text="Personalization" />
-            <Label Margin="0,12,0,0">Theme</Label>
+            Text="{lex:Loc Personalization}" />
+            <Label Margin="0,12,0,0"
+                   Content="{lex:Loc Theme}"/>
             <RadioButton
             Margin="0,12,0,0"
             Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
             CommandParameter="theme_light"
-            Content="Light"
+            Content="{lex:Loc Light}"
             GroupName="themeSelect"
             IsChecked="{Binding ViewModel.ConfigProvider.Config.CurrentTheme, Converter={StaticResource ApplicationThemeEnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}" />
             <RadioButton
             Margin="0,8,0,0"
             Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
             CommandParameter="theme_dark"
-            Content="Dark"
+            Content="{lex:Loc Dark}"
             GroupName="themeSelect"
             IsChecked="{Binding ViewModel.ConfigProvider.Config.CurrentTheme, Converter={StaticResource ApplicationThemeEnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}" />
 
@@ -133,7 +141,7 @@
             Margin="0,24,0,0"
             FontSize="20"
             FontWeight="Medium"
-            Text="About HideMyWindows" />
+            Text="{lex:Loc AboutHideMyWindows}" />
             <Label Margin="0,12,0,0" Content="{Binding ViewModel.AppVersion, Mode=OneWay}" />
         </StackPanel>
         <ui:Button
@@ -142,7 +150,7 @@
             Appearance="Primary"
             HorizontalAlignment="Right"
             Margin="0,0,0,20"
-            Content="Save settings"
+            Content="{lex:Loc SaveSettings}"
             Command="{Binding ViewModel.SaveConfigCommand}"/>
     </Grid>
 </Page>

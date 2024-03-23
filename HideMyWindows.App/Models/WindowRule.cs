@@ -25,7 +25,7 @@ namespace HideMyWindows.App.Models
         // Compile regex only once
         partial void OnComparatorChanged(WindowRuleComparator value)
         {
-            if (value is WindowRuleComparator.RegexMatch)
+            if (value is WindowRuleComparator.RegexMatches)
                 regex = new Regex(Value);
         }
 
@@ -47,7 +47,7 @@ namespace HideMyWindows.App.Models
                     value.StartsWith(Value),
                 WindowRuleComparator.StringEndsWith =>
                     value.EndsWith(Value),
-                WindowRuleComparator.RegexMatch =>
+                WindowRuleComparator.RegexMatches =>
                     regex?.IsMatch(value) ?? false,
                 _ => false
             };
@@ -68,6 +68,6 @@ namespace HideMyWindows.App.Models
         StringContains,
         StringStartsWith,
         StringEndsWith,
-        RegexMatch
+        RegexMatches
     }
 }

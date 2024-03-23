@@ -21,6 +21,10 @@
     WindowCornerPreference="Round"
     WindowStartupLocation="CenterScreen"
     ShowInTaskbar="{Binding ViewModel.ConfigProvider.Config.ShowInTaskbar}"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    lex:LocalizeDictionary.DesignCulture="en"
+    lex:ResxLocalizationProvider.DefaultAssembly="HideMyWindows.App"
+    lex:ResxLocalizationProvider.DefaultDictionary="Strings"
     mc:Ignorable="d">
     
     <Grid>

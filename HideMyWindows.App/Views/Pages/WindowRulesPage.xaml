@@ -17,6 +17,10 @@
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     ScrollViewer.CanContentScroll="False"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    lex:LocalizeDictionary.DesignCulture="en"
+    lex:ResxLocalizationProvider.DefaultAssembly="HideMyWindows.App"
+    lex:ResxLocalizationProvider.DefaultDictionary="Strings"
     mc:Ignorable="d">
 
     <Grid>
@@ -49,11 +53,12 @@
                                 <ui:ToggleSwitch
                                     Grid.Column="0"
                                     x:Name="EnabledToggleSwitch"
-                                    Content="Enabled"
+                                    Content="{lex:Loc Enable}"
                                     IsChecked="{Binding Enabled}"
                                     IsEnabled="{Binding Value.Length, Mode=OneWay}"/>
                                 <ui:Button
                                     Grid.Column="1"
+                                    ToolTip="{lex:Loc Remove}"
                                     Command="{Binding ViewModel.RemoveRuleCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"
                                     CommandParameter="{Binding}"
                                     Icon="{ui:SymbolIcon Delete24}"
@@ -62,6 +67,7 @@
                                 <ui:Button
                                     Grid.Column="2"
                                     Margin="6,0,0,0"
+                                    ToolTip="{lex:Loc FindByClick}"
                                     Command="{Binding ViewModel.FindByClickCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"
                                     CommandParameter="{Binding}"
                                     Icon="{ui:SymbolIcon WindowLocationTarget20}"
@@ -86,12 +92,12 @@
                 Margin="0,0,10,0"
                 Icon="{ui:SymbolIcon Save24}"
                 Appearance="Secondary"
-                Content="Save rules"
+                Content="{lex:Loc SaveRules}"
                 Command="{Binding ViewModel.SaveConfigCommand}"/>
             <ui:Button
                 Icon="{ui:SymbolIcon AddCircle24}"
                 Appearance="Primary"
-                Content="Add new rule"
+                Content="{lex:Loc AddNewRule}"
                 Command="{Binding ViewModel.AddRuleCommand}"/>
         </StackPanel>
     </Grid>

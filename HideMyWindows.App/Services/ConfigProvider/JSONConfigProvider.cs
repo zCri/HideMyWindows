@@ -3,6 +3,7 @@ using HideMyWindows.App.Models;
 using System.IO;
 using System.Text.Json;
 using Wpf.Ui.Controls;
+using WPFLocalizeExtension.Engine;
 
 namespace HideMyWindows.App.Services.ConfigProvider
 {
@@ -36,8 +37,8 @@ namespace HideMyWindows.App.Services.ConfigProvider
                 }
                 catch (Exception e) when (e is JsonException or IOException)
                 {
-                    //TODO: Localization
-                    SnackbarService.Show("An error occurred!", "Error while loading the configuration, will fallback to default configuration, saving will overwrite the old one.", ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+                    // "Error while loading the configuration, will fallback to default configuration, saving will overwrite the old one."
+                    SnackbarService.Show(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "AnErrorOccurred", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "ErrorWhileLoadingTheConfiguration", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
                     Config = new();
                 }
             else
@@ -55,8 +56,7 @@ namespace HideMyWindows.App.Services.ConfigProvider
                 File.WriteAllText(path, json);
             } catch (Exception e) when (e is JsonException or IOException)
             {
-                //TODO: Localization
-                SnackbarService.Show("An error occurred!", e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+                SnackbarService.Show(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "AnErrorOccurred", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
             }
         }
     }

@@ -11,6 +11,7 @@ using System.Reflection;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
+using WPFLocalizeExtension.Engine;
 
 namespace HideMyWindows.App.ViewModels.Pages
 {
@@ -34,7 +35,7 @@ namespace HideMyWindows.App.ViewModels.Pages
             set
             {
                 ConfigProvider.Config!.ProcessWatcherType = value ?? default;
-                SnackbarService.Show("Settings", "To apply these settings, save the settings and restart the application", ControlAppearance.Info, new SymbolIcon(SymbolRegular.Info24));
+                SnackbarService.Show(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "Settings", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "ToApplyTheseSettingsSaveAndRestart", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, ControlAppearance.Info, new SymbolIcon(SymbolRegular.Info24));
             }
         }
 
@@ -43,7 +44,7 @@ namespace HideMyWindows.App.ViewModels.Pages
             set 
             {
                 ConfigProvider.Config!.WindowWatcherType = value ?? default;
-                SnackbarService.Show("Settings", "To apply these settings, save the settings and restart the application", ControlAppearance.Info, new SymbolIcon(SymbolRegular.Info24));
+                SnackbarService.Show(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "Settings", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "ToApplyTheseSettingsSaveAndRestart", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, ControlAppearance.Info, new SymbolIcon(SymbolRegular.Info24));
             }
         }
 
@@ -52,7 +53,7 @@ namespace HideMyWindows.App.ViewModels.Pages
             set
             {
                 ConfigProvider.Config!.WMIInstanceEventProcessWatcherTimeoutMillis = value ?? default;
-                SnackbarService.Show("Settings", "To apply these settings, save the settings and restart the application", ControlAppearance.Info, new SymbolIcon(SymbolRegular.Info24));
+                SnackbarService.Show(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "Settings", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "ToApplyTheseSettingsSaveAndRestart", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, ControlAppearance.Info, new SymbolIcon(SymbolRegular.Info24));
             }
         }
 

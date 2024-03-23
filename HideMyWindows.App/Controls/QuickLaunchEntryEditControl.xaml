@@ -11,6 +11,10 @@
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    lex:LocalizeDictionary.DesignCulture="en"
+    lex:ResxLocalizationProvider.DefaultAssembly="HideMyWindows.App"
+    lex:ResxLocalizationProvider.DefaultDictionary="Strings"
     mc:Ignorable="d">
     
     <Grid>
@@ -21,7 +25,7 @@
         </Grid.RowDefinitions>
         <ui:TextBox
             Grid.Row="0"
-            PlaceholderText="Name (can be left empty)"
+            PlaceholderText="{lex:Loc Name_CanBeLeftEmpty}"
             Text="{Binding Name, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:QuickLaunchEntryEditControl}}}"/>
         <Grid
             Grid.Row="1"
@@ -32,19 +36,20 @@
             </Grid.ColumnDefinitions>
             <ui:TextBox
                 Grid.Column="0"
-                PlaceholderText="Path"
+                PlaceholderText="{lex:Loc ProcessPath}"
                 Text="{Binding Path, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:QuickLaunchEntryEditControl}}}"/>
             <ui:Button
                 Grid.Column="1"
                 Margin="10,0,0,0"
                 Icon="{ui:SymbolIcon Folder24}"
                 Appearance="Secondary"
+                ToolTip="{lex:Loc BrowsePath}"
                 Command="{Binding BrowsePathCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:QuickLaunchEntryEditControl}}}"/>
         </Grid>
         <ui:TextBox
             Grid.Row="2"
             Margin="0,8,0,0"
-            PlaceholderText="Arguments"
+            PlaceholderText="{lex:Loc ProcessArguments}"
             Text="{Binding Arguments, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:QuickLaunchEntryEditControl}}}"/>
     </Grid>
 </UserControl>

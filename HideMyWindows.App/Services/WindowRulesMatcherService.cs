@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Wpf.Ui.Controls;
+using WPFLocalizeExtension.Engine;
 using static Vanara.PInvoke.User32;
 
 namespace HideMyWindows.App.Services
@@ -71,9 +72,9 @@ namespace HideMyWindows.App.Services
                         {
                             return;
                         }
-                        catch (Exception ex) // TODO: Localization
+                        catch (Exception ex)
                         {
-                            SnackbarService.Show("An error occurred!", ex.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+                            SnackbarService.Show(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "AnErrorOccurred", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, ex.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
                         }
                     }
                 }
@@ -107,9 +108,9 @@ namespace HideMyWindows.App.Services
                         {
                             return;
                         }
-                        catch (Exception ex) // TODO: Localization
+                        catch (Exception ex)
                         {
-                            SnackbarService.Show("An error occurred!", ex.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+                            SnackbarService.Show(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "AnErrorOccurred", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, ex.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
                         }
                     }
                 }

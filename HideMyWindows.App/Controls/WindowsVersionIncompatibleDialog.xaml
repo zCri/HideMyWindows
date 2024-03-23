@@ -11,6 +11,10 @@
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    lex:LocalizeDictionary.DesignCulture="en"
+    lex:ResxLocalizationProvider.DefaultAssembly="HideMyWindows.App"
+    lex:ResxLocalizationProvider.DefaultDictionary="Strings"
     mc:Ignorable="d">
     
     <Grid>
@@ -21,10 +25,10 @@
         <TextBlock
             Grid.Row="0"
             TextWrapping="Wrap"
-            Text="Your Windows version is too old and does not support the features required to run HideMyWindows properly.&#x0a;For more information check out the project's README."/>
+            Text="{lex:Loc WindowsVersionIncompatibleText}"/>
         <CheckBox
             Grid.Row="1"
-            Content="Don't show this dialog again"
+            Content="{lex:Loc DontShowThisDialogAgain}"
             IsChecked="{Binding Acknowledged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WindowsVersionIncompatibleDialog}}}"/>
     </Grid>
 </UserControl>

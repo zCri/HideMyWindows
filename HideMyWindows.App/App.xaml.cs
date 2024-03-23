@@ -17,7 +17,6 @@ using HideMyWindows.App.Views.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Win32.SafeHandles;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -31,6 +30,7 @@ namespace HideMyWindows.App
     /// </summary>
     public partial class App
     {
+
         // The.NET Generic Host provides dependency injection, configuration, logging, and other services.
         // https://docs.microsoft.com/dotnet/core/extensions/generic-host
         // https://docs.microsoft.com/dotnet/core/extensions/dependency-injection

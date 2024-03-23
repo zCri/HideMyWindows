@@ -15,6 +15,10 @@
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    lex:LocalizeDictionary.DesignCulture="en"
+    lex:ResxLocalizationProvider.DefaultAssembly="HideMyWindows.App"
+    lex:ResxLocalizationProvider.DefaultDictionary="Strings"
     mc:Ignorable="d">
     <Page.Resources>
         <helpers:FilePathToImageSourceConverter x:Key="FilePathToImageSourceConverter"/>
@@ -41,13 +45,14 @@
                         Command="{Binding ViewModel.RunQuickLaunchEntryCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"
                         CommandParameter="{Binding}">
                         <ui:Button.ContextMenu>
+                            <!-- Binding failure but still works ? -->
                             <ContextMenu Tag="{Binding PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
                                 <MenuItem
-                                    Header="Remove"
+                                    Header="{lex:Loc Remove}"
                                     Command="{Binding Parent.Tag.ViewModel.RemoveQuickLaunchEntryCommand, RelativeSource={RelativeSource Self}}"
                                     CommandParameter="{Binding}"/>
                                 <MenuItem
-                                    Header="Edit"
+                                    Header="{lex:Loc Edit}"
                                     Command="{Binding Parent.Tag.ViewModel.EditQuickLaunchEntryCommand, RelativeSource={RelativeSource Self}}"
                                     CommandParameter="{Binding}"/>
                             </ContextMenu>
@@ -79,12 +84,12 @@
                 Margin="0,0,10,0"
                 Icon="{ui:SymbolIcon Save24}"
                 Appearance="Secondary"
-                Content="Save entries"
+                Content="{lex:Loc SaveEntries}"
                 Command="{Binding ViewModel.SaveConfigCommand}"/>
             <ui:Button
                 Icon="{ui:SymbolIcon AddCircle24}"
                 Appearance="Primary"
-                Content="Add new entry"
+                Content="{lex:Loc AddNewEntry}"
                 Command="{Binding ViewModel.AddQuickLaunchEntryCommand}"/>
         </StackPanel>
     </Grid>
