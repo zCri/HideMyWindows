@@ -529,7 +529,8 @@ namespace HideMyWindows.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your Windows version is too old and does not support the features required to run HideMyWindows properly.&amp;#x0a;For more information check out the project&apos;s README..
+        ///   Looks up a localized string similar to Your Windows version is too old and does not support the features required to run HideMyWindows properly.
+        ///For more information check out the project&apos;s README..
         /// </summary>
         public static string WindowsVersionIncompatibleText {
             get {

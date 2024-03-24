@@ -274,7 +274,8 @@
     <value>Version de Windows incompatible</value>
   </data>
   <data name="WindowsVersionIncompatibleText" xml:space="preserve">
-    <value>Votre version de Windows est trop ancienne et ne supporte pas les fonctionnalités nécessaires au fonctionnement correct de HideMyWindows.&amp;#x0a;Pour plus d'informations, consultez le README du projet.</value>
+    <value>Votre version de Windows est trop ancienne et ne supporte pas les fonctionnalités nécessaires au fonctionnement correct de HideMyWindows.
+Pour plus d'informations, consultez le README du projet.</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>Titre de la fenêtre</value>
