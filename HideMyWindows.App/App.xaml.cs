@@ -17,10 +17,12 @@ using HideMyWindows.App.Views.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Windows.Threading;
+using WPFLocalizeExtension.Engine;
 using static Vanara.PInvoke.Kernel32;
 
 namespace HideMyWindows.App
@@ -114,6 +116,7 @@ namespace HideMyWindows.App
         /// </summary>
         private void OnStartup(object sender, StartupEventArgs e)
         {
+            LocalizeDictionary.Instance.Culture = CultureInfo.CurrentUICulture;
             var hMailslot = CreateFile(@"\\.\mailslot\HideMyWindowsMailslot", Vanara.PInvoke.Kernel32.FileAccess.GENERIC_WRITE, 0, null, FileMode.Open, 0, null);
             if (!hMailslot.IsInvalid)
             {

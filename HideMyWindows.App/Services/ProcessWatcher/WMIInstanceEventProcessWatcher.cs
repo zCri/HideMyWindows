@@ -1,6 +1,7 @@
 ﻿using HideMyWindows.App.Services.ConfigProvider;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Management;
 using System.Text;
@@ -52,6 +53,9 @@ namespace HideMyWindows.App.Services.ProcessWatcher
             startWatcher.Stop();
             stopWatcher.Stop();
 
+            var culture = CultureInfo.CurrentCulture;
+            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture; // https://stackoverflow.com/a/5962168
+
             var startQuery = new WqlEventQuery()
             {
                 EventClassName = "__InstanceCreationEvent",
@@ -75,6 +79,8 @@ namespace HideMyWindows.App.Services.ProcessWatcher
 
             startWatcher.Start();
             stopWatcher.Start();
+
+            CultureInfo.CurrentCulture = culture;
 
             IsWatching = true;
         }
