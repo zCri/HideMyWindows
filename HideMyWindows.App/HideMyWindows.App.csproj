@@ -31,8 +31,24 @@
     <None Remove="Assets\wpfui-icon-1024.png" />
   </ItemGroup>
 
+  <Target Name="BuildDLLs" BeforeTargets="ResolveProjectReferences">
+    <MSBuild
+      Projects="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj"
+      Properties="Platform=Win32"
+      BuildInParallel="$(BuildInParallel)"
+      ContinueOnError="$(ContinueOnError)"
+    />
+    
+    <MSBuild
+      Projects="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj"
+      Properties="Platform=x64"
+      BuildInParallel="$(BuildInParallel)"
+      ContinueOnError="$(ContinueOnError)"
+    />
+  </Target>
+
   <ItemGroup>
-    <ProjectReference Include="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" AdditionalProperties="Platform=Win32">
+    <ProjectReference Include="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" AdditionalProperties="Platform=Win32;BuildProjectReferences=false">
       <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
       <SetPlatform>Platform=Win32</SetPlatform>
       <Private>True</Private>
@@ -42,8 +58,8 @@
     </ProjectReference>
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(Platform)'=='x64' Or '$(Platform)'=='AnyCPU' ">
-    <ProjectReference Include="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" AdditionalProperties="Platform=x64">
+  <ItemGroup>
+    <ProjectReference Include="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" AdditionalProperties="Platform=x64;BuildProjectReferences=false">
       <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
       <SetPlatform>Platform=x64</SetPlatform>
       <Private>True</Private>

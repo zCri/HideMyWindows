@@ -46,6 +46,7 @@ namespace HideMyWindows.App.Services.DllInjector
 
         private void PopulateOffsetMap(string dllPath, Dictionary<string, IntPtr> offsets)
         {
+            //TODO: Add dialog if file not found
             var pe = new PeFile(dllPath);
             if(pe.ExportedFunctions is not null)
             {
