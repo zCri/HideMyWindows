@@ -1,10 +1,10 @@
-// dllmain.cpp : Defines the entry point for the DLL application.
+// NOTE: When changing only the dll, need to rebuild it for both architectures because Visual Studio will not build both automatically.
 #include <windows.h>
 #include <tlhelp32.h>
 #include <stdio.h>
 #include <MinHook.h>
 #include <iostream>  
-#include<string>  
+#include <string>  
 using namespace std;
 
 bool hideAllWindows = false;

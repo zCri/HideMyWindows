@@ -48,22 +48,16 @@
   </Target>
 
   <ItemGroup>
-    <ProjectReference Include="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" AdditionalProperties="Platform=Win32;BuildProjectReferences=false">
-      <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
+    <ProjectReference Include="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" AdditionalProperties="Platform=Win32">
       <SetPlatform>Platform=Win32</SetPlatform>
       <Private>True</Private>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <OutputItemType>Content</OutputItemType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </ProjectReference>
-  </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" AdditionalProperties="Platform=x64;BuildProjectReferences=false">
-      <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
+    <ProjectReference Include="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" AdditionalProperties="Platform=x64">
       <SetPlatform>Platform=x64</SetPlatform>
       <Private>True</Private>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <OutputItemType>Content</OutputItemType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </ProjectReference>
