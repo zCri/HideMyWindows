@@ -11,6 +11,9 @@ namespace HideMyWindows.App.Services.DllInjector
 {
     public interface IDllInjector
     {
+        public readonly static string DllName64 = "HideMyWindows.DLL.x64.dll";
+        public readonly static string DllName32 = "HideMyWindows.DLL.Win32.dll";
+
         public IntPtr InjectDll(Process process);
 
         public void InvokeDllMethod<T>(Process process, IntPtr handle, string methodName, T parameter) where T : struct

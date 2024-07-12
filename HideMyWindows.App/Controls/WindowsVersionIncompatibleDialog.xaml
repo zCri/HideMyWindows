@@ -22,7 +22,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock
+        <ui:TextBlock
             Grid.Row="0"
             TextWrapping="Wrap"
             Text="{lex:Loc WindowsVersionIncompatibleText}"/>

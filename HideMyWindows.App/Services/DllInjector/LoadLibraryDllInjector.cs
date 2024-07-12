@@ -10,51 +10,59 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Vanara.PInvoke;
+using Wpf.Ui.Controls;
+using WPFLocalizeExtension.Engine;
 using static Vanara.PInvoke.Kernel32;
 
 namespace HideMyWindows.App.Services.DllInjector
 {
     public class LoadLibraryDllInjector : IDllInjector
     {
-        public readonly static string DllName64 = "HideMyWindows.DLL.x64.dll";
-        public readonly static string DllName32 = "HideMyWindows.DLL.Win32.dll";
-
         private IntPtr? LoadLibraryWAddr32; // Critical system libraries are always initialized at the same address
         private IntPtr? LoadLibraryWAddr64; // Critical system libraries are always initialized at the same address
 
-        private Dictionary<string, IntPtr> DllProcOffsets64 { get; }
-        private Dictionary<string, IntPtr> DllProcOffsets32 { get; }
+        private Dictionary<string, IntPtr> DllProcOffsets64 { get; } = new();
+        private Dictionary<string, IntPtr> DllProcOffsets32 { get; } = new();
 
         public LoadLibraryDllInjector()
         {
-            if(Environment.Is64BitProcess)
+            if (Environment.Is64BitProcess)
                 LoadLibraryWAddr64 = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryW");
             else
                 LoadLibraryWAddr32 = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryW");
-            //LoadLibraryWAddr32 = new IntPtr(0x764ed8a0);
             if (LoadLibraryWAddr64 == IntPtr.Zero || LoadLibraryWAddr32 == IntPtr.Zero) throw GetLastError().GetException();
 
-            var DllPath64 = Path.Combine(Directory.GetCurrentDirectory(), DllName64);
-            var DllPath32 = Path.Combine(Directory.GetCurrentDirectory(), DllName32);
-
-            DllProcOffsets64 = new();
-            DllProcOffsets32 = new();
-
-            PopulateOffsetMap(DllPath64, DllProcOffsets64);
-            PopulateOffsetMap(DllPath32, DllProcOffsets32);
+            PopulateOffsetMap(Path.Combine(Directory.GetCurrentDirectory(), IDllInjector.DllName64), DllProcOffsets64);
+            PopulateOffsetMap(Path.Combine(Directory.GetCurrentDirectory(), IDllInjector.DllName32), DllProcOffsets32);
         }
 
-        private void PopulateOffsetMap(string dllPath, Dictionary<string, IntPtr> offsets)
+        private async void PopulateOffsetMap(string dllPath, Dictionary<string, IntPtr> offsets)
         {
-            //TODO: Add dialog if file not found
-            var pe = new PeFile(dllPath);
-            if(pe.ExportedFunctions is not null)
+            try
             {
-                foreach(var export in pe.ExportedFunctions)
+                var pe = new PeFile(dllPath);
+                if(pe.ExportedFunctions is not null)
                 {
-                    if(export.Name is not null)
-                        offsets.Add(export.Name, new IntPtr(export.Address));
+                    foreach(var export in pe.ExportedFunctions)
+                    {
+                        if(export.Name is not null)
+                            offsets.Add(export.Name, new IntPtr(export.Address));
+                    }
                 }
+            } catch (FileNotFoundException)
+            {
+                var dialog = new TextBlock
+                {
+                    Text = string.Format(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "CorruptInstallationMissingFileText", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, dllPath),
+                    TextWrapping = TextWrapping.Wrap,
+                };
+
+                App.DeferredContentDialogs.Enqueue(new SimpleContentDialogCreateOptions
+                {
+                    Title = LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "CorruptInstallation", LocalizeDictionary.CurrentCulture) as string ?? string.Empty,
+                    Content = dialog,
+                    CloseButtonText = LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "Ok", LocalizeDictionary.CurrentCulture) as string ?? string.Empty,
+                });
             }
         }
 
@@ -72,7 +80,7 @@ namespace HideMyWindows.App.Services.DllInjector
         public IntPtr InjectDll(Process process)
         {
             if (process.HasExited) return IntPtr.Zero;
-            var DllPath = Path.Combine(Directory.GetCurrentDirectory(), IsProcess64Bit(process) ? DllName64 : DllName32);
+            var DllPath = Path.Combine(Directory.GetCurrentDirectory(), IsProcess64Bit(process) ? IDllInjector.DllName64 : IDllInjector.DllName32);
 
             var memSize = Encoding.Unicode.GetByteCount(DllPath);
             var mem = VirtualAllocEx(process.Handle, IntPtr.Zero, memSize, MEM_ALLOCATION_TYPE.MEM_RESERVE | MEM_ALLOCATION_TYPE.MEM_COMMIT, MEM_PROTECTION.PAGE_READWRITE);
@@ -209,7 +217,7 @@ namespace HideMyWindows.App.Services.DllInjector
 
         public void InvokeDllMethod(Process process, IntPtr handle, string methodName, byte[] parameter)
         {
-            var DllPath = Path.Combine(Directory.GetCurrentDirectory(), IsProcess64Bit(process) ? DllName64 : DllName32);
+            var DllPath = Path.Combine(Directory.GetCurrentDirectory(), IsProcess64Bit(process) ? IDllInjector.DllName64 : IDllInjector.DllName32);
 
             if (!IsProcess64Bit(process))
             {

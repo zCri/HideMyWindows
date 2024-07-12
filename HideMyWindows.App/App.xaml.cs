@@ -32,6 +32,7 @@ namespace HideMyWindows.App
     /// </summary>
     public partial class App
     {
+        public static readonly Queue<SimpleContentDialogCreateOptions> DeferredContentDialogs = new();
 
         // The.NET Generic Host provides dependency injection, configuration, logging, and other services.
         // https://docs.microsoft.com/dotnet/core/extensions/generic-host
@@ -95,7 +96,6 @@ namespace HideMyWindows.App
                     };
                 });
                 
-                //TODO: Fix MSBuild
                 services.AddHostedService<WindowRulesMatcherService>();
                 services.AddHostedService<MailslotIPCService>();
             }).Build();

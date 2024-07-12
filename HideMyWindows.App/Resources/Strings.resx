@@ -135,6 +135,14 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="CorruptInstallation" xml:space="preserve">
+    <value>Your installation of HideMyWindows is corrupt</value>
+  </data>
+  <data name="CorruptInstallationMissingFileText" xml:space="preserve">
+    <value>It looks like your installation of HideMyWindows is corrupt. You are missing an important file that is needed for the application to run properly.
+File path: {0}
+Consider reinstalling the application to ensure its correct functionality.</value>
+  </data>
   <data name="Dark" xml:space="preserve">
     <value>Dark</value>
   </data>

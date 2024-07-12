@@ -7,6 +7,7 @@ using HideMyWindows.App.Controls;
 using HideMyWindows.App.Services;
 using HideMyWindows.App.Services.ConfigProvider;
 using System.Collections.ObjectModel;
+using Wpf.Ui;
 using Wpf.Ui.Controls;
 using WPFLocalizeExtension.Engine;
 using static Vanara.PInvoke.Kernel32;
@@ -48,7 +49,12 @@ namespace HideMyWindows.App.ViewModels.Windows
                     ConfigProvider.Config!.VersionWarningAcknowledged = true;
                     ConfigProvider.Save();
                 }
-                
+            }
+
+            while (App.DeferredContentDialogs.Count > 0)
+            {
+                var contentDialog = App.DeferredContentDialogs.Dequeue();
+                await ContentDialogService.ShowSimpleDialogAsync(contentDialog);
             }
         }
 

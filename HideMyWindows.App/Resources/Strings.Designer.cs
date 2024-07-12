@@ -115,6 +115,26 @@ namespace HideMyWindows.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your installation of HideMyWindows is corrupt.
+        /// </summary>
+        public static string CorruptInstallation {
+            get {
+                return ResourceManager.GetString("CorruptInstallation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It looks like your installation of HideMyWindows is corrupt. You are missing an important file that is needed for the application to run properly.
+        ///File path: {0}
+        ///Consider reinstalling the application to ensure its correct functionality..
+        /// </summary>
+        public static string CorruptInstallationMissingFileText {
+            get {
+                return ResourceManager.GetString("CorruptInstallationMissingFileText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dark.
         /// </summary>
         public static string Dark {
