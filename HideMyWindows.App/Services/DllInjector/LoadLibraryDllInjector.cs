@@ -36,20 +36,21 @@ namespace HideMyWindows.App.Services.DllInjector
             PopulateOffsetMap(Path.Combine(Directory.GetCurrentDirectory(), IDllInjector.DllName32), DllProcOffsets32);
         }
 
-        private async void PopulateOffsetMap(string dllPath, Dictionary<string, IntPtr> offsets)
+        private void PopulateOffsetMap(string dllPath, Dictionary<string, IntPtr> offsets)
         {
             try
             {
                 var pe = new PeFile(dllPath);
-                if(pe.ExportedFunctions is not null)
+                if (pe.ExportedFunctions is not null)
                 {
-                    foreach(var export in pe.ExportedFunctions)
+                    foreach (var export in pe.ExportedFunctions)
                     {
-                        if(export.Name is not null)
+                        if (export.Name is not null)
                             offsets.Add(export.Name, new IntPtr(export.Address));
                     }
                 }
-            } catch (FileNotFoundException)
+            }
+            catch (FileNotFoundException)
             {
                 var dialog = new TextBlock
                 {
@@ -129,7 +130,7 @@ namespace HideMyWindows.App.Services.DllInjector
                             var hThread = OpenThread(0x0002, false, (uint)sThread.Id); // THREAD_SUSPEND_RESUME
                             if (hThread.IsNull) throw GetLastError().GetException();
 
-                            ResumeThread(hThread);
+                            if (ResumeThread(hThread) == unchecked((uint) -1)) throw GetLastError().GetException();
                         }
                     }
                 }

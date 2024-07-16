@@ -9,6 +9,7 @@ using HideMyWindows.App.Services.ConfigProvider;
 using System.Collections.ObjectModel;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
+using Wpf.Ui.Extensions;
 using WPFLocalizeExtension.Engine;
 using static Vanara.PInvoke.Kernel32;
 

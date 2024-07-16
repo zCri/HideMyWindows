@@ -11,6 +11,7 @@ using Vanara.PInvoke;
 using HideMyWindows.App.Controls;
 using HideMyWindows.App.Services.WindowHider;
 using WPFLocalizeExtension.Engine;
+using Wpf.Ui.Extensions;
 
 namespace HideMyWindows.App.ViewModels.Pages
 {
