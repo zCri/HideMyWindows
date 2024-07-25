@@ -74,7 +74,7 @@ namespace HideMyWindows.App.Services
                         }
                         catch (Exception ex)
                         {
-                            SnackbarService.Show(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "AnErrorOccurred", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, ex.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+                            SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), ex.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
                         }
                     }
                 }
@@ -110,7 +110,7 @@ namespace HideMyWindows.App.Services
                         }
                         catch (Exception ex)
                         {
-                            SnackbarService.Show(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "AnErrorOccurred", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, ex.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+                            SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), ex.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
                         }
                     }
                 }

@@ -196,11 +196,11 @@ namespace HideMyWindows.App.ViewModels.Pages
                     }
                     catch (ArgumentException e)
                     {
-                        SnackbarService.Show(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "NoProcessFound", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, e.Message, ControlAppearance.Info, new SymbolIcon(SymbolRegular.Search24));
+                        SnackbarService.Show(LocalizationUtils.GetString("NoProcessFound"), e.Message, ControlAppearance.Info, new SymbolIcon(SymbolRegular.Search24));
                     }
                     catch (Exception e)
                     {
-                        SnackbarService.Show(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "AnErrorOccurred", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+                        SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
                     }
 
                 }

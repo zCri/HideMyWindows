@@ -58,10 +58,10 @@ namespace HideMyWindows.App.ViewModels.Pages
             };
 
             var result = await ContentDialogService.ShowSimpleDialogAsync(new() {
-                Title = LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "EditEntry", LocalizeDictionary.CurrentCulture) as string ?? string.Empty,
+                Title = LocalizationUtils.GetString("EditEntry"),
                 Content = editControl,
-                PrimaryButtonText = LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "Edit", LocalizeDictionary.CurrentCulture) as string ?? string.Empty,
-                CloseButtonText = LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "Cancel", LocalizeDictionary.CurrentCulture) as string ?? string.Empty,
+                PrimaryButtonText = LocalizationUtils.GetString("Edit"),
+                CloseButtonText = LocalizationUtils.GetString("Cancel"),
             });
 
             if (result == ContentDialogResult.Primary)
@@ -97,7 +97,7 @@ namespace HideMyWindows.App.ViewModels.Pages
             }
             catch (Exception e)
             {
-                SnackbarService.Show(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "AnErrorOccurred", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+                SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
             }
         }
 

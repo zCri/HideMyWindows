@@ -54,15 +54,15 @@ namespace HideMyWindows.App.Services.DllInjector
             {
                 var dialog = new TextBlock
                 {
-                    Text = string.Format(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "CorruptInstallationMissingFileText", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, dllPath),
+                    Text = string.Format(LocalizationUtils.GetString("CorruptInstallationMissingFileText"), dllPath),
                     TextWrapping = TextWrapping.Wrap,
                 };
 
                 App.DeferredContentDialogs.Enqueue(new SimpleContentDialogCreateOptions
                 {
-                    Title = LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "CorruptInstallation", LocalizeDictionary.CurrentCulture) as string ?? string.Empty,
+                    Title = LocalizationUtils.GetString("CorruptInstallation"),
                     Content = dialog,
-                    CloseButtonText = LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "Ok", LocalizeDictionary.CurrentCulture) as string ?? string.Empty,
+                    CloseButtonText = LocalizationUtils.GetString("Ok"),
                 });
             }
         }

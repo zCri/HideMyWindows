@@ -38,7 +38,7 @@ namespace HideMyWindows.App.Services.ConfigProvider
                 catch (Exception e) when (e is JsonException or IOException)
                 {
                     // "Error while loading the configuration, will fallback to default configuration, saving will overwrite the old one."
-                    SnackbarService.Show(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "AnErrorOccurred", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "ErrorWhileLoadingTheConfiguration", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+                    SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), LocalizationUtils.GetString("ErrorWhileLoadingTheConfiguration"), ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
                     Config = new();
                 }
             else
@@ -56,7 +56,7 @@ namespace HideMyWindows.App.Services.ConfigProvider
                 File.WriteAllText(path, json);
             } catch (Exception e) when (e is JsonException or IOException)
             {
-                SnackbarService.Show(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "AnErrorOccurred", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+                SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
             }
         }
     }

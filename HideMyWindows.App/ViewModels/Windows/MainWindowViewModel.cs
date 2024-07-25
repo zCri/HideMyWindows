@@ -4,6 +4,7 @@
 // All Rights Reserved.
 
 using HideMyWindows.App.Controls;
+using HideMyWindows.App.Helpers;
 using HideMyWindows.App.Services;
 using HideMyWindows.App.Services.ConfigProvider;
 using System.Collections.ObjectModel;
@@ -40,9 +41,9 @@ namespace HideMyWindows.App.ViewModels.Windows
 
                 await ContentDialogService.ShowSimpleDialogAsync(new SimpleContentDialogCreateOptions
                 {
-                    Title = LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "WindowsVersionIncompatible", LocalizeDictionary.CurrentCulture) as string ?? string.Empty,
+                    Title = LocalizationUtils.GetString("WindowsVersionIncompatible"),
                     Content = dialog,
-                    CloseButtonText = LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "Ok", LocalizeDictionary.CurrentCulture) as string ?? string.Empty,
+                    CloseButtonText = LocalizationUtils.GetString("Ok"),
                 });
 
                 if(dialog.Acknowledged == true)
@@ -67,19 +68,19 @@ namespace HideMyWindows.App.ViewModels.Windows
         {
             new NavigationViewItem()
             {
-                Content = LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "Home", LocalizeDictionary.CurrentCulture),
+                Content = LocalizationUtils.GetString("Home"),
                 Icon = new SymbolIcon { Symbol = SymbolRegular.Home24 },
                 TargetPageType = typeof(Views.Pages.DashboardPage)
             },
             new NavigationViewItem()
             {
-                Content = LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "QuickLaunch", LocalizeDictionary.CurrentCulture),
+                Content = LocalizationUtils.GetString("QuickLaunch"),
                 Icon = new SymbolIcon { Symbol = SymbolRegular.Rocket24 },
                 TargetPageType = typeof(Views.Pages.QuickLaunchPage)
             },
             new NavigationViewItem()
             {
-                Content = LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "WindowRules", LocalizeDictionary.CurrentCulture),
+                Content = LocalizationUtils.GetString("WindowRules"),
                 Icon = new SymbolIcon { Symbol = SymbolRegular.List24 },
                 TargetPageType = typeof(Views.Pages.WindowRulesPage)
             }
@@ -90,7 +91,7 @@ namespace HideMyWindows.App.ViewModels.Windows
         {
             new NavigationViewItem()
             {
-                Content = LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "Settings", LocalizeDictionary.CurrentCulture),
+                Content = LocalizationUtils.GetString("Settings"),
                 Icon = new SymbolIcon { Symbol = SymbolRegular.Settings24 },
                 TargetPageType = typeof(Views.Pages.SettingsPage)
             }
