@@ -288,11 +288,29 @@ namespace HideMyWindows.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Missing permissions.
+        /// </summary>
+        public static string MissingPermissions {
+            get {
+                return ResourceManager.GetString("MissingPermissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name (can be left empty).
         /// </summary>
         public static string Name_CanBeLeftEmpty {
             get {
                 return ResourceManager.GetString("Name_CanBeLeftEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to run HideMyWindows as administrator to use the WMI Process Trace process watcher..
+        /// </summary>
+        public static string NeedAdminForWMIProcessTraceProcessWatcher {
+            get {
+                return ResourceManager.GetString("NeedAdminForWMIProcessTraceProcessWatcher", resourceCulture);
             }
         }
         

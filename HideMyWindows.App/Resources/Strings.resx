@@ -194,8 +194,14 @@ Consider reinstalling the application to ensure its correct functionality.</valu
   <data name="Light" xml:space="preserve">
     <value>Light</value>
   </data>
+  <data name="MissingPermissions" xml:space="preserve">
+    <value>Missing permissions</value>
+  </data>
   <data name="Name_CanBeLeftEmpty" xml:space="preserve">
     <value>Name (can be left empty)</value>
+  </data>
+  <data name="NeedAdminForWMIProcessTraceProcessWatcher" xml:space="preserve">
+    <value>You need to run HideMyWindows as administrator to use the WMI Process Trace process watcher.</value>
   </data>
   <data name="NoProcessFound" xml:space="preserve">
     <value>No process found</value>

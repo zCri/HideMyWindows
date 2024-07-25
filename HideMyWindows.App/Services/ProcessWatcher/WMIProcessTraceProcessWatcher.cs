@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Management;
+using WPFLocalizeExtension.Engine;
 
 namespace HideMyWindows.App.Services.ProcessWatcher
 {
@@ -62,7 +63,7 @@ namespace HideMyWindows.App.Services.ProcessWatcher
             }
             catch (ManagementException)
             {
-                NotificationsService.AddNotification("Missing permissions", "Need admin permissions to use WMI Process Trace process watcher.", Wpf.Ui.Controls.InfoBarSeverity.Warning);
+                NotificationsService.AddNotification(LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "MissingPermissions", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, LocalizeDictionary.Instance.GetLocalizedObject("HideMyWindows.App", "Strings", "NeedAdminForWMIProcessTraceProcessWatcher", LocalizeDictionary.CurrentCulture) as string ?? string.Empty, Wpf.Ui.Controls.InfoBarSeverity.Warning);
                 // Not running as admin
             }
         }

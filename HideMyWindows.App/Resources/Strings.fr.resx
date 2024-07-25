@@ -194,8 +194,14 @@ Envisagez de réinstaller l'application pour garantir son bon fonctionnement.</v
   <data name="Light" xml:space="preserve">
     <value>Clair</value>
   </data>
+  <data name="MissingPermissions" xml:space="preserve">
+    <value>Permissions manquantes</value>
+  </data>
   <data name="Name_CanBeLeftEmpty" xml:space="preserve">
     <value>Nom (peut être laissé vide)</value>
+  </data>
+  <data name="NeedAdminForWMIProcessTraceProcessWatcher" xml:space="preserve">
+    <value>Vous devez exécuter HideMyWindows en tant qu'administrateur pour utiliser l'observateur de processus WMI Process Trace.</value>
   </data>
   <data name="NoProcessFound" xml:space="preserve">
     <value>Aucun processus trouvé</value>
