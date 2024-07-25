@@ -22,6 +22,7 @@ namespace HideMyWindows.App.Services.WindowWatcher
 
     public enum WindowWatcherType
     {
-        UIAutomationWindowWatcher
+        UIAutomationWindowWatcher,
+        ShellHookWindowWatcher
     }
 }

@@ -28,6 +28,7 @@ namespace HideMyWindows.App.Services.WindowWatcher
         {
             Automation.AddAutomationEventHandler(WindowPattern.WindowOpenedEvent, AutomationElement.RootElement, TreeScope.Descendants, AutomationCreatedEventArrived);
             Automation.AddAutomationEventHandler(WindowPattern.WindowClosedEvent, AutomationElement.RootElement, TreeScope.Descendants, AutomationDestroyedEventArrived);
+            IsWatching = true;
         }
 
         private WindowWatchedEventArgs GetEventArgs(AutomationElement element)

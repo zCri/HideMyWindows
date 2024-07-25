@@ -83,7 +83,6 @@ namespace HideMyWindows.App
                     };
                 });
 
-                //TODO: Win32 hooks ?
                 services.AddSingleton<IWindowWatcher>((serviceProvider) =>
                 {
                     var configProvider = serviceProvider.GetRequiredService<IConfigProvider>();
@@ -92,6 +91,7 @@ namespace HideMyWindows.App
                     return configProvider.Config!.WindowWatcherType switch
                     {
                         WindowWatcherType.UIAutomationWindowWatcher => (IWindowWatcher)ActivatorUtilities.CreateInstance(serviceProvider, typeof(UIAutomationWindowWatcher)),
+                        WindowWatcherType.ShellHookWindowWatcher => (IWindowWatcher)ActivatorUtilities.CreateInstance(serviceProvider, typeof(ShellHookWindowWatcher)),
                         _ => throw new NotImplementedException()
                     };
                 });

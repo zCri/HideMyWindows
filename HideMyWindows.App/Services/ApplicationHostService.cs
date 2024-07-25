@@ -4,6 +4,7 @@
 // All Rights Reserved.
 
 using HideMyWindows.App.Services.ConfigProvider;
+using HideMyWindows.App.Services.WindowWatcher;
 using HideMyWindows.App.Views.Pages;
 using HideMyWindows.App.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
@@ -70,6 +71,11 @@ namespace HideMyWindows.App.Services
                 {
                     var interop = new WindowInteropHelper((Window)window);
                     var hwnd = interop.EnsureHandle();
+
+                    if(window == Application.Current.MainWindow && _serviceProvider.GetRequiredService(typeof(IWindowWatcher)) is ShellHookWindowWatcher windowWatcher)
+                    {
+                        windowWatcher.Initialize(hwnd);
+                    }
 
                     SetWindowDisplayAffinity(hwnd, configProvider?.Config?.HideSelf ?? true ? (WindowDisplayAffinity)0x11 : WindowDisplayAffinity.WDA_NONE);
                 }
