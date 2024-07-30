@@ -11,7 +11,7 @@ bool hideAllWindows = false;
 bool followChildProcesses = false;
 
 HANDLE hMailslot;
-
+//TODO: rewrite
 LPSTR GetLastErrorAsString()
 {
     //Get the error message ID, if any.

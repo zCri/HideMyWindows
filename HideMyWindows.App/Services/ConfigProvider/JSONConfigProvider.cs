@@ -37,7 +37,6 @@ namespace HideMyWindows.App.Services.ConfigProvider
                 }
                 catch (Exception e) when (e is JsonException or IOException)
                 {
-                    // "Error while loading the configuration, will fallback to default configuration, saving will overwrite the old one."
                     SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), LocalizationUtils.GetString("ErrorWhileLoadingTheConfiguration"), ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
                     Config = new();
                 }
