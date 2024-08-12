@@ -22,6 +22,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Windows.Threading;
+using Vanara.PInvoke;
 using WPFLocalizeExtension.Engine;
 using static Vanara.PInvoke.Kernel32;
 
@@ -98,6 +99,7 @@ namespace HideMyWindows.App
                 
                 services.AddHostedService<WindowRulesMatcherService>();
                 services.AddHostedService<MailslotIPCService>();
+                //TODO: Arm support? (late)
             }).Build();
 
         /// <summary>
@@ -117,7 +119,7 @@ namespace HideMyWindows.App
         private void OnStartup(object sender, StartupEventArgs e)
         {
             LocalizeDictionary.Instance.Culture = CultureInfo.CurrentUICulture;
-            var hMailslot = CreateFile(@"\\.\mailslot\HideMyWindowsMailslot", Vanara.PInvoke.Kernel32.FileAccess.GENERIC_WRITE, 0, null, FileMode.Open, 0, null);
+            var hMailslot = CreateFile(@"\\.\mailslot\HideMyWindowsMailslot", Vanara.PInvoke.Kernel32.FileAccess.GENERIC_WRITE, 0, null, FileMode.Open, 0, HFILE.NULL);
             if (!hMailslot.IsInvalid)
             {
                 var bytes = Encoding.Unicode.GetBytes("0");

@@ -8,6 +8,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <LangVersion>12</LangVersion>
+    <Platforms>AnyCPU;x64;x86;ARM32;ARM64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,7 +32,7 @@
     <None Remove="Assets\wpfui-icon-256.png" />
     <None Remove="Assets\wpfui-icon-1024.png" />
   </ItemGroup>
-
+  
   <Target Name="BuildDLLs" BeforeTargets="ResolveProjectReferences">
     <MSBuild Projects="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" Properties="Platform=Win32" BuildInParallel="$(BuildInParallel)" ContinueOnError="$(ContinueOnError)" />
     
@@ -39,17 +41,21 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" AdditionalProperties="Platform=Win32">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <SetPlatform>Platform=Win32</SetPlatform>
       <Private>True</Private>
       <OutputItemType>Content</OutputItemType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Targets>%(_MSBuildProjectReferenceExistent.Targets);BuiltProjectOutputGroup</Targets> <!-- Important (see https://github.com/dotnet/msbuild/issues/2823) -->
     </ProjectReference>
 
     <ProjectReference Include="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" AdditionalProperties="Platform=x64">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <SetPlatform>Platform=x64</SetPlatform>
       <Private>True</Private>
       <OutputItemType>Content</OutputItemType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Targets>%(_MSBuildProjectReferenceExistent.Targets);BuiltProjectOutputGroup</Targets> <!-- Important (see https://github.com/dotnet/msbuild/issues/2823) -->
     </ProjectReference>
   </ItemGroup>
 
