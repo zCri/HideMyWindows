@@ -21,8 +21,8 @@ namespace HideMyWindows.App.Services.DllInjector
         private IntPtr? LoadLibraryWAddr32; // Critical system libraries are always initialized at the same address
         private IntPtr? LoadLibraryWAddr64; // Critical system libraries are always initialized at the same address
 
-        private Dictionary<string, IntPtr> DllProcOffsets64 { get; } = new();
-        private Dictionary<string, IntPtr> DllProcOffsets32 { get; } = new();
+        private Dictionary<string, IntPtr> DllProcOffsets64 { get; } = [];
+        private Dictionary<string, IntPtr> DllProcOffsets32 { get; } = [];
 
         public LoadLibraryDllInjector()
         {

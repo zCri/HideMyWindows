@@ -66,10 +66,12 @@ namespace HideMyWindows.App.Services.WindowWatcher
         {
             var titleLen = GetWindowTextLength(hwnd) + 1;
             var titleBuilder = new StringBuilder(titleLen);
+#pragma warning disable CS0642 // Possible mistaken empty statement
             if (GetWindowText(hwnd, titleBuilder, titleLen) == 0) ; // Ignore
 
             var classBuilder = new StringBuilder(1024);
             if (GetClassName(hwnd, classBuilder, 1024) == 0) ; // Ignore
+#pragma warning restore CS0642 // Possible mistaken empty statement
 
             return new WindowWatchedEventArgs
             {

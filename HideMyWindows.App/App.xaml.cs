@@ -118,6 +118,12 @@ namespace HideMyWindows.App
         /// </summary>
         private void OnStartup(object sender, StartupEventArgs e)
         {
+            var currentDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
+            if (currentDirectory is not null)
+            {
+                Directory.SetCurrentDirectory(currentDirectory);
+            }
+
             LocalizeDictionary.Instance.Culture = CultureInfo.CurrentUICulture;
             var hMailslot = CreateFile(@"\\.\mailslot\HideMyWindowsMailslot", Vanara.PInvoke.Kernel32.FileAccess.GENERIC_WRITE, 0, null, FileMode.Open, 0, HFILE.NULL);
             if (!hMailslot.IsInvalid)
