@@ -11,8 +11,7 @@ namespace HideMyWindows.App.Services.ConfigProvider
     {
         private ISnackbarService SnackbarService { get; }
 
-        // TODO: Needs to be dynamic to adapt for installer or portable installations
-        public string ConfigPath { get; set; } = Environment.ExpandEnvironmentVariables(Path.Join("%USERPROFILE%", "Downloads", "HideMyWindowsTest", "HideMyWindows.json"));
+        public string ConfigPath { get; set; } = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "HideMyWindows", "HideMyWindows.json");
         public Config? Config { get; set; }
 
         private JsonSerializerOptions JsonOptions { get; }
