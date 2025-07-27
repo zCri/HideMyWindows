@@ -33,10 +33,18 @@ namespace HideMyWindows.App.Services.WindowClickFinder
 
                 var titleLen = GetWindowTextLength(hwnd) + 1;
                 var titleBuilder = new StringBuilder(titleLen);
-                if(GetWindowText(hwnd, titleBuilder, titleLen) == 0) throw GetLastError().GetException();
+                if(GetWindowText(hwnd, titleBuilder, titleLen) == 0)
+                {
+                    var error = GetLastError().GetException();
+                    if (error is not null) throw error;
+                }
 
                 var classBuilder = new StringBuilder(1024);
-                if (GetClassName(hwnd, classBuilder, 1024) == 0) throw GetLastError().GetException();
+                if (GetClassName(hwnd, classBuilder, 1024) == 0)
+                {
+                    var error = GetLastError().GetException();
+                    if (error is not null) throw error;
+                }
 
                 GetWindowThreadProcessId(hwnd, out var pid);
 

@@ -100,7 +100,7 @@ namespace HideMyWindows.App
                 services.AddHostedService<WindowRulesMatcherService>();
                 services.AddHostedService<MailslotIPCService>();
                 //TODO: Arm support? (late)
-                //TODO: test functionality on msix app (maybe needs to run full trust?)
+                //todo: tray icon
             }).Build();
 
         /// <summary>
