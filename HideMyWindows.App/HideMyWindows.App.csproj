@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>wpfui-icon.ico</ApplicationIcon>
     <Nullable>enable</Nullable>
@@ -17,14 +17,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="PeNet" Version="4.0.5" />
-    <PackageReference Include="System.Management" Version="8.0.0" />
-    <PackageReference Include="Vanara.Core" Version="4.0.2" />
-    <PackageReference Include="Vanara.PInvoke.Kernel32" Version="4.0.2" />
-    <PackageReference Include="Vanara.PInvoke.User32" Version="4.0.2" />
-    <PackageReference Include="WPF-UI" Version="3.0.4" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="PeNet" Version="5.1.0" />
+    <PackageReference Include="System.Management" Version="9.0.7" />
+    <PackageReference Include="Vanara.Core" Version="4.1.6" />
+    <PackageReference Include="Vanara.PInvoke.Kernel32" Version="4.1.6" />
+    <PackageReference Include="Vanara.PInvoke.User32" Version="4.1.6" />
+    <PackageReference Include="WPF-UI" Version="4.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.7" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="WPF-UI.DependencyInjection" Version="4.0.3" />
+    <PackageReference Include="WPF-UI.Tray" Version="4.0.3" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.10.0" />
   </ItemGroup>
 

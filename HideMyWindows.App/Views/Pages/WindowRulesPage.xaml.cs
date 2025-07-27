@@ -4,7 +4,7 @@
 // All Rights Reserved.
 
 using HideMyWindows.App.ViewModels.Pages;
-using Wpf.Ui.Controls;
+using Wpf.Ui.Abstractions.Controls;
 
 namespace HideMyWindows.App.Views.Pages
 {

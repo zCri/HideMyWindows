@@ -23,6 +23,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Threading;
 using Vanara.PInvoke;
+using Wpf.Ui.DependencyInjection;
 using WPFLocalizeExtension.Engine;
 using static Vanara.PInvoke.Kernel32;
 
@@ -45,9 +46,10 @@ namespace HideMyWindows.App
             .ConfigureAppConfiguration(c => { c.SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location) ?? string.Empty); })
             .ConfigureServices((context, services) =>
             {
+                services.AddNavigationViewPageProvider();
                 services.AddHostedService<ApplicationHostService>();
 
-                services.AddSingleton<MainWindow>();
+                services.AddSingleton<INavigationWindow, MainWindow>();
                 services.AddSingleton<MainWindowViewModel>();
                 services.AddSingleton<INavigationService, NavigationService>();
                 services.AddSingleton<ISnackbarService, SnackbarService>();
@@ -100,7 +102,7 @@ namespace HideMyWindows.App
                 services.AddHostedService<WindowRulesMatcherService>();
                 services.AddHostedService<MailslotIPCService>();
                 //TODO: Arm support? (late)
-                //todo: tray icon
+                //TODO: tray icon
             }).Build();
 
         /// <summary>

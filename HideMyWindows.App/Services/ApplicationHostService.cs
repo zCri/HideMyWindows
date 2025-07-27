@@ -54,8 +54,12 @@ namespace HideMyWindows.App.Services
 
             if (!Application.Current.Windows.OfType<MainWindow>().Any())
             {
-                var navigationWindow = _serviceProvider.GetRequiredService<MainWindow>();
-                navigationWindow.Loaded += OnNavigationWindowLoaded;
+                var navigationWindow = (
+                    _serviceProvider.GetService(typeof(INavigationWindow)) as INavigationWindow
+                )!;
+                navigationWindow!.ShowWindow();
+
+                navigationWindow.Navigate(typeof(DashboardPage));
 
                 var configProvider = _serviceProvider.GetService<IConfigProvider>();
                 configProvider?.Load();
@@ -80,19 +84,8 @@ namespace HideMyWindows.App.Services
                     SetWindowDisplayAffinity(hwnd, configProvider?.Config?.HideSelf ?? true ? (WindowDisplayAffinity)0x11 : WindowDisplayAffinity.WDA_NONE);
                 }
 
-                navigationWindow.Show();
                 ApplicationThemeManager.Apply(configProvider?.Config?.CurrentTheme ?? ApplicationThemeManager.GetAppTheme());
             }
-        }
-
-        private void OnNavigationWindowLoaded(object sender, RoutedEventArgs e)
-        {
-            if (sender is not MainWindow navigationWindow)
-            {
-                return;
-            }
-
-            navigationWindow.NavigationView.Navigate(typeof(DashboardPage));
         }
     }
 }

@@ -4,18 +4,20 @@
 // All Rights Reserved.
 
 using HideMyWindows.App.ViewModels.Windows;
+using Wpf.Ui.Abstractions;
 using Wpf.Ui.Appearance;
+using Wpf.Ui.Controls;
 
 namespace HideMyWindows.App.Views.Windows
 {
-    public partial class MainWindow
+    public partial class MainWindow : INavigationWindow
     {
         public MainWindowViewModel ViewModel { get; }
 
         public MainWindow(
             MainWindowViewModel viewModel,
             INavigationService navigationService,
-            IServiceProvider serviceProvider,
+            INavigationViewPageProvider navigationViewPageProvider,
             ISnackbarService snackbarService,
             IContentDialogService contentDialogService
         )
@@ -27,13 +29,32 @@ namespace HideMyWindows.App.Views.Windows
 
             InitializeComponent();
 
-            navigationService.SetNavigationControl(NavigationView);
             snackbarService.SetSnackbarPresenter(SnackbarPresenter);
             contentDialogService.SetDialogHost(RootContentDialog);
 
-            NavigationView.SetServiceProvider(serviceProvider);
+            navigationService.SetNavigationControl(NavigationView);
+            SetPageService(navigationViewPageProvider);
 
             ViewModel.Initialize();
         }
+
+        #region INavigationWindow methods
+
+        public INavigationView GetNavigation() => NavigationView;
+
+        public bool Navigate(Type pageType) => NavigationView.Navigate(pageType);
+
+        public void SetPageService(INavigationViewPageProvider navigationViewPageProvider) => NavigationView.SetPageProviderService(navigationViewPageProvider);
+
+        public void ShowWindow() => Show();
+
+        public void CloseWindow() => Close();
+
+        public void SetServiceProvider(IServiceProvider serviceProvider)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion INavigationWindow methods
     }
 }

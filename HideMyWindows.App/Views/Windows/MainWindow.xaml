@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:HideMyWindows.App.Views.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
     Title="{Binding ViewModel.ApplicationTitle, Mode=OneWay}"
     Width="1100"
     Height="650"
@@ -64,5 +65,14 @@
         </ui:NavigationView>
 
         <ContentPresenter x:Name="RootContentDialog" Grid.Row="0" />
+
+        <tray:NotifyIcon
+            Grid.Row="0"
+            x:Name="NotifyIcon"
+            FocusOnLeftClick="True"
+            Icon="pack://application:,,,/Assets/wpfui-icon-256.png"
+            MenuOnRightClick="True"
+            TooltipText="HideMyWindows">
+        </tray:NotifyIcon>
     </Grid>
 </ui:FluentWindow>
