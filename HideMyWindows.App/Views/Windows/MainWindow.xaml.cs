@@ -4,6 +4,7 @@
 // All Rights Reserved.
 
 using HideMyWindows.App.ViewModels.Windows;
+using System.Windows.Controls;
 using Wpf.Ui.Abstractions;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -56,5 +57,40 @@ namespace HideMyWindows.App.Views.Windows
         }
 
         #endregion INavigationWindow methods
+
+        private void ShowMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = Application.Current.MainWindow;
+
+            if (mainWindow == null)
+            {
+                return;
+            }
+
+            if (mainWindow.WindowState == WindowState.Minimized)
+            {
+                mainWindow.WindowState = WindowState.Normal;
+            }
+
+            mainWindow.Show();
+
+            if (mainWindow.Topmost)
+            {
+                mainWindow.Topmost = false;
+                mainWindow.Topmost = true;
+            }
+            else
+            {
+                mainWindow.Topmost = true;
+                mainWindow.Topmost = false;
+            }
+
+            _ = mainWindow.Focus();
+        }
+
+        private void QuitMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

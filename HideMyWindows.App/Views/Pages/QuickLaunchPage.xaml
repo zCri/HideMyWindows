@@ -47,11 +47,11 @@
                         <ui:Button.ContextMenu>
                             <!-- Binding failure but still works ? -->
                             <ContextMenu Tag="{Binding PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
-                                <MenuItem
+                                <ui:MenuItem
                                     Header="{lex:Loc Remove}"
                                     Command="{Binding Parent.Tag.ViewModel.RemoveQuickLaunchEntryCommand, RelativeSource={RelativeSource Self}}"
                                     CommandParameter="{Binding}"/>
-                                <MenuItem
+                                <ui:MenuItem
                                     Header="{lex:Loc Edit}"
                                     Command="{Binding Parent.Tag.ViewModel.EditQuickLaunchEntryCommand, RelativeSource={RelativeSource Self}}"
                                     CommandParameter="{Binding}"/>

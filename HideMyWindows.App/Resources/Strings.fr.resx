@@ -233,6 +233,9 @@ Envisagez de réinstaller l'application pour garantir son bon fonctionnement.</v
   <data name="QuickLaunch" xml:space="preserve">
     <value>Lancement rapide</value>
   </data>
+  <data name="Quit" xml:space="preserve">
+    <value>Quitter</value>
+  </data>
   <data name="RegexMatches" xml:space="preserve">
     <value>La regex correspond à</value>
   </data>
@@ -256,6 +259,9 @@ Envisagez de réinstaller l'application pour garantir son bon fonctionnement.</v
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Paramètres</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Montrer</value>
   </data>
   <data name="ShowThisAppInTheTaskbar" xml:space="preserve">
     <value>Afficher cette application dans la barre des tâches</value>

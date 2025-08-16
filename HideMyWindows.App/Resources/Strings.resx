@@ -233,6 +233,9 @@ Consider reinstalling the application to ensure its correct functionality.</valu
   <data name="QuickLaunch" xml:space="preserve">
     <value>Quick launch</value>
   </data>
+  <data name="Quit" xml:space="preserve">
+    <value>Quit</value>
+  </data>
   <data name="RegexMatches" xml:space="preserve">
     <value>Regex matches</value>
   </data>
@@ -256,6 +259,9 @@ Consider reinstalling the application to ensure its correct functionality.</valu
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Show</value>
   </data>
   <data name="ShowThisAppInTheTaskbar" xml:space="preserve">
     <value>Show this app in the taskbar</value>

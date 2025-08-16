@@ -53,6 +53,7 @@ namespace HideMyWindows.App.ViewModels.Pages
         {
             var editControl = new QuickLaunchEntryEditControl()
             {
+                Name = entry.Name,
                 Path = entry.Path,
                 Arguments = entry.Arguments,
             };

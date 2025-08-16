@@ -8,6 +8,7 @@ using HideMyWindows.App.Helpers;
 using HideMyWindows.App.Services;
 using HideMyWindows.App.Services.ConfigProvider;
 using System.Collections.ObjectModel;
+using Vanara.PInvoke;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
@@ -58,6 +59,18 @@ namespace HideMyWindows.App.ViewModels.Windows
                 var contentDialog = App.DeferredContentDialogs.Dequeue();
                 await ContentDialogService.ShowSimpleDialogAsync(contentDialog);
             }
+        }
+
+        [RelayCommand]
+        private void ShowWindow()
+        {
+            App.Current.MainWindow.Activate();
+        }
+
+        [RelayCommand]
+        private void QuitProgram()
+        {
+            App.Current.Shutdown();
         }
 
         [ObservableProperty]
