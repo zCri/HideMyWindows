@@ -71,14 +71,24 @@ namespace HideMyWindows.App.Services
 
                 }
 
-                foreach (var window in Application.Current.Windows)
+                foreach (var _window in Application.Current.Windows)
                 {
-                    var interop = new WindowInteropHelper((Window)window);
+                    var window = _window as Window;
+                    if (window is null) continue;
+
+                    var interop = new WindowInteropHelper(window);
                     var hwnd = interop.EnsureHandle();
 
-                    if(window == Application.Current.MainWindow && _serviceProvider.GetRequiredService(typeof(IWindowWatcher)) is ShellHookWindowWatcher windowWatcher)
+                    if (window == Application.Current.MainWindow)
                     {
-                        windowWatcher.Initialize(hwnd);
+                        if (_serviceProvider.GetRequiredService(typeof(IWindowWatcher)) is ShellHookWindowWatcher windowWatcher)
+                        {
+                            windowWatcher.Initialize(hwnd);
+                        }
+
+                        window.StateChanged += (sender, args) => {
+                            if (window.WindowState == WindowState.Minimized && configProvider!.Config!.MinimizeToTrayIcon) window.Hide();
+                        };
                     }
 
                     SetWindowDisplayAffinity(hwnd, configProvider?.Config?.HideSelf ?? true ? (WindowDisplayAffinity)0x11 : WindowDisplayAffinity.WDA_NONE);

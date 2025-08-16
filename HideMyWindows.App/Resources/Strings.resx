@@ -194,6 +194,9 @@ Consider reinstalling the application to ensure its correct functionality.</valu
   <data name="Light" xml:space="preserve">
     <value>Light</value>
   </data>
+  <data name="MinimizeToTrayIcon" xml:space="preserve">
+    <value>Minimize to tray icon</value>
+  </data>
   <data name="MissingPermissions" xml:space="preserve">
     <value>Missing permissions</value>
   </data>

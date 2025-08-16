@@ -1,6 +1,7 @@
 ﻿using HideMyWindows.App.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace HideMyWindows.App.Services.ConfigProvider
         public string ConfigPath { get; protected set; } 
         public Config? Config { get; protected set; }
 
+        [MemberNotNull(nameof(Config))]
         public void Reload(string path);
 
         public void Reload()

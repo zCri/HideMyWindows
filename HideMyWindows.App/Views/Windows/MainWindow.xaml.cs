@@ -60,32 +60,18 @@ namespace HideMyWindows.App.Views.Windows
 
         private void ShowMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var mainWindow = Application.Current.MainWindow;
+            var window = Application.Current.MainWindow;
+            if (window is null) return;
 
-            if (mainWindow == null)
-            {
-                return;
-            }
+            if (window.Visibility != Visibility.Visible)
+                window.Show();
 
-            if (mainWindow.WindowState == WindowState.Minimized)
-            {
-                mainWindow.WindowState = WindowState.Normal;
-            }
+            if (window.WindowState == WindowState.Minimized)
+                window.WindowState = WindowState.Normal;
 
-            mainWindow.Show();
-
-            if (mainWindow.Topmost)
-            {
-                mainWindow.Topmost = false;
-                mainWindow.Topmost = true;
-            }
-            else
-            {
-                mainWindow.Topmost = true;
-                mainWindow.Topmost = false;
-            }
-
-            _ = mainWindow.Focus();
+            window.Activate();
+            window.Topmost = true;
+            window.Topmost = false;
         }
 
         private void QuitMenuItem_Click(object sender, RoutedEventArgs e)

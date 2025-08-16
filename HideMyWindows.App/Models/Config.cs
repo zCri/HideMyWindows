@@ -19,6 +19,9 @@ namespace HideMyWindows.App.Models
         private bool _showInTaskbar = true;
 
         [ObservableProperty]
+        private bool _minimizeToTrayIcon = false;
+
+        [ObservableProperty]
         private bool _versionWarningAcknowledged = false;
 
         [ObservableProperty]

@@ -72,6 +72,7 @@
             FocusOnLeftClick="True"
             Icon="pack://application:,,,/Assets/wpfui-icon-256.png"
             MenuOnRightClick="True"
+            LeftClick="ShowMenuItem_Click"
             TooltipText="HideMyWindows">
             <tray:NotifyIcon.Menu>
                 <ContextMenu>

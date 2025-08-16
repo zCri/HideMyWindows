@@ -62,11 +62,16 @@
                 Margin="0,12,0,0"
                 IsChecked="{Binding ViewModel.ConfigProvider.Config.HideSelf}"
                 Content="{lex:Loc HideThisAppAutomatically}"/>
-            
+
             <ui:ToggleSwitch    
                 Margin="0,12,0,0"
                 IsChecked="{Binding ViewModel.ConfigProvider.Config.ShowInTaskbar}"
                 Content="{lex:Loc ShowThisAppInTheTaskbar}"/>
+
+            <ui:ToggleSwitch    
+                Margin="0,12,0,0"
+                IsChecked="{Binding ViewModel.ConfigProvider.Config.MinimizeToTrayIcon}"
+                Content="{lex:Loc MinimizeToTrayIcon}"/>
 
             <Label
                 Margin="0,16,0,0"

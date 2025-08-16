@@ -194,6 +194,9 @@ Envisagez de réinstaller l'application pour garantir son bon fonctionnement.</v
   <data name="Light" xml:space="preserve">
     <value>Clair</value>
   </data>
+  <data name="MinimizeToTrayIcon" xml:space="preserve">
+    <value>Réduire dans la barre d’état système</value>
+  </data>
   <data name="MissingPermissions" xml:space="preserve">
     <value>Permissions manquantes</value>
   </data>

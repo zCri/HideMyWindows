@@ -288,6 +288,15 @@ namespace HideMyWindows.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Minimize to tray icon.
+        /// </summary>
+        public static string MinimizeToTrayIcon {
+            get {
+                return ResourceManager.GetString("MinimizeToTrayIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Missing permissions.
         /// </summary>
         public static string MissingPermissions {
