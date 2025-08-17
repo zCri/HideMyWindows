@@ -1,161 +1,174 @@
 ﻿<Page
-    x:Class="HideMyWindows.App.Views.Pages.SettingsPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helpers="clr-namespace:HideMyWindows.App.Helpers"
-    xmlns:local="clr-namespace:HideMyWindows.App.Views.Pages"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:system="clr-namespace:System;assembly=mscorlib"
-    xmlns:processWatcher="clr-namespace:HideMyWindows.App.Services.ProcessWatcher"
-    xmlns:windowWatcher="clr-namespace:HideMyWindows.App.Services.WindowWatcher"
-    Title="SettingsPage"
-    d:DataContext="{d:DesignInstance local:SettingsPage,
-                                     IsDesignTimeCreatable=False}"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
-    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    xmlns:lex="http://wpflocalizeextension.codeplex.com"
-    lex:LocalizeDictionary.DesignCulture="en"
-    lex:ResxLocalizationProvider.DefaultAssembly="HideMyWindows.App"
-    lex:ResxLocalizationProvider.DefaultDictionary="Strings"
-    mc:Ignorable="d">
-    <Page.Resources>
-        <helpers:ApplicationThemeEnumToBooleanConverter x:Key="ApplicationThemeEnumToBooleanConverter"/>
-        <helpers:ProcessWatcherTypeEnumToVisibilityConverter x:Key="ProcessWatcherTypeEnumToVisibilityConverter"/>
-        <ObjectDataProvider
-            x:Key="ProcessWatcherTypeValues"
-            MethodName="GetValues"
-            ObjectType="{x:Type system:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type
-                    TypeName="processWatcher:ProcessWatcherType"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-        <ObjectDataProvider
-            x:Key="WindowWatcherTypeValues"
-            MethodName="GetValues"
-            ObjectType="{x:Type system:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type
-                    TypeName="windowWatcher:WindowWatcherType"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-    </Page.Resources>
+	x:Class="HideMyWindows.App.Views.Pages.SettingsPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:helpers="clr-namespace:HideMyWindows.App.Helpers"
+	xmlns:local="clr-namespace:HideMyWindows.App.Views.Pages"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+	xmlns:system="clr-namespace:System;assembly=mscorlib"
+	xmlns:processWatcher="clr-namespace:HideMyWindows.App.Services.ProcessWatcher"
+	xmlns:windowWatcher="clr-namespace:HideMyWindows.App.Services.WindowWatcher"
+	Title="SettingsPage"
+	d:DataContext="{d:DesignInstance local:SettingsPage,
+									 IsDesignTimeCreatable=False}"
+	d:DesignHeight="450"
+	d:DesignWidth="800"
+	ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+	ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+	Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+	xmlns:lex="http://wpflocalizeextension.codeplex.com"
+	lex:LocalizeDictionary.DesignCulture="en"
+	lex:ResxLocalizationProvider.DefaultAssembly="HideMyWindows.App"
+	lex:ResxLocalizationProvider.DefaultDictionary="Strings"
+	mc:Ignorable="d">
+	<Page.Resources>
+		<helpers:ApplicationThemeEnumToBooleanConverter x:Key="ApplicationThemeEnumToBooleanConverter"/>
+		<helpers:ProcessWatcherTypeEnumToVisibilityConverter x:Key="ProcessWatcherTypeEnumToVisibilityConverter"/>
+		<ObjectDataProvider
+			x:Key="ProcessWatcherTypeValues"
+			MethodName="GetValues"
+			ObjectType="{x:Type system:Enum}">
+			<ObjectDataProvider.MethodParameters>
+				<x:Type
+					TypeName="processWatcher:ProcessWatcherType"/>
+			</ObjectDataProvider.MethodParameters>
+		</ObjectDataProvider>
+		<ObjectDataProvider
+			x:Key="WindowWatcherTypeValues"
+			MethodName="GetValues"
+			ObjectType="{x:Type system:Enum}">
+			<ObjectDataProvider.MethodParameters>
+				<x:Type
+					TypeName="windowWatcher:WindowWatcherType"/>
+			</ObjectDataProvider.MethodParameters>
+		</ObjectDataProvider>
+	</Page.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <StackPanel
-            HorizontalAlignment="Left"
-            Grid.Row="0">
-            <TextBlock
-            FontSize="20"
-            FontWeight="Medium"
-            Text="{lex:Loc Functionality}"/>
-            <ui:ToggleSwitch                                                                               
-                Margin="0,12,0,0"
-                IsChecked="{Binding ViewModel.ConfigProvider.Config.HideSelf}"
-                Content="{lex:Loc HideThisAppAutomatically}"/>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<TabControl Grid.Row="0">
+			<TabItem IsSelected="True">
+				<TabItem.Header>
+					<TextBlock
+Text="{lex:Loc Functionality}"/>
+				</TabItem.Header>
+				<StackPanel
+	HorizontalAlignment="Left"
+	>
+					<ui:ToggleSwitch                                                                               
+		Margin="0,12,0,0"
+		IsChecked="{Binding ViewModel.ConfigProvider.Config.HideSelf}"
+		Content="{lex:Loc HideThisAppAutomatically}"/>
 
-            <ui:ToggleSwitch    
-                Margin="0,12,0,0"
-                IsChecked="{Binding ViewModel.ConfigProvider.Config.ShowInTaskbar}"
-                Content="{lex:Loc ShowThisAppInTheTaskbar}"/>
+					<ui:ToggleSwitch    
+		Margin="0,12,0,0"
+		IsChecked="{Binding ViewModel.ConfigProvider.Config.ShowInTaskbar}"
+		Content="{lex:Loc ShowThisAppInTheTaskbar}"/>
 
-            <ui:ToggleSwitch    
-                Margin="0,12,0,0"
-                IsChecked="{Binding ViewModel.ConfigProvider.Config.MinimizeToTrayIcon}"
-                Content="{lex:Loc MinimizeToTrayIcon}"/>
+					<ui:ToggleSwitch    
+		Margin="0,12,0,0"
+		IsChecked="{Binding ViewModel.ConfigProvider.Config.MinimizeToTrayIcon}"
+		Content="{lex:Loc MinimizeToTrayIcon}"/>
 
-            <Label
-                Margin="0,16,0,0"
-                Content="{lex:Loc ProcessWatchingMethod}"/>
-            <ComboBox
-                Margin="0,6,0,0"
-                ItemsSource="{Binding Source={StaticResource ProcessWatcherTypeValues}}"
-                SelectedItem="{Binding ViewModel.ProcessWatcherType}"/>
-            <Grid
-                Margin="0,6,0,0"
-                Visibility="{Binding ViewModel.ConfigProvider.Config.ProcessWatcherType, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ProcessWatcherTypeEnumToVisibilityConverter}, ConverterParameter=WMIInstanceEventProcessWatcher}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Label
-                    Grid.Row="0"
-                    Content="{lex:Loc ProcessWatcherDelay_InMilliseconds}"/>
-                <!--Process watcher delay (in milliseconds)-->
-                <Grid
-                    Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Slider
-                        Grid.Column="0"
-                        Margin="0,2,0,0"
-                        x:Name="ProcessWatcherDelaySlider"
-                        Minimum="50"
-                        Maximum="10000"
-                        TickFrequency="50"
-                        IsSnapToTickEnabled="True"
-                        Value="{Binding ViewModel.ProcessWatcherDelay, Delay=500}"/>
-                    <Label
-                        Grid.Column="1"
-                        Margin="5,0,0,0"
-                        Content="{Binding Value, ElementName=ProcessWatcherDelaySlider}"/>
-                </Grid>
-            </Grid>
+					<Label
+		Margin="0,16,0,0"
+		Content="{lex:Loc ProcessWatchingMethod}"/>
+					<ComboBox
+		Margin="0,6,0,0"
+		ItemsSource="{Binding Source={StaticResource ProcessWatcherTypeValues}}"
+		SelectedItem="{Binding ViewModel.ProcessWatcherType}"/>
+					<Grid
+		Margin="0,6,0,0"
+		Visibility="{Binding ViewModel.ConfigProvider.Config.ProcessWatcherType, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ProcessWatcherTypeEnumToVisibilityConverter}, ConverterParameter=WMIInstanceEventProcessWatcher}">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+						<Label
+			Grid.Row="0"
+			Content="{lex:Loc ProcessWatcherDelay_InMilliseconds}"/>
+						<!--Process watcher delay (in milliseconds)-->
+						<Grid
+			Grid.Row="1">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+							<Slider
+				Grid.Column="0"
+				Margin="0,2,0,0"
+				x:Name="ProcessWatcherDelaySlider"
+				Minimum="50"
+				Maximum="10000"
+				TickFrequency="50"
+				IsSnapToTickEnabled="True"
+				Value="{Binding ViewModel.ProcessWatcherDelay, Delay=500}"/>
+							<Label
+				Grid.Column="1"
+				Margin="5,0,0,0"
+				Content="{Binding Value, ElementName=ProcessWatcherDelaySlider}"/>
+						</Grid>
+					</Grid>
 
-            <Label Margin="0,16,0,0"
-                   Content="{lex:Loc WindowWatchingMethod}"/>
-            <ComboBox
-                Margin="0,6,0,0"
-                ItemsSource="{Binding Source={StaticResource WindowWatcherTypeValues}}"
-                SelectedItem="{Binding ViewModel.WindowWatcherType}"/>
+					<Label Margin="0,16,0,0"
+		   Content="{lex:Loc WindowWatchingMethod}"/>
+					<ComboBox
+		Margin="0,6,0,0"
+		ItemsSource="{Binding Source={StaticResource WindowWatcherTypeValues}}"
+		SelectedItem="{Binding ViewModel.WindowWatcherType}"/>
+				</StackPanel>
+			</TabItem>
+			<TabItem>
+				<TabItem.Header>
+					<TextBlock
+Text="{lex:Loc Personalization}" />
+				</TabItem.Header>
+				<StackPanel
+	HorizontalAlignment="Left"
+	>
+					<Label Margin="0,12,0,0"
+		   Content="{lex:Loc Theme}"/>
+					<RadioButton
+	Margin="0,12,0,0"
+	Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
+	CommandParameter="theme_light"
+	Content="{lex:Loc Light}"
+	GroupName="themeSelect"
+	IsChecked="{Binding ViewModel.ConfigProvider.Config.CurrentTheme, Converter={StaticResource ApplicationThemeEnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}" />
+					<RadioButton
+	Margin="0,8,0,0"
+	Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
+	CommandParameter="theme_dark"
+	Content="{lex:Loc Dark}"
+	GroupName="themeSelect"
+	IsChecked="{Binding ViewModel.ConfigProvider.Config.CurrentTheme, Converter={StaticResource ApplicationThemeEnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}" />
+				</StackPanel>
+			</TabItem>
+			<TabItem>
+				<TabItem.Header>
+					<TextBlock
+Text="{lex:Loc AboutHideMyWindows}" />
+				</TabItem.Header>
 
-            <TextBlock
-            FontSize="20"
-            FontWeight="Medium"
-            Margin="0,24,0,0"
-            Text="{lex:Loc Personalization}" />
-            <Label Margin="0,12,0,0"
-                   Content="{lex:Loc Theme}"/>
-            <RadioButton
-            Margin="0,12,0,0"
-            Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
-            CommandParameter="theme_light"
-            Content="{lex:Loc Light}"
-            GroupName="themeSelect"
-            IsChecked="{Binding ViewModel.ConfigProvider.Config.CurrentTheme, Converter={StaticResource ApplicationThemeEnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}" />
-            <RadioButton
-            Margin="0,8,0,0"
-            Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
-            CommandParameter="theme_dark"
-            Content="{lex:Loc Dark}"
-            GroupName="themeSelect"
-            IsChecked="{Binding ViewModel.ConfigProvider.Config.CurrentTheme, Converter={StaticResource ApplicationThemeEnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}" />
-
-            <TextBlock
-            Margin="0,24,0,0"
-            FontSize="20"
-            FontWeight="Medium"
-            Text="{lex:Loc AboutHideMyWindows}" />
-            <Label Margin="0,12,0,0" Content="{Binding ViewModel.AppVersion, Mode=OneWay}" />
-        </StackPanel>
-        <ui:Button
-            Grid.Row="1"
-            Icon="{ui:SymbolIcon Save24}"
-            Appearance="Primary"
-            HorizontalAlignment="Right"
-            Margin="0,0,0,20"
-            Content="{lex:Loc SaveSettings}"
-            Command="{Binding ViewModel.SaveConfigCommand}"/>
-    </Grid>
+				<StackPanel
+	HorizontalAlignment="Left"
+	>
+					<Label Margin="0,12,0,0" Content="{Binding ViewModel.AppVersion, Mode=OneWay}" />
+				</StackPanel>
+			</TabItem>
+		</TabControl>
+		<ui:Button
+			Grid.Row="1"
+			Icon="{ui:SymbolIcon Save24}"
+			Appearance="Primary"
+			HorizontalAlignment="Right"
+			Margin="0,0,0,20"
+			Content="{lex:Loc SaveSettings}"
+			Command="{Binding ViewModel.SaveConfigCommand}"/>
+	</Grid>
 </Page>

@@ -102,7 +102,7 @@ namespace HideMyWindows.App
                 services.AddHostedService<WindowRulesMatcherService>();
                 services.AddHostedService<MailslotIPCService>();
                 //TODO: Arm support? (late)
-                //TODO: tray icon
+                //TODO: intro tutorial?
             }).Build();
 
         /// <summary>
