@@ -29,7 +29,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ui:VirtualizingItemsControl
+        <ui:VirtualizingItemsControl Name="QuickLaunchVirtualizingItemsControl"
             Grid.Row="0"
             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
             ItemsSource="{Binding ViewModel.ConfigProvider.Config.QuickLaunchEntries}"

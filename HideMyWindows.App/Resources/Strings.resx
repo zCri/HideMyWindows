@@ -219,7 +219,7 @@ Consider reinstalling the application to ensure its correct functionality.</valu
     <value>Process arguments</value>
   </data>
   <data name="ProcessId" xml:space="preserve">
-    <value>Process Id</value>
+    <value>Process ID</value>
   </data>
   <data name="ProcessName" xml:space="preserve">
     <value>Process name</value>
@@ -305,5 +305,78 @@ For more information check out the project's README.</value>
   </data>
   <data name="WindowWatchingMethod" xml:space="preserve">
     <value>Window watching method</value>
+  </data>
+  <data name="Guide_WelcomeTitle" xml:space="preserve">
+    <value>Welcome!</value>
+  </data>
+  <data name="Guide_WelcomeText" xml:space="preserve">
+    <value>I'll give you a short tour of HideMyWindows and teach you how to use it.</value>
+  </data>
+  <data name="Guide_StartHereTitle" xml:space="preserve">
+    <value>Start here!</value>
+  </data>
+  <data name="Guide_StartHereText" xml:space="preserve">
+    <value>If you want to start a hidden application, you can do it here!
+Choose the path, and the arguments if needed, and press the launch button!</value>
+  </data>
+  <data name="Guide_AlreadyRunningTitle" xml:space="preserve">
+    <value>Your app is already running?</value>
+  </data>
+  <data name="Guide_AlreadyRunningText" xml:space="preserve">
+    <value>If your app is already running, you can always select it here and hide it!</value>
+  </data>
+  <data name="Guide_CantFindTitle" xml:space="preserve">
+    <value>Can't find it?</value>
+  </data>
+  <data name="Guide_CantFindText" xml:space="preserve">
+    <value>To quickly select your app, press this button, then click on your app! It will automatically be selected by HideMyWindows.</value>
+  </data>
+  <data name="Guide_FinerControlTitle" xml:space="preserve">
+    <value>Need finer control?</value>
+  </data>
+  <data name="Guide_FinerControlText" xml:space="preserve">
+    <value>If you really can't find your app, or you need finer control over the selection, here you can easily filter all the apps and find the ones you are looking for!</value>
+  </data>
+  <data name="Guide_QuickLaunchOftenTitle" xml:space="preserve">
+    <value>Using the same app very often?</value>
+  </data>
+  <data name="Guide_QuickLaunchOftenText" xml:space="preserve">
+    <value>In the 'Quick launch' page you can add apps that you often need to launch hidden, so you always have them ready!</value>
+  </data>
+  <data name="Guide_SimpleAndQuickTitle" xml:space="preserve">
+    <value>Simple and quick!</value>
+  </data>
+  <data name="Guide_SimpleAndQuickText" xml:space="preserve">
+    <value>Just click on the icon and your app will open, already hidden! Right click to edit or remove the entry.</value>
+  </data>
+  <data name="Guide_AutoHideTitle" xml:space="preserve">
+    <value>Want to hide your app automatically?</value>
+  </data>
+  <data name="Guide_AutoHideText" xml:space="preserve">
+    <value>Using 'Window rules', you can make it so HideMyWindows automatically detects starting apps and windows, and immediately hides them!</value>
+  </data>
+  <data name="Guide_ManyFilteringOptionsTitle" xml:space="preserve">
+    <value>Many filtering options!</value>
+  </data>
+  <data name="Guide_ManyFilteringOptionsText" xml:space="preserve">
+    <value>Filter based on the process name, window name, window class, or process ID. Once a new window matches your criteria, it will automatically be hidden!</value>
+  </data>
+  <data name="Guide_TweakSettingsTitle" xml:space="preserve">
+    <value>Need to tweak something?</value>
+  </data>
+  <data name="Guide_TweakSettingsText" xml:space="preserve">
+    <value>In the settings page you can change various options, such as hiding HideMyWindows itself, its taskbar icon, or whether it should minimize to the tray.</value>
+  </data>
+  <data name="Guide_AllSetTitle" xml:space="preserve">
+    <value>All set</value>
+  </data>
+  <data name="Guide_AllSetText" xml:space="preserve">
+    <value>You can reopen this guide anytime from the 'About HideMyWindows' tab in the settings.</value>
+  </data>
+  <data name="Guide_TempQuickLaunchEntryName" xml:space="preserve">
+    <value>Your app!</value>
+  </data>
+  <data name="Guide_Reopen" xml:space="preserve">
+    <value>Reopen the guide</value>
   </data>
 </root>

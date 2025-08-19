@@ -28,7 +28,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <StackPanel
+        <StackPanel x:Name="RunAHiddenProcessStackPanel"
             Grid.Row="0">
             <TextBlock
                 FontSize="20"
@@ -64,7 +64,7 @@
                 Content="{lex:Loc RunHiddenProcess}"
                 Command="{Binding ViewModel.StartProcessCommand, Mode=OneWay}"/>
         </StackPanel>
-        <StackPanel
+        <StackPanel Name="HideARunningProcessStackPanel"
             Grid.Row="1"
             Margin="0,24,0,0">
             <TextBlock
@@ -83,7 +83,7 @@
                     ItemsSource="{Binding ViewModel.RunningProcesses, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding ViewModel.SelectedProcess, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     IsSynchronizedWithCurrentItem="True"/>
-                <ui:Button
+                <ui:Button Name="FindProcessByClickButton"
                     Grid.Column="1"
                     Margin="10,0,0,0"
                     ToolTip="{lex:Loc FindByClick}"
@@ -98,7 +98,7 @@
                 Content="{lex:Loc HideProcessWindows}"
                 Command="{Binding ViewModel.InjectIntoProcessCommand, Mode=OneWay}"/>
         </StackPanel>
-        <StackPanel
+        <StackPanel Name="FindAndHideStackPanel"
             Grid.Row="2"
             Margin="0,24,0,0">
             <TextBlock

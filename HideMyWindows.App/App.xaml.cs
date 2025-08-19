@@ -7,6 +7,7 @@ using HideMyWindows.App.Services;
 using HideMyWindows.App.Services.ConfigProvider;
 using HideMyWindows.App.Services.DllInjector;
 using HideMyWindows.App.Services.ProcessWatcher;
+using HideMyWindows.App.Services.TourService;
 using HideMyWindows.App.Services.WindowClickFinder;
 using HideMyWindows.App.Services.WindowHider;
 using HideMyWindows.App.Services.WindowWatcher;
@@ -54,6 +55,7 @@ namespace HideMyWindows.App
                 services.AddSingleton<INavigationService, NavigationService>();
                 services.AddSingleton<ISnackbarService, SnackbarService>();
                 services.AddSingleton<IContentDialogService, ContentDialogService>();
+                services.AddSingleton<ITourService, TourService>();
 
                 services.AddSingleton<DashboardPage>();
                 services.AddSingleton<DashboardViewModel>();

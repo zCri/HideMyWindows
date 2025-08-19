@@ -3,6 +3,7 @@
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
 // All Rights Reserved.
 
+using HideMyWindows.App.Services.TourService;
 using HideMyWindows.App.ViewModels.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Abstractions;
@@ -20,7 +21,8 @@ namespace HideMyWindows.App.Views.Windows
             INavigationService navigationService,
             INavigationViewPageProvider navigationViewPageProvider,
             ISnackbarService snackbarService,
-            IContentDialogService contentDialogService
+            IContentDialogService contentDialogService,
+            ITourService tourService
         )
         {
             SystemThemeWatcher.Watch(this);
@@ -35,6 +37,8 @@ namespace HideMyWindows.App.Views.Windows
 
             navigationService.SetNavigationControl(NavigationView);
             SetPageService(navigationViewPageProvider);
+
+            tourService.SetTourOverlay(TourOverlay);
 
             ViewModel.Initialize();
         }

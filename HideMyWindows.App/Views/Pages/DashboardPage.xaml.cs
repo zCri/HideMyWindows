@@ -3,6 +3,7 @@
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
 // All Rights Reserved.
 
+using HideMyWindows.App.Services.TourService;
 using HideMyWindows.App.ViewModels.Pages;
 using Wpf.Ui.Abstractions.Controls;
 

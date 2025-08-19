@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HideMyWindows.App.Views.Windows"
+    xmlns:controls="clr-namespace:HideMyWindows.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
@@ -64,6 +65,8 @@
             </ui:NavigationView.ContentOverlay>
         </ui:NavigationView>
 
+        <controls:TourOverlay
+            x:Name="TourOverlay"/>
         <ContentPresenter x:Name="RootContentDialog" Grid.Row="0" />
 
         <tray:NotifyIcon

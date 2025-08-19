@@ -25,6 +25,9 @@ namespace HideMyWindows.App.Models
         private bool _versionWarningAcknowledged = false;
 
         [ObservableProperty]
+        private bool _tourCompleted = false;
+
+        [ObservableProperty]
         private ProcessWatcherType _processWatcherType = ProcessWatcherType.WMIInstanceEventProcessWatcher;
 
         [ObservableProperty]

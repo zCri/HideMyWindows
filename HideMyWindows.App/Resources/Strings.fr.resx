@@ -147,7 +147,7 @@ Envisagez de réinstaller l'application pour garantir son bon fonctionnement.</v
     <value>Sombre</value>
   </data>
   <data name="DontShowThisDialogAgain" xml:space="preserve">
-    <value>Ne plus afficher ce dialogue</value>
+    <value>Ne plus afficher cette boîte de dialogue</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Modifier</value>
@@ -165,10 +165,10 @@ Envisagez de réinstaller l'application pour garantir son bon fonctionnement.</v
     <value>Trouver et masquer</value>
   </data>
   <data name="FindAndHideARunningProcess" xml:space="preserve">
-    <value>Trouver et masquer un processus en cours</value>
+    <value>Trouver et masquer un processus en cours d’exécution</value>
   </data>
   <data name="FindByClick" xml:space="preserve">
-    <value>Trouver par click</value>
+    <value>Trouver par clic</value>
   </data>
   <data name="Functionality" xml:space="preserve">
     <value>Fonctionnalité</value>
@@ -180,7 +180,7 @@ Envisagez de réinstaller l'application pour garantir son bon fonctionnement.</v
     <value>Masquer le processus</value>
   </data>
   <data name="HideProcessWindows" xml:space="preserve">
-    <value>Masquer les fenêtres de processus</value>
+    <value>Masquer les fenêtres du processus</value>
   </data>
   <data name="HideThisAppAutomatically" xml:space="preserve">
     <value>Masquer automatiquement cette application</value>
@@ -219,7 +219,7 @@ Envisagez de réinstaller l'application pour garantir son bon fonctionnement.</v
     <value>Arguments du processus</value>
   </data>
   <data name="ProcessId" xml:space="preserve">
-    <value>Id du processus</value>
+    <value>ID du processus</value>
   </data>
   <data name="ProcessName" xml:space="preserve">
     <value>Nom du processus</value>
@@ -264,7 +264,7 @@ Envisagez de réinstaller l'application pour garantir son bon fonctionnement.</v
     <value>Paramètres</value>
   </data>
   <data name="Show" xml:space="preserve">
-    <value>Montrer</value>
+    <value>Afficher</value>
   </data>
   <data name="ShowThisAppInTheTaskbar" xml:space="preserve">
     <value>Afficher cette application dans la barre des tâches</value>
@@ -276,7 +276,7 @@ Envisagez de réinstaller l'application pour garantir son bon fonctionnement.</v
     <value>Se termine par</value>
   </data>
   <data name="StringEquals" xml:space="preserve">
-    <value>Est égale à</value>
+    <value>Est égal à</value>
   </data>
   <data name="StringStartsWith" xml:space="preserve">
     <value>Commence par</value>
@@ -285,7 +285,7 @@ Envisagez de réinstaller l'application pour garantir son bon fonctionnement.</v
     <value>Thème</value>
   </data>
   <data name="ToApplyTheseSettingsSaveAndRestart" xml:space="preserve">
-    <value>Pour appliquer ces paramètres, enregistrez-les et redémarrez l'application.</value>
+    <value>Pour appliquer ces paramètres, enregistrez-les et redémarrez l'application</value>
   </data>
   <data name="WindowClass" xml:space="preserve">
     <value>Classe de la fenêtre</value>
@@ -305,5 +305,78 @@ Pour plus d'informations, consultez le README du projet.</value>
   </data>
   <data name="WindowWatchingMethod" xml:space="preserve">
     <value>Méthode d'observation des fenêtres</value>
+  </data>
+  <data name="Guide_WelcomeTitle" xml:space="preserve">
+    <value>Bienvenue!</value>
+  </data>
+  <data name="Guide_WelcomeText" xml:space="preserve">
+    <value>Je vais vous faire une courte visite de HideMyWindows et vous montrer comment l’utiliser.</value>
+  </data>
+  <data name="Guide_StartHereTitle" xml:space="preserve">
+    <value>Commencez ici!</value>
+  </data>
+  <data name="Guide_StartHereText" xml:space="preserve">
+    <value>Si vous souhaitez lancer une application masquée, vous pouvez le faire ici!
+Choisissez le chemin, ainsi que les arguments si nécessaire, puis appuyez sur le bouton de lancement!</value>
+  </data>
+  <data name="Guide_AlreadyRunningTitle" xml:space="preserve">
+    <value>Votre application est déjà en cours d’exécution?</value>
+  </data>
+  <data name="Guide_AlreadyRunningText" xml:space="preserve">
+    <value>Si votre application est déjà en cours d’exécution, vous pouvez toujours la sélectionner ici et la masquer!</value>
+  </data>
+  <data name="Guide_CantFindTitle" xml:space="preserve">
+    <value>Vous ne la trouvez pas?</value>
+  </data>
+  <data name="Guide_CantFindText" xml:space="preserve">
+    <value>Pour sélectionner rapidement votre application, appuyez sur ce bouton, puis cliquez sur votre application! Elle sera automatiquement sélectionnée par HideMyWindows.</value>
+  </data>
+  <data name="Guide_FinerControlTitle" xml:space="preserve">
+    <value>Besoin d’un contrôle plus précis?</value>
+  </data>
+  <data name="Guide_FinerControlText" xml:space="preserve">
+    <value>Si vous ne trouvez vraiment pas votre application, ou si vous avez besoin d’un contrôle plus précis de la sélection, vous pouvez facilement filtrer toutes les applications ici et trouver celles que vous recherchez!</value>
+  </data>
+  <data name="Guide_QuickLaunchOftenTitle" xml:space="preserve">
+    <value>Vous utilisez souvent la même application?</value>
+  </data>
+  <data name="Guide_QuickLaunchOftenText" xml:space="preserve">
+    <value>Dans la page «Lancement rapide», vous pouvez ajouter des applications que vous devez souvent lancer en mode masqué, afin de les avoir toujours prêtes!</value>
+  </data>
+  <data name="Guide_SimpleAndQuickTitle" xml:space="preserve">
+    <value>Simple et rapide!</value>
+  </data>
+  <data name="Guide_SimpleAndQuickText" xml:space="preserve">
+    <value>Cliquez simplement sur l’icône et votre application s’ouvrira déjà masquée! Cliquez avec le bouton droit pour modifier ou supprimer l’entrée.</value>
+  </data>
+  <data name="Guide_AutoHideTitle" xml:space="preserve">
+    <value>Vous voulez masquer votre application automatiquement?</value>
+  </data>
+  <data name="Guide_AutoHideText" xml:space="preserve">
+    <value>Avec les «Règles des fenêtres», HideMyWindows peut détecter automatiquement le lancement des applications et des fenêtres, puis les masquer immédiatement!</value>
+  </data>
+  <data name="Guide_ManyFilteringOptionsTitle" xml:space="preserve">
+    <value>De nombreuses options de filtrage!</value>
+  </data>
+  <data name="Guide_ManyFilteringOptionsText" xml:space="preserve">
+    <value>Filtrez selon le nom du processus, le titre de la fenêtre, la classe de la fenêtre ou l’ID du processus. Dès qu’une nouvelle fenêtre correspond à vos critères, elle sera masquée automatiquement!</value>
+  </data>
+  <data name="Guide_TweakSettingsTitle" xml:space="preserve">
+    <value>Besoin d’ajuster quelque chose?</value>
+  </data>
+  <data name="Guide_TweakSettingsText" xml:space="preserve">
+    <value>Dans la page des paramètres, vous pouvez modifier diverses options: masquer HideMyWindows lui-même, son icône dans la barre des tâches, ou définir s’il doit se réduire dans la barre d’état système.</value>
+  </data>
+  <data name="Guide_AllSetTitle" xml:space="preserve">
+    <value>Tout est prêt</value>
+  </data>
+  <data name="Guide_AllSetText" xml:space="preserve">
+    <value>Vous pouvez rouvrir ce guide à tout moment depuis l’onglet À propos de «HideMyWindows» dans les paramètres.</value>
+  </data>
+  <data name="Guide_TempQuickLaunchEntryName" xml:space="preserve">
+    <value>Votre application!</value>
+  </data>
+  <data name="Guide_Reopen" xml:space="preserve">
+    <value>Rouvrir le guide</value>
   </data>
 </root>

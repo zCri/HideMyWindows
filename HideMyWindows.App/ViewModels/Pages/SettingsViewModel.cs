@@ -6,6 +6,7 @@
 using HideMyWindows.App.Helpers;
 using HideMyWindows.App.Services.ConfigProvider;
 using HideMyWindows.App.Services.ProcessWatcher;
+using HideMyWindows.App.Services.TourService;
 using HideMyWindows.App.Services.WindowWatcher;
 using System.Reflection;
 using Wpf.Ui.Appearance;
@@ -19,11 +20,13 @@ namespace HideMyWindows.App.ViewModels.Pages
     {
         public IConfigProvider ConfigProvider { get; }
         private ISnackbarService SnackbarService { get; }
+        private ITourService TourService { get; }
 
-        public SettingsViewModel(IConfigProvider configProvider, ISnackbarService snackbarService)
+        public SettingsViewModel(IConfigProvider configProvider, ISnackbarService snackbarService, ITourService tourService)
         {
             ConfigProvider = configProvider;
             SnackbarService = snackbarService;
+            TourService = tourService;
 
             configProvider.Load();
             ConfigProvider.Config!.CurrentTheme = ApplicationThemeManager.GetAppTheme();
@@ -79,6 +82,12 @@ namespace HideMyWindows.App.ViewModels.Pages
                     ConfigProvider.Config!.CurrentTheme = ApplicationTheme.Dark;
                     break;
             }
+        }
+
+        [RelayCommand]
+        private void RestartTour()
+        {
+            TourService.Start();
         }
 
         [RelayCommand]

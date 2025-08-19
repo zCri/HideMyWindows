@@ -30,7 +30,7 @@
         </Grid.RowDefinitions>
         <ui:DynamicScrollViewer
             Grid.Row="0">
-            <ItemsControl
+            <ItemsControl Name="WindowRulesItemsControl"
             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
             ItemsSource="{Binding ViewModel.ConfigProvider.Config.WindowRules, Mode=OneWay}">
             <ItemsControl.ItemTemplate>

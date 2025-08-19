@@ -4,6 +4,7 @@
 // All Rights Reserved.
 
 using HideMyWindows.App.Services.ConfigProvider;
+using HideMyWindows.App.Services.TourService;
 using HideMyWindows.App.Services.WindowWatcher;
 using HideMyWindows.App.Views.Pages;
 using HideMyWindows.App.Views.Windows;
@@ -95,6 +96,8 @@ namespace HideMyWindows.App.Services
                 }
 
                 ApplicationThemeManager.Apply(configProvider?.Config?.CurrentTheme ?? ApplicationThemeManager.GetAppTheme());
+
+                _serviceProvider.GetService<ITourService>()?.TryAutoStart();
             }
         }
     }

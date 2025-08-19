@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="HideMyWindows.App.Controls.TourOverlay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:local="clr-namespace:HideMyWindows.App.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Canvas x:Name="Root" Background="#80000000">
+        <Border x:Name="Highlight"
+                BorderBrush="White"
+                BorderThickness="2"
+                CornerRadius="8"
+                Visibility="Collapsed"
+                IsHitTestVisible="False" />
+        <Border x:Name="Callout"
+            Width="420"
+            Padding="16"
+            CornerRadius="12"
+                            Background="{ui:ThemeResource SolidBackgroundFillColorBaseBrush}"
+                            BorderBrush="{ui:ThemeResource ControlStrokeColorDefaultBrush}"
+            BorderThickness="1">
+            <StackPanel>
+                <ui:TextBlock Text="{Binding TitleText, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                      FontSize="18" FontWeight="SemiBold" TextWrapping="Wrap" />
+                <ui:TextBlock Text="{Binding BodyText, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                      Margin="0,6,0,12" TextWrapping="Wrap" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <ui:Button Content="Skip" Appearance="Transparent" IsCancel="True"
+                       Command="{Binding SkipCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                       Width="86" HorizontalAlignment="Left"/>
+
+                    <StackPanel Orientation="Horizontal" Grid.Column="1">
+                        <ui:Button Content="Back"
+                           Command="{Binding BackCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                           Width="86" Margin="0,0,8,0"/>
+                        <ui:Button Content="Next" Appearance="Primary" IsDefault="True"
+                           Command="{Binding NextCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                           Width="86" Margin="0,0,8,0"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Canvas>
+</UserControl>
