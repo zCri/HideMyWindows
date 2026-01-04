@@ -364,3 +364,9 @@ FodyWeavers.xsd
 
 # vcpkg 
 vcpkg_installed/
+
+#working commit folder
+working version/
+
+#crash log files
+crash_log*

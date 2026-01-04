@@ -31,6 +31,18 @@ namespace HideMyWindows.App.Services.WindowHider
                 case WindowHiderAction.HideWindow:
                     DllInjector.HideWindow(process, handle, process.MainWindowHandle);
                     break;
+                case WindowHiderAction.UnhideProcess:
+                    DllInjector.UnhideAllWindows(process, handle);
+                    break;
+                case WindowHiderAction.UnhideWindow:
+                    DllInjector.UnhideWindow(process, handle, process.MainWindowHandle);
+                    break;
+                case WindowHiderAction.HideTaskbarIcon:
+                    DllInjector.HideTaskbarIcon(process, handle, process.MainWindowHandle);
+                    break;
+                case WindowHiderAction.ShowTaskbarIcon:
+                    DllInjector.ShowTaskbarIcon(process, handle, process.MainWindowHandle);
+                    break;
             }
         }
 
@@ -48,6 +60,18 @@ namespace HideMyWindows.App.Services.WindowHider
                     break;
                 case WindowHiderAction.HideWindow:
                     DllInjector.HideWindow(process, handle, hwnd);
+                    break;
+                case WindowHiderAction.UnhideProcess:
+                    DllInjector.UnhideAllWindows(process, handle);
+                    break;
+                case WindowHiderAction.UnhideWindow:
+                    DllInjector.UnhideWindow(process, handle, hwnd);
+                    break;
+                case WindowHiderAction.HideTaskbarIcon:
+                    DllInjector.HideTaskbarIcon(process, handle, hwnd);
+                    break;
+                case WindowHiderAction.ShowTaskbarIcon:
+                    DllInjector.ShowTaskbarIcon(process, handle, hwnd);
                     break;
             }
         }

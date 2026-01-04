@@ -91,12 +91,48 @@
                     Icon="{ui:SymbolIcon WindowLocationTarget20}"
                     Appearance="Secondary"/>
             </Grid>
-            <ui:Button
-                Margin="0,8,0,0"
-                Icon="{ui:SymbolIcon ArrowEnterLeft24}"
-                Appearance="Primary"
-                Content="{lex:Loc HideProcessWindows}"
-                Command="{Binding ViewModel.InjectIntoProcessCommand, Mode=OneWay}"/>
+            <Grid Margin="0,8,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ui:Button
+                    Grid.Column="0"
+                    HorizontalAlignment="Stretch"
+                    Icon="{ui:SymbolIcon ArrowEnterLeft24}"
+                    Appearance="Primary"
+                    Content="{lex:Loc HideProcessWindows}"
+                    Command="{Binding ViewModel.InjectIntoProcessCommand, Mode=OneWay}"/>
+                <ui:Button
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    Margin="8,0,0,0"
+                    Icon="{ui:SymbolIcon ArrowEnterLeft24}"
+                    Appearance="Secondary"
+                    Content="{lex:Loc UnhideProcessWindows}"
+                    Command="{Binding ViewModel.UnhideIntoProcessCommand, Mode=OneWay}"/>
+            </Grid>
+            <Grid Margin="0,8,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ui:Button
+                    Grid.Column="0"
+                    HorizontalAlignment="Stretch"
+                    Icon="{ui:SymbolIcon ArrowEnterLeft24}"
+                    Appearance="Secondary"
+                    Content="{lex:Loc HideTaskbarIcon}"
+                    Command="{Binding ViewModel.HideTaskbarIconCommand, Mode=OneWay}"/>
+                <ui:Button
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    Margin="8,0,0,0"
+                    Icon="{ui:SymbolIcon ArrowEnterLeft24}"
+                    Appearance="Secondary"
+                    Content="{lex:Loc ShowTaskbarIcon}"
+                    Command="{Binding ViewModel.ShowTaskbarIconCommand, Mode=OneWay}"/>
+            </Grid>
         </StackPanel>
         <StackPanel Name="FindAndHideStackPanel"
             Grid.Row="2"

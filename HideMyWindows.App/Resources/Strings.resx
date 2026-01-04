@@ -293,6 +293,12 @@ Consider reinstalling the application to ensure its correct functionality.</valu
   <data name="WindowRules" xml:space="preserve">
     <value>Window rules</value>
   </data>
+  <data name="UnhideProcess" xml:space="preserve">
+    <value>Unhide process</value>
+  </data>
+  <data name="UnhideWindow" xml:space="preserve">
+    <value>Unhide window</value>
+  </data>
   <data name="WindowsVersionIncompatible" xml:space="preserve">
     <value>Windows version incompatible</value>
   </data>
@@ -378,5 +384,11 @@ Choose the path, and the arguments if needed, and press the launch button!</valu
   </data>
   <data name="Guide_Reopen" xml:space="preserve">
     <value>Reopen the guide</value>
+  </data>
+  <data name="HideTaskbarIcon" xml:space="preserve">
+    <value>Hide Taskbar Icon</value>
+  </data>
+  <data name="ShowTaskbarIcon" xml:space="preserve">
+    <value>Show Taskbar Icon</value>
   </data>
 </root>

@@ -74,6 +74,9 @@ namespace HideMyWindows.App.ViewModels.Pages
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(InjectIntoProcessCommand))]
+        [NotifyCanExecuteChangedFor(nameof(UnhideIntoProcessCommand))]
+        [NotifyCanExecuteChangedFor(nameof(HideTaskbarIconCommand))]
+        [NotifyCanExecuteChangedFor(nameof(ShowTaskbarIconCommand))]
         private ProcessProxy? _selectedProcess;
 
         [ObservableProperty]
@@ -121,6 +124,25 @@ namespace HideMyWindows.App.ViewModels.Pages
         }
 
         [RelayCommand]
+        private void UnhideIntoProcess()
+        {
+            try
+            {
+                if (SelectedProcess is not null)
+                    WindowHider.ApplyAction(WindowHiderAction.UnhideProcess, SelectedProcess.Process);
+            }
+            catch (Exception e)
+            {
+                SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+            }
+        }
+
+        private bool CanUnhideIntoProcess()
+        {
+            return !SelectedProcess?.Process.HasExited ?? false;
+        }
+
+        [RelayCommand]
         private void InjectIntoProcess()
         {
             try
@@ -129,13 +151,41 @@ namespace HideMyWindows.App.ViewModels.Pages
                     WindowHider.ApplyAction(WindowHiderAction.HideProcess, SelectedProcess.Process);
             } catch (Exception e)
             {
-                SnackbarService.Show("An error occurred!", e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+                SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
             }
         }
 
         private bool CanInjectIntoProcess()
         {
             return !SelectedProcess?.Process.HasExited ?? false;
+        }
+
+        [RelayCommand]
+        private void HideTaskbarIcon()
+        {
+            try
+            {
+                if (SelectedProcess is not null)
+                    WindowHider.ApplyAction(WindowHiderAction.HideTaskbarIcon, SelectedProcess.Process);
+            }
+            catch (Exception e)
+            {
+                SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+            }
+        }
+
+        [RelayCommand]
+        private void ShowTaskbarIcon()
+        {
+            try
+            {
+                if (SelectedProcess is not null)
+                    WindowHider.ApplyAction(WindowHiderAction.ShowTaskbarIcon, SelectedProcess.Process);
+            }
+            catch (Exception e)
+            {
+                SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+            }
         }
 
         [RelayCommand]
