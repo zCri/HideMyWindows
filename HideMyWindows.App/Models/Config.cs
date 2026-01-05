@@ -40,6 +40,9 @@ namespace HideMyWindows.App.Models
         private int _ruleReapplyIntervalMs = 1000;
 
         [ObservableProperty]
+        private bool _showDesktopPreview = false;
+
+        [ObservableProperty]
         private BindingList<WindowRule> _windowRules = new();
 
         [ObservableProperty]

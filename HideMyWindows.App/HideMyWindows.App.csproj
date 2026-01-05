@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>wpfui-icon.ico</ApplicationIcon>
     <Nullable>enable</Nullable>
@@ -10,6 +10,8 @@
     <UseWPF>true</UseWPF>
     <LangVersion>12</LangVersion>
     <Platforms>AnyCPU;x64;x86;ARM32;ARM64</Platforms>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <WindowsSdkPackageVersion>10.0.19041.53</WindowsSdkPackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,31 +37,19 @@
     <None Remove="Assets\wpfui-icon-1024.png" />
   </ItemGroup>
   
-  <Target Name="BuildDLLs" BeforeTargets="ResolveProjectReferences">
-    <MSBuild Projects="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" Properties="Platform=Win32" BuildInParallel="$(BuildInParallel)" ContinueOnError="$(ContinueOnError)" />
-    
-    <MSBuild Projects="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" Properties="Platform=x64" BuildInParallel="$(BuildInParallel)" ContinueOnError="$(ContinueOnError)" />
-  </Target>
-
+  
+  <!-- Pre-built DLLs - C++ build disabled, copying from pre-built output -->
   <ItemGroup>
-    <ProjectReference Include="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" AdditionalProperties="Platform=Win32">
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <SetPlatform>Platform=Win32</SetPlatform>
-      <Private>True</Private>
-      <OutputItemType>Content</OutputItemType>
+    <Content Include="..\HideMyWindows.DLL\Win32\Debug\HideMyWindows.DLL.Win32.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Targets>%(_MSBuildProjectReferenceExistent.Targets);BuiltProjectOutputGroup</Targets> <!-- Important (see https://github.com/dotnet/msbuild/issues/2823) -->
-    </ProjectReference>
-
-    <ProjectReference Include="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" AdditionalProperties="Platform=x64">
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <SetPlatform>Platform=x64</SetPlatform>
-      <Private>True</Private>
-      <OutputItemType>Content</OutputItemType>
+      <Link>HideMyWindows.DLL.Win32.dll</Link>
+    </Content>
+    <Content Include="..\HideMyWindows.DLL\x64\Debug\HideMyWindows.DLL.x64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Targets>%(_MSBuildProjectReferenceExistent.Targets);BuiltProjectOutputGroup</Targets> <!-- Important (see https://github.com/dotnet/msbuild/issues/2823) -->
-    </ProjectReference>
+      <Link>HideMyWindows.DLL.x64.dll</Link>
+    </Content>
   </ItemGroup>
+
 
   <ItemGroup>
     <Resource Include="Assets\wpfui-icon-256.png" />

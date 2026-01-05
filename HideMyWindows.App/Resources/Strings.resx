@@ -180,7 +180,7 @@ Consider reinstalling the application to ensure its correct functionality.</valu
     <value>Hide process</value>
   </data>
   <data name="HideProcessWindows" xml:space="preserve">
-    <value>Hide process windows</value>
+    <value>Hide Process Windows</value>
   </data>
   <data name="HideThisAppAutomatically" xml:space="preserve">
     <value>Hide this app automatically</value>
@@ -295,6 +295,15 @@ Consider reinstalling the application to ensure its correct functionality.</valu
   </data>
   <data name="UnhideProcess" xml:space="preserve">
     <value>Unhide process</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="HowOthersWillSeeYourScreen" xml:space="preserve">
+    <value>How others will see your screen</value>
+  </data>
+  <data name="ShowDesktopPreview" xml:space="preserve">
+    <value>Show desktop preview</value>
   </data>
   <data name="UnhideWindow" xml:space="preserve">
     <value>Unhide window</value>
