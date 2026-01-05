@@ -37,6 +37,9 @@ namespace HideMyWindows.App.Models
         private int _WMIInstanceEventProcessWatcherTimeoutMillis = 1000;
 
         [ObservableProperty]
+        private int _ruleReapplyIntervalMs = 1000;
+
+        [ObservableProperty]
         private BindingList<WindowRule> _windowRules = new();
 
         [ObservableProperty]

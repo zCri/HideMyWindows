@@ -115,6 +115,31 @@ Text="{lex:Loc Functionality}"/>
 						</Grid>
 					</Grid>
 
+                    <Label
+			            Grid.Row="0"
+                        Margin="0,12,0,0"
+			            Content="{lex:Loc RuleReapplyInterval_InMilliseconds}"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Slider
+				            Grid.Column="0"
+				            Margin="0,2,0,0"
+				            x:Name="RuleReapplyIntervalSlider"
+				            Minimum="100"
+				            Maximum="5000"
+				            TickFrequency="100"
+				            IsSnapToTickEnabled="True"
+				            Value="{Binding ViewModel.RuleReapplyIntervalMs, Delay=500}"/>
+                        <Label
+				            Grid.Column="1"
+				            Margin="5,0,0,0"
+				            Content="{Binding Value, ElementName=RuleReapplyIntervalSlider}"/>
+                    </Grid>
+
+
 					<Label Margin="0,16,0,0"
 		   Content="{lex:Loc WindowWatchingMethod}"/>
 					<ComboBox

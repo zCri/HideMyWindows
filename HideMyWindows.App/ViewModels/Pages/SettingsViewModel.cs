@@ -60,6 +60,15 @@ namespace HideMyWindows.App.ViewModels.Pages
             }
         }
 
+        public int? RuleReapplyIntervalMs {
+            get => ConfigProvider.Config!.RuleReapplyIntervalMs;
+            set
+            {
+                ConfigProvider.Config!.RuleReapplyIntervalMs = value ?? default;
+                SnackbarService.Show(LocalizationUtils.GetString("Settings"), LocalizationUtils.GetString("ToApplyTheseSettingsSaveAndRestart"), ControlAppearance.Info, new SymbolIcon(SymbolRegular.Info24));
+            }
+        }
+
         [ObservableProperty]
         private string _appVersion = string.Empty;
 

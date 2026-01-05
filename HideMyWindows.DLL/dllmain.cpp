@@ -272,6 +272,26 @@ BOOL WINAPI DetourCreateProcessW(
     return res;
 }
 
+typedef BOOL(WINAPI* SetWindowDisplayAffinityType)(
+    HWND  hWnd,
+    DWORD dwAffinity
+);
+
+SetWindowDisplayAffinityType fpSetWindowDisplayAffinity = NULL;
+
+BOOL WINAPI DetourSetWindowDisplayAffinity(
+    HWND  hWnd,
+    DWORD dwAffinity
+) {
+    if (hideAllWindows) {
+        return fpSetWindowDisplayAffinity(hWnd, WDA_EXCLUDEFROMCAPTURE);
+    }
+    else {
+        // Force unhide if we are not in hiding mode, preventing the app from hiding itself
+        return fpSetWindowDisplayAffinity(hWnd, WDA_NONE);
+    }
+}
+
 BOOL APIENTRY DllMain(HMODULE hModule,
     DWORD  ul_reason_for_call,
     LPVOID lpReserved
@@ -291,6 +311,8 @@ BOOL APIENTRY DllMain(HMODULE hModule,
         MH_EnableHook(&CreateProcessA);
         MH_CreateHookApi(L"kernel32.dll", "CreateProcessW", &DetourCreateProcessW, (LPVOID*)&fpCreateProcessW);
         MH_EnableHook(&CreateProcessW);
+        MH_CreateHookApi(L"user32.dll", "SetWindowDisplayAffinity", &DetourSetWindowDisplayAffinity, (LPVOID*)&fpSetWindowDisplayAffinity);
+        MH_EnableHook(&SetWindowDisplayAffinity);
         //MessageBoxA(NULL, std::to_string(MH_CreateHookApi(L"kernel32.dll", "CreateProcessW", &DetourCreateProcessW, (LPVOID*)&fpCreateProcessW)).c_str(), "Createprocessw:", MB_OK);
         //MessageBoxA(NULL, std::to_string(MH_EnableHook(&CreateProcessW)).c_str(), "Createprocessw enable:", MB_OK);
         //MessageBox(NULL, L"Hooked everything", L"Debug", MB_OK);
