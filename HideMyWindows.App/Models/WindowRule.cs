@@ -21,7 +21,7 @@ namespace HideMyWindows.App.Models
         private bool _enabled = false;
 
         [ObservableProperty]
-        private bool _isPersistent = false;
+        private bool _persistent = false;
 
         private Regex? regex;
 

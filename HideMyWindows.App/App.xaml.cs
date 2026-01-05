@@ -5,6 +5,7 @@
 
 using HideMyWindows.App.Services;
 using HideMyWindows.App.Services.ConfigProvider;
+using HideMyWindows.App.Services.DesktopPreview;
 using HideMyWindows.App.Services.DllInjector;
 using HideMyWindows.App.Services.ProcessWatcher;
 using HideMyWindows.App.Services.TourService;
@@ -76,11 +77,14 @@ namespace HideMyWindows.App
                 services.AddSingleton<SettingsViewModel>();
                 services.AddSingleton<QuickLaunchPage>();
                 services.AddSingleton<QuickLaunchViewModel>();
+                services.AddSingleton<DesktopPreviewPage>();
+                services.AddSingleton<DesktopPreviewViewModel>();
 
                 // App services
                 services.AddSingleton<IConfigProvider, JSONConfigProvider>();
                 services.AddSingleton<IDllInjector, LoadLibraryDllInjector>();
                 services.AddSingleton<IWindowHider, DllInjectorWindowHider>();
+                services.AddSingleton<IDesktopPreviewService, D3DCaptureDesktopPreviewService>();
                 services.AddSingleton<NotificationsService>();
 
                 services.AddTransient<IWindowClickFinder, MouseCaptureWindowClickFinder>();
@@ -115,7 +119,6 @@ namespace HideMyWindows.App
                 services.AddHostedService<WindowRulesMatcherService>();
                 services.AddHostedService<MailslotIPCService>();
                 //TODO: Arm support? (late)
-                //TODO: intro tutorial?
             }).Build();
 
         /// <summary>
@@ -141,6 +144,7 @@ namespace HideMyWindows.App
             }
 
             LocalizeDictionary.Instance.Culture = CultureInfo.CurrentUICulture;
+
             var hMailslot = CreateFile(@"\\.\mailslot\HideMyWindowsMailslot", Vanara.PInvoke.Kernel32.FileAccess.GENERIC_WRITE, 0, null, FileMode.Open, 0, HFILE.NULL);
             if (!hMailslot.IsInvalid)
             {

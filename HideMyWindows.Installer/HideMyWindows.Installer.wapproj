@@ -63,7 +63,7 @@
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>9167CCDEA2B4B64C9BBF6CF92DF9BB6EFBED12DB</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>FE84AC6AEE6DDE915BFC856EBDC2463C8CBB740F</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <AppxBundle>Always</AppxBundle>

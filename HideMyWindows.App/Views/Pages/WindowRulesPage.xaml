@@ -50,12 +50,18 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <ui:ToggleSwitch
-                                    Grid.Column="0"
-                                    x:Name="EnabledToggleSwitch"
-                                    Content="{lex:Loc Enable}"
-                                    IsChecked="{Binding Enabled}"
-                                    IsEnabled="{Binding Value.Length, Mode=OneWay}"/>
+                                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                                    <ui:ToggleSwitch
+                                        x:Name="EnabledToggleSwitch"
+                                        Content="{lex:Loc Enable}"
+                                        IsChecked="{Binding Enabled}"
+                                        IsEnabled="{Binding Value.Length, Mode=OneWay}"/>
+                                    <CheckBox 
+                                        Margin="8,0,0,0"
+                                        IsChecked="{Binding Persistent}"
+                                        IsEnabled="{Binding Enabled}"
+                                        Content="{lex:Loc Persistent}"/>
+                                </StackPanel>
                                 <ui:Button
                                     Grid.Column="1"
                                     ToolTip="{lex:Loc Remove}"

@@ -104,6 +104,12 @@ namespace HideMyWindows.App.ViewModels.Windows
         {
             new NavigationViewItem()
             {
+                Content = LocalizationUtils.GetString("DesktopPreview"),
+                Icon = new SymbolIcon { Symbol = SymbolRegular.Desktop24 },
+                TargetPageType = typeof(Views.Pages.DesktopPreviewPage)
+            },
+            new NavigationViewItem()
+            {
                 Content = LocalizationUtils.GetString("Settings"),
                 Icon = new SymbolIcon { Symbol = SymbolRegular.Settings24 },
                 TargetPageType = typeof(Views.Pages.SettingsPage)

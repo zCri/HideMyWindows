@@ -10,7 +10,7 @@ using System.IO;
 
 namespace HideMyWindows.App.Services.DesktopPreview
 {
-    public class DesktopPreviewService : IDisposable
+    public class D3DCaptureDesktopPreviewService : IDesktopPreviewService, IDisposable
     {
         private GraphicsCaptureSession? _session;
         private Direct3D11CaptureFramePool? _framePool;
@@ -19,13 +19,13 @@ namespace HideMyWindows.App.Services.DesktopPreview
         private IntPtr _d3dContextPtr;
         
         // MTA-bound RCWs for background thread usage
-        private CaptureHelper.ID3D11Device? _d3dDeviceMta;
-        private CaptureHelper.ID3D11DeviceContext? _d3dContextMta;
+        private D3DCaptureHelper.ID3D11Device? _d3dDeviceMta;
+        private D3DCaptureHelper.ID3D11DeviceContext? _d3dContextMta;
         private IntPtr _stagingTexturePtr;
 
         public event EventHandler<BitmapSource>? FrameCaptured;
 
-        public DesktopPreviewService()
+        public D3DCaptureDesktopPreviewService()
         {
             InitializeD3D();
         }
@@ -35,7 +35,7 @@ namespace HideMyWindows.App.Services.DesktopPreview
             // Create D3D11 Device
             // DriverType.Hardware = 1
             // D3D11_CREATE_DEVICE_BGRA_SUPPORT = 0x20
-            var hr = CaptureHelper.D3D11CreateDevice(
+            var hr = D3DCaptureHelper.D3D11CreateDevice(
                 IntPtr.Zero,
                 1, // Hardware
                 IntPtr.Zero,
@@ -57,7 +57,7 @@ namespace HideMyWindows.App.Services.DesktopPreview
             // We do NOT create RCWs here (STA thread). 
             // They will be created lazily on the usage thread (MTA).
             
-            CaptureHelper.CreateDirect3D11DeviceFromDXGIDevice(_d3dDevicePtr, out var genericDevicePtr);
+            D3DCaptureHelper.CreateDirect3D11DeviceFromDXGIDevice(_d3dDevicePtr, out var genericDevicePtr);
             _device = WinRT.MarshalInterface<IDirect3DDevice>.FromAbi(genericDevicePtr);
             Marshal.Release(genericDevicePtr);
             // Marshal.Release(genericDevicePtr); // FromAbi does not take ownership? Or does it?
@@ -138,7 +138,7 @@ namespace HideMyWindows.App.Services.DesktopPreview
                     return;
                 }
 
-                var item = CaptureHelper.CreateItemForMonitor(hmon);
+                var item = D3DCaptureHelper.CreateItemForMonitor(hmon);
                 Debug.WriteLine($"[DesktopPreviewService] CaptureItem created. Size: {item.Size}");
                 
                 // Create Frame Pool
@@ -172,8 +172,8 @@ namespace HideMyWindows.App.Services.DesktopPreview
                 // Lazy init MTA RCWs
                 if (_d3dDeviceMta == null)
                 {
-                    _d3dDeviceMta = (CaptureHelper.ID3D11Device)Marshal.GetObjectForIUnknown(_d3dDevicePtr);
-                    _d3dContextMta = (CaptureHelper.ID3D11DeviceContext)Marshal.GetObjectForIUnknown(_d3dContextPtr);
+                    _d3dDeviceMta = (D3DCaptureHelper.ID3D11Device)Marshal.GetObjectForIUnknown(_d3dDevicePtr);
+                    _d3dContextMta = (D3DCaptureHelper.ID3D11DeviceContext)Marshal.GetObjectForIUnknown(_d3dContextPtr);
                 }
 
                 var surface = frame.Surface;
@@ -190,7 +190,7 @@ namespace HideMyWindows.App.Services.DesktopPreview
                 // For this ReplaceFileContent, I will just do the cast change and assume I can add the using directive or fully qualify.
                 // WinRT.CastExtensions.As<...>(surface)
                 
-                var access = WinRT.CastExtensions.As<CaptureHelper.IDirect3DDxgiInterfaceAccess>(surface);
+                var access = WinRT.CastExtensions.As<D3DCaptureHelper.IDirect3DDxgiInterfaceAccess>(surface);
                 
                 if (access == null) {
                     Debug.WriteLine("[DesktopPreviewService] Failed to cast to IDirect3DDxgiInterfaceAccess");
@@ -198,7 +198,7 @@ namespace HideMyWindows.App.Services.DesktopPreview
                 }
                 
                 // Get source texture as raw pointer
-                var guid = typeof(CaptureHelper.ID3D11Texture2D).GUID;
+                var guid = typeof(D3DCaptureHelper.ID3D11Texture2D).GUID;
                 var pSourceTexture = access.GetInterface(ref guid);
                 
                 if (pSourceTexture == IntPtr.Zero) {
@@ -207,9 +207,9 @@ namespace HideMyWindows.App.Services.DesktopPreview
                 }
 
                 // Get texture description - need RCW temporarily just for GetDesc
-                CaptureHelper.D3D11_TEXTURE2D_DESC desc;
+                D3DCaptureHelper.D3D11_TEXTURE2D_DESC desc;
                 try {
-                    var texture = Marshal.GetObjectForIUnknown(pSourceTexture) as CaptureHelper.ID3D11Texture2D; 
+                    var texture = Marshal.GetObjectForIUnknown(pSourceTexture) as D3DCaptureHelper.ID3D11Texture2D; 
                     if (texture == null) {
                          Debug.WriteLine("[DesktopPreviewService] Texture is null");
                          Marshal.Release(pSourceTexture);
@@ -249,7 +249,7 @@ namespace HideMyWindows.App.Services.DesktopPreview
                 }
 
                 // Map
-                CaptureHelper.D3D11_MAPPED_SUBRESOURCE mapped;
+                D3DCaptureHelper.D3D11_MAPPED_SUBRESOURCE mapped;
                 var mapHr = _d3dContextMta!.Map(_stagingTexturePtr, 0, 1, 0, out mapped); // 1 = D3D11_MAP_READ
                 if (mapHr != 0)
                 {

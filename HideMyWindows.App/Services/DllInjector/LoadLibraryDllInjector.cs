@@ -25,6 +25,9 @@ namespace HideMyWindows.App.Services.DllInjector
         private Dictionary<string, IntPtr> DllProcOffsets64 { get; } = [];
         private Dictionary<string, IntPtr> DllProcOffsets32 { get; } = [];
 
+        private string DllPath32;
+        private string DllPath64;
+
         public LoadLibraryDllInjector()
         {
             if (Environment.Is64BitProcess)
@@ -35,6 +38,24 @@ namespace HideMyWindows.App.Services.DllInjector
 
             PopulateOffsetMap(Path.Combine(Directory.GetCurrentDirectory(), IDllInjector.DllName64), DllProcOffsets64);
             PopulateOffsetMap(Path.Combine(Directory.GetCurrentDirectory(), IDllInjector.DllName32), DllProcOffsets32);
+
+            DllPath32 = CopyToTemp(Path.Combine(Directory.GetCurrentDirectory(), IDllInjector.DllName32)); // Need to copy DLLs to a temporary, publicly accessible folder for the MSIX build of the program to work, as external applications aren't able to access local app bundle data (therefore can't load the DLL). A cleaner system is welcome.
+            DllPath64 = CopyToTemp(Path.Combine(Directory.GetCurrentDirectory(), IDllInjector.DllName64));
+        }
+
+        private string CopyToTemp(string sourcePath)
+        {
+            string tempDir = Path.GetTempPath();
+            string fileName = Path.GetFileName(sourcePath);
+            string destPath = Path.Combine(tempDir, fileName);
+
+            try
+            {
+                File.Copy(sourcePath, destPath, overwrite: true);
+            }
+            catch { }
+
+            return destPath;
         }
 
         private void PopulateOffsetMap(string dllPath, Dictionary<string, IntPtr> offsets)
@@ -82,7 +103,7 @@ namespace HideMyWindows.App.Services.DllInjector
         public IntPtr InjectDll(Process process)
         {
             if (process.HasExited) return IntPtr.Zero;
-            var DllPath = Path.Combine(Directory.GetCurrentDirectory(), IsProcess64Bit(process) ? IDllInjector.DllName64 : IDllInjector.DllName32);
+            var DllPath = IsProcess64Bit(process) ? DllPath64 : DllPath32;
 
             var memSize = Encoding.Unicode.GetByteCount(DllPath);
             var mem = VirtualAllocEx(process.Handle, IntPtr.Zero, memSize, MEM_ALLOCATION_TYPE.MEM_RESERVE | MEM_ALLOCATION_TYPE.MEM_COMMIT, MEM_PROTECTION.PAGE_READWRITE);
@@ -280,24 +301,24 @@ namespace HideMyWindows.App.Services.DllInjector
             InvokeDllMethod(process, handle, "UnhideAllWindows", Array.Empty<byte>());
         }
 
-        public void HideTaskbarIcon(Process process, IntPtr handle, IntPtr hwnd)
+        public void HideTrayIcon(Process process, IntPtr handle, IntPtr hwnd)
         {
             var parameter = new HideWindowParameter()
             {
                 hwnd = hwnd
             };
 
-            InvokeDllMethod(process, handle, "HideTaskbarIcon", parameter.ToBytes());
+            InvokeDllMethod(process, handle, "HideTrayIcon", parameter.ToBytes());
         }
 
-        public void ShowTaskbarIcon(Process process, IntPtr handle, IntPtr hwnd)
+        public void UnhideTrayIcon(Process process, IntPtr handle, IntPtr hwnd)
         {
             var parameter = new HideWindowParameter()
             {
                 hwnd = hwnd
             };
 
-            InvokeDllMethod(process, handle, "ShowTaskbarIcon", parameter.ToBytes());
+            InvokeDllMethod(process, handle, "UnhideTrayIcon", parameter.ToBytes());
         }
 
         private bool IsProcess64Bit(Process process)
