@@ -144,6 +144,15 @@ namespace HideMyWindows.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Desktop preview.
+        /// </summary>
+        public static string DesktopPreview {
+            get {
+                return ResourceManager.GetString("DesktopPreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Don&apos;t show this dialog again.
         /// </summary>
         public static string DontShowThisDialogAgain {
@@ -225,6 +234,223 @@ namespace HideMyWindows.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can reopen this guide anytime from the &apos;About HideMyWindows&apos; tab in the settings..
+        /// </summary>
+        public static string Guide_AllSetText {
+            get {
+                return ResourceManager.GetString("Guide_AllSetText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All set.
+        /// </summary>
+        public static string Guide_AllSetTitle {
+            get {
+                return ResourceManager.GetString("Guide_AllSetTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If your app is already running, you can always select it here and hide it!.
+        /// </summary>
+        public static string Guide_AlreadyRunningText {
+            get {
+                return ResourceManager.GetString("Guide_AlreadyRunningText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your app is already running?.
+        /// </summary>
+        public static string Guide_AlreadyRunningTitle {
+            get {
+                return ResourceManager.GetString("Guide_AlreadyRunningTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Using &apos;Window rules&apos;, you can make it so HideMyWindows automatically detects starting apps and windows, and immediately hides them!.
+        /// </summary>
+        public static string Guide_AutoHideText {
+            get {
+                return ResourceManager.GetString("Guide_AutoHideText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Want to hide your app automatically?.
+        /// </summary>
+        public static string Guide_AutoHideTitle {
+            get {
+                return ResourceManager.GetString("Guide_AutoHideTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To quickly select your app, press this button, then click on your app! It will automatically be selected by HideMyWindows..
+        /// </summary>
+        public static string Guide_CantFindText {
+            get {
+                return ResourceManager.GetString("Guide_CantFindText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t find it?.
+        /// </summary>
+        public static string Guide_CantFindTitle {
+            get {
+                return ResourceManager.GetString("Guide_CantFindTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you really can&apos;t find your app, or you need finer control over the selection, here you can easily filter all the apps and find the ones you are looking for!.
+        /// </summary>
+        public static string Guide_FinerControlText {
+            get {
+                return ResourceManager.GetString("Guide_FinerControlText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Need finer control?.
+        /// </summary>
+        public static string Guide_FinerControlTitle {
+            get {
+                return ResourceManager.GetString("Guide_FinerControlTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter based on the process name, window name, window class, or process ID. Once a new window matches your criteria, it will automatically be hidden!.
+        /// </summary>
+        public static string Guide_ManyFilteringOptionsText {
+            get {
+                return ResourceManager.GetString("Guide_ManyFilteringOptionsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Many filtering options!.
+        /// </summary>
+        public static string Guide_ManyFilteringOptionsTitle {
+            get {
+                return ResourceManager.GetString("Guide_ManyFilteringOptionsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In the &apos;Quick launch&apos; page you can add apps that you often need to launch hidden, so you always have them ready!.
+        /// </summary>
+        public static string Guide_QuickLaunchOftenText {
+            get {
+                return ResourceManager.GetString("Guide_QuickLaunchOftenText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Using the same app very often?.
+        /// </summary>
+        public static string Guide_QuickLaunchOftenTitle {
+            get {
+                return ResourceManager.GetString("Guide_QuickLaunchOftenTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reopen the guide.
+        /// </summary>
+        public static string Guide_Reopen {
+            get {
+                return ResourceManager.GetString("Guide_Reopen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Just click on the icon and your app will open, already hidden! Right click to edit or remove the entry..
+        /// </summary>
+        public static string Guide_SimpleAndQuickText {
+            get {
+                return ResourceManager.GetString("Guide_SimpleAndQuickText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Simple and quick!.
+        /// </summary>
+        public static string Guide_SimpleAndQuickTitle {
+            get {
+                return ResourceManager.GetString("Guide_SimpleAndQuickTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you want to start a hidden application, you can do it here!
+        ///Choose the path, and the arguments if needed, and press the launch button!.
+        /// </summary>
+        public static string Guide_StartHereText {
+            get {
+                return ResourceManager.GetString("Guide_StartHereText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start here!.
+        /// </summary>
+        public static string Guide_StartHereTitle {
+            get {
+                return ResourceManager.GetString("Guide_StartHereTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your app!.
+        /// </summary>
+        public static string Guide_TempQuickLaunchEntryName {
+            get {
+                return ResourceManager.GetString("Guide_TempQuickLaunchEntryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In the settings page you can change various options, such as hiding HideMyWindows itself, its tray icon, or whether it should minimize to the tray..
+        /// </summary>
+        public static string Guide_TweakSettingsText {
+            get {
+                return ResourceManager.GetString("Guide_TweakSettingsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Need to tweak something?.
+        /// </summary>
+        public static string Guide_TweakSettingsTitle {
+            get {
+                return ResourceManager.GetString("Guide_TweakSettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I&apos;ll give you a short tour of HideMyWindows and teach you how to use it..
+        /// </summary>
+        public static string Guide_WelcomeText {
+            get {
+                return ResourceManager.GetString("Guide_WelcomeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome!.
+        /// </summary>
+        public static string Guide_WelcomeTitle {
+            get {
+                return ResourceManager.GetString("Guide_WelcomeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hide a running process.
         /// </summary>
         public static string HideARunningProcess {
@@ -261,6 +487,15 @@ namespace HideMyWindows.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hide tray icon.
+        /// </summary>
+        public static string HideTrayIcon {
+            get {
+                return ResourceManager.GetString("HideTrayIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hide window.
         /// </summary>
         public static string HideWindow {
@@ -275,6 +510,15 @@ namespace HideMyWindows.App.Resources {
         public static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is how others will see your screen..
+        /// </summary>
+        public static string HowOthersWillSeeYourScreen {
+            get {
+                return ResourceManager.GetString("HowOthersWillSeeYourScreen", resourceCulture);
             }
         }
         
@@ -342,11 +586,29 @@ namespace HideMyWindows.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Persistent (re-apply automatically).
+        /// </summary>
+        public static string Persistent {
+            get {
+                return ResourceManager.GetString("Persistent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Personalization.
         /// </summary>
         public static string Personalization {
             get {
                 return ResourceManager.GetString("Personalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Primary.
+        /// </summary>
+        public static string Primary {
+            get {
+                return ResourceManager.GetString("Primary", resourceCulture);
             }
         }
         
@@ -360,7 +622,7 @@ namespace HideMyWindows.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Process Id.
+        ///   Looks up a localized string similar to Process ID.
         /// </summary>
         public static string ProcessId {
             get {
@@ -437,6 +699,15 @@ namespace HideMyWindows.App.Resources {
         public static string Remove {
             get {
                 return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rule re-apply interval (in milliseconds).
+        /// </summary>
+        public static string RuleReapplyInterval_InMilliseconds {
+            get {
+                return ResourceManager.GetString("RuleReapplyInterval_InMilliseconds", resourceCulture);
             }
         }
         
@@ -563,6 +834,51 @@ namespace HideMyWindows.App.Resources {
         public static string ToApplyTheseSettingsSaveAndRestart {
             get {
                 return ResourceManager.GetString("ToApplyTheseSettingsSaveAndRestart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unhide process.
+        /// </summary>
+        public static string UnhideProcess {
+            get {
+                return ResourceManager.GetString("UnhideProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unhide process windows.
+        /// </summary>
+        public static string UnhideProcessWindows {
+            get {
+                return ResourceManager.GetString("UnhideProcessWindows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unhide tray icon.
+        /// </summary>
+        public static string UnhideTrayIcon {
+            get {
+                return ResourceManager.GetString("UnhideTrayIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unhide window.
+        /// </summary>
+        public static string UnhideWindow {
+            get {
+                return ResourceManager.GetString("UnhideWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown monitor.
+        /// </summary>
+        public static string UnknownMonitor {
+            get {
+                return ResourceManager.GetString("UnknownMonitor", resourceCulture);
             }
         }
         

@@ -57,24 +57,24 @@ namespace HideMyWindows.App.Services.DllInjector
             InvokeDllMethod(process, handle, "UnhideAllWindows");
         }
 
-        public void HideTaskbarIcon(Process process, IntPtr handle, IntPtr hwnd)
+        public void HideTrayIcon(Process process, IntPtr handle, IntPtr hwnd)
         {
             var parameter = new HideWindowParameter()
             {
                 hwnd = hwnd
             };
 
-            InvokeDllMethod(process, handle, "HideTaskbarIcon", parameter);
+            InvokeDllMethod(process, handle, "HideTrayIcon", parameter);
         }
 
-        public void ShowTaskbarIcon(Process process, IntPtr handle, IntPtr hwnd)
+        public void UnhideTrayIcon(Process process, IntPtr handle, IntPtr hwnd)
         {
             var parameter = new HideWindowParameter()
             {
                 hwnd = hwnd
             };
 
-            InvokeDllMethod(process, handle, "ShowTaskbarIcon", parameter);
+            InvokeDllMethod(process, handle, "UnhideTrayIcon", parameter);
         }
     }
 

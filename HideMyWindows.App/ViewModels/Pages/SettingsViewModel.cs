@@ -30,7 +30,7 @@ namespace HideMyWindows.App.ViewModels.Pages
 
             configProvider.Load();
             ConfigProvider.Config!.CurrentTheme = ApplicationThemeManager.GetAppTheme();
-            AppVersion = $"HideMyWindows.App - {GetAssemblyVersion()}";
+            AppVersion = $"HideMyWindows — {GetAssemblyVersion()}";
         }
 
         public ProcessWatcherType? ProcessWatcherType { 

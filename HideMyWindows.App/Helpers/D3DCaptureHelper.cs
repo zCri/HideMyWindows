@@ -5,7 +5,7 @@ using WinRT;
 
 namespace HideMyWindows.App.Helpers
 {
-    public static class CaptureHelper
+    public static class D3DCaptureHelper
     {
         [ComImport]
         [Guid("3628E81B-3CAC-4C60-B7F4-23CE0E0C3356")]

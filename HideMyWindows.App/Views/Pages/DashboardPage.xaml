@@ -21,62 +21,16 @@
     lex:ResxLocalizationProvider.DefaultAssembly="HideMyWindows.App"
     lex:ResxLocalizationProvider.DefaultDictionary="Strings"
     mc:Ignorable="d">
-    
-    <Page.Resources>
-        <helpers:CollectionSizeVisibilityConverter x:Key="CollectionSizeVisibilityConverter"/>
-    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <StackPanel
-            Grid.Row="0"
-            Margin="20,10,20,0"
-            Orientation="Vertical">
-
-            <TextBlock
-                FontSize="20"
-                FontWeight="Medium"
-                Text="{lex:Loc Preview}"/>
-            <TextBlock
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                Text="{lex:Loc HowOthersWillSeeYourScreen}"/>
-
-            <Grid Margin="0,15,0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <Image
-                    Grid.Row="0"
-                    MaxHeight="250"
-                    Stretch="Uniform"
-                    Visibility="{Binding ViewModel.ShowDesktopPreview, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    Source="{Binding ViewModel.PreviewImage, Mode=OneWay}"/>
-
-                 <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0">
-                     <CheckBox
-                        IsChecked="{Binding ViewModel.ShowDesktopPreview}"
-                        Content="{lex:Loc ShowDesktopPreview}"/>
-                     
-                     <ComboBox
-                        Visibility="{Binding ViewModel.AvailableMonitors.Count, Converter={StaticResource CollectionSizeVisibilityConverter}}" 
-                        ItemsSource="{Binding ViewModel.AvailableMonitors}"
-                        SelectedIndex="{Binding ViewModel.SelectedMonitorIndex}"
-                        Margin="15,0,0,0"
-                        Width="150"/>
-                 </StackPanel>
-            </Grid>
-        </StackPanel>
-
         <StackPanel x:Name="RunAHiddenProcessStackPanel"
-            Grid.Row="1">
+            Grid.Row="0">
             <TextBlock
                 FontSize="20"
                 FontWeight="Medium"
@@ -112,7 +66,7 @@
                 Command="{Binding ViewModel.StartProcessCommand, Mode=OneWay}"/>
         </StackPanel>
         <StackPanel Name="HideARunningProcessStackPanel"
-            Grid.Row="2"
+            Grid.Row="1"
             Margin="0,24,0,0">
             <TextBlock
                 FontSize="20"
@@ -146,7 +100,7 @@
                 <ui:Button
                     Grid.Column="0"
                     HorizontalAlignment="Stretch"
-                    Icon="{ui:SymbolIcon ArrowEnterLeft24}"
+                    Icon="{ui:SymbolIcon Window24, Filled=True}"
                     Appearance="Primary"
                     Content="{lex:Loc HideProcessWindows}"
                     Command="{Binding ViewModel.InjectIntoProcessCommand, Mode=OneWay}"/>
@@ -154,7 +108,7 @@
                     Grid.Column="1"
                     HorizontalAlignment="Stretch"
                     Margin="8,0,0,0"
-                    Icon="{ui:SymbolIcon ArrowEnterLeft24}"
+                    Icon="{ui:SymbolIcon Window24}"
                     Appearance="Secondary"
                     Content="{lex:Loc UnhideProcessWindows}"
                     Command="{Binding ViewModel.UnhideIntoProcessCommand, Mode=OneWay}"/>
@@ -168,7 +122,7 @@
                 <ui:Button
                     Grid.Column="0"
                     HorizontalAlignment="Stretch"
-                    Icon="{ui:SymbolIcon ArrowEnterLeft24}"
+                    Icon="{ui:SymbolIcon WindowApps24, Filled=True}"
                     Appearance="Secondary"
                     Content="{lex:Loc HideWindow}"
                     Command="{Binding ViewModel.HideWindowCommand, Mode=OneWay}"/>
@@ -176,7 +130,7 @@
                     Grid.Column="1"
                     HorizontalAlignment="Stretch"
                     Margin="8,0,0,0"
-                    Icon="{ui:SymbolIcon ArrowEnterLeft24}"
+                    Icon="{ui:SymbolIcon WindowApps24}"
                     Appearance="Secondary"
                     Content="{lex:Loc UnhideWindow}"
                     Command="{Binding ViewModel.UnhideWindowCommand, Mode=OneWay}"/>
@@ -189,23 +143,23 @@
                 <ui:Button
                     Grid.Column="0"
                     HorizontalAlignment="Stretch"
-                    Icon="{ui:SymbolIcon ArrowEnterLeft24}"
+                    Icon="{ui:SymbolIcon TableBottomRow24, Filled=True}"
                     Appearance="Secondary"
-                    Content="{lex:Loc HideTaskbarIcon}"
-                    Command="{Binding ViewModel.HideTaskbarIconCommand, Mode=OneWay}"/>
+                    Content="{lex:Loc HideTrayIcon}"
+                    Command="{Binding ViewModel.HideTrayIconCommand, Mode=OneWay}"/>
                 <ui:Button
                     Grid.Column="1"
                     HorizontalAlignment="Stretch"
                     Margin="8,0,0,0"
-                    Icon="{ui:SymbolIcon ArrowEnterLeft24}"
+                    Icon="{ui:SymbolIcon TableBottomRow24}"
                     Appearance="Secondary"
-                    Content="{lex:Loc ShowTaskbarIcon}"
-                    Command="{Binding ViewModel.ShowTaskbarIconCommand, Mode=OneWay}"/>
+                    Content="{lex:Loc UnhideTrayIcon}"
+                    Command="{Binding ViewModel.UnhideTrayIconCommand, Mode=OneWay}"/>
             </Grid>
         </StackPanel>
         <StackPanel Name="FindAndHideStackPanel"
-            Grid.Row="3"
-            Margin="0,24,0,0">
+            Grid.Row="2"
+            Margin="0,24,0,20">
             <TextBlock
                 FontSize="20"
                 FontWeight="Medium"

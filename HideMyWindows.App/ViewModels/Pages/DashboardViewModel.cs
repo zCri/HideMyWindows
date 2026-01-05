@@ -5,7 +5,6 @@
 
 using HideMyWindows.App.Helpers;
 using HideMyWindows.App.Models;
-using HideMyWindows.App.Services.DllInjector;
 using HideMyWindows.App.Services.ProcessWatcher;
 using HideMyWindows.App.Services.WindowClickFinder;
 using HideMyWindows.App.Services.WindowHider;
@@ -16,10 +15,8 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using Vanara.PInvoke;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
-using WPFLocalizeExtension.Engine;
 using static Vanara.PInvoke.Kernel32;
 using static Vanara.PInvoke.User32;
 
@@ -43,11 +40,13 @@ namespace HideMyWindows.App.ViewModels.Pages
 
             ProcessWatcher.ProcessStarted += (_, e) =>
             {
-                Application.Current?.Dispatcher.Invoke(() => {
+                Application.Current?.Dispatcher.Invoke(() =>
+                {
                     try
                     {
                         RunningProcesses.Add(new ProcessProxy(Process.GetProcessById(e.Id)));
-                    } catch (ArgumentException) { }
+                    }
+                    catch (ArgumentException) { }
                 });
             };
 
@@ -56,7 +55,7 @@ namespace HideMyWindows.App.ViewModels.Pages
                 Application.Current?.Dispatcher.Invoke(() =>
                 {
                     var process = RunningProcesses.FirstOrDefault(x => x.Process.Id == e.Id);
-                    if(process is not null)
+                    if (process is not null)
                         RunningProcesses.Remove(process);
 
                     InjectIntoProcessCommand.NotifyCanExecuteChanged();
@@ -78,8 +77,8 @@ namespace HideMyWindows.App.ViewModels.Pages
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(InjectIntoProcessCommand))]
         [NotifyCanExecuteChangedFor(nameof(UnhideIntoProcessCommand))]
-        [NotifyCanExecuteChangedFor(nameof(HideTaskbarIconCommand))]
-        [NotifyCanExecuteChangedFor(nameof(ShowTaskbarIconCommand))]
+        [NotifyCanExecuteChangedFor(nameof(HideTrayIconCommand))]
+        [NotifyCanExecuteChangedFor(nameof(UnhideTrayIconCommand))]
         private ProcessProxy? _selectedProcess;
 
         [ObservableProperty]
@@ -88,18 +87,18 @@ namespace HideMyWindows.App.ViewModels.Pages
         [RelayCommand(CanExecute = nameof(CanStartProcess))]
         private void StartProcess()
         {
-            
-                var commandLine = new StringBuilder(ProcessArguments);
-                var workingDirectory = new FileInfo(ProcessPath)?.Directory?.FullName;
 
-                if (!CreateProcess(ProcessPath, commandLine, null, null, true, CREATE_PROCESS.CREATE_SUSPENDED, null, workingDirectory, STARTUPINFO.Default, out var processInformation))
-                    throw GetLastError().GetException();
-                var process = Process.GetProcessById((int) processInformation.dwProcessId);
+            var commandLine = new StringBuilder(ProcessArguments);
+            var workingDirectory = new FileInfo(ProcessPath)?.Directory?.FullName;
 
-                WindowHider.ApplyAction(WindowHiderAction.HideProcess, process);
-                if((int) ResumeThread(processInformation.hThread) == -1)
-                    throw GetLastError().GetException();
-            
+            if (!CreateProcess(ProcessPath, commandLine, null, null, true, CREATE_PROCESS.CREATE_SUSPENDED, null, workingDirectory, STARTUPINFO.Default, out var processInformation))
+                throw GetLastError().GetException();
+            var process = Process.GetProcessById((int)processInformation.dwProcessId);
+
+            WindowHider.ApplyAction(WindowHiderAction.HideProcess, process);
+            if ((int)ResumeThread(processInformation.hThread) == -1)
+                throw GetLastError().GetException();
+
         }
 
         private bool CanStartProcess()
@@ -117,10 +116,10 @@ namespace HideMyWindows.App.ViewModels.Pages
                 FileName = ProcessPath,
                 InitialDirectory = Directory.Exists(dir) ? dir : default,
             };
-            
+
             bool? result = dialog.ShowDialog();
-            
-            if(result == true)
+
+            if (result == true)
             {
                 ProcessPath = dialog.FileName;
             }
@@ -178,9 +177,10 @@ namespace HideMyWindows.App.ViewModels.Pages
         {
             try
             {
-                if(SelectedProcess is not null)
+                if (SelectedProcess is not null)
                     WindowHider.ApplyAction(WindowHiderAction.HideProcess, SelectedProcess.Process);
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
             }
@@ -192,12 +192,12 @@ namespace HideMyWindows.App.ViewModels.Pages
         }
 
         [RelayCommand]
-        private void HideTaskbarIcon()
+        private void HideTrayIcon()
         {
             try
             {
                 if (SelectedProcess is not null)
-                    WindowHider.ApplyAction(WindowHiderAction.HideTaskbarIcon, SelectedProcess.Process);
+                    WindowHider.ApplyAction(WindowHiderAction.HideTrayIcon, SelectedProcess.Process);
             }
             catch (Exception e)
             {
@@ -206,12 +206,12 @@ namespace HideMyWindows.App.ViewModels.Pages
         }
 
         [RelayCommand]
-        private void ShowTaskbarIcon()
+        private void UnhideTrayIcon()
         {
             try
             {
                 if (SelectedProcess is not null)
-                    WindowHider.ApplyAction(WindowHiderAction.ShowTaskbarIcon, SelectedProcess.Process);
+                    WindowHider.ApplyAction(WindowHiderAction.UnhideTrayIcon, SelectedProcess.Process);
             }
             catch (Exception e)
             {
@@ -224,37 +224,38 @@ namespace HideMyWindows.App.ViewModels.Pages
         {
             var window = await WindowClickFinder.FindWindowByClickAsync();
 
-            if(window.Process is not null)
+            if (window.Process is not null)
                 SelectedProcess = RunningProcesses.First(process => process.Process.Id == window.Process.Id);
         }
 
         [RelayCommand]
         private async Task FindAndHide()
         {
-            if(FindWindowRule.Target is WindowRuleTarget.WindowTitle or WindowRuleTarget.WindowClass)
+            if (FindWindowRule.Target is WindowRuleTarget.WindowTitle or WindowRuleTarget.WindowClass)
             {
-                await Task.Run(() => {
+                await Task.Run(() =>
+                {
                     EnumWindows((hwnd, _) =>
                     {
                         var value = string.Empty;
 
-                        switch(FindWindowRule.Target)
+                        switch (FindWindowRule.Target)
                         {
                             case WindowRuleTarget.WindowTitle:
-                            {
-                                var titleLen = GetWindowTextLength(hwnd) + 1;
-                                var titleBuilder = new StringBuilder(titleLen);
-                                GetWindowText(hwnd, titleBuilder, titleLen);
-                                value = titleBuilder.ToString();
-                                break;
-                            }
+                                {
+                                    var titleLen = GetWindowTextLength(hwnd) + 1;
+                                    var titleBuilder = new StringBuilder(titleLen);
+                                    GetWindowText(hwnd, titleBuilder, titleLen);
+                                    value = titleBuilder.ToString();
+                                    break;
+                                }
                             case WindowRuleTarget.WindowClass:
-                            {
-                                var classBuilder = new StringBuilder(1024);
-                                GetClassName(hwnd, classBuilder, 1024);
-                                value = classBuilder.ToString();
-                                break;
-                            }
+                                {
+                                    var classBuilder = new StringBuilder(1024);
+                                    GetClassName(hwnd, classBuilder, 1024);
+                                    value = classBuilder.ToString();
+                                    break;
+                                }
                         }
 
                         if (FindWindowRule.Matches(value))
@@ -265,7 +266,8 @@ namespace HideMyWindows.App.ViewModels.Pages
                         return true;
                     }, IntPtr.Zero);
                 });
-            } else
+            }
+            else
             {
                 if (FindWindowRule.Comparator is WindowRuleComparator.StringEquals && FindWindowRule.Target is WindowRuleTarget.ProcessId)
                 {
@@ -322,107 +324,6 @@ namespace HideMyWindows.App.ViewModels.Pages
                 WindowRuleTarget.WindowTitle => windowInfo.Title,
                 _ => ""
             };
-        }
-
-        /* Desktop Preview Feature */
-        
-        private HideMyWindows.App.Services.DesktopPreview.DesktopPreviewService _previewService = new();
-        
-        [ObservableProperty]
-        private System.Windows.Media.Imaging.BitmapSource? _previewImage;
-        
-        public bool ShowDesktopPreview 
-        {
-            get => ConfigProvider.Config?.ShowDesktopPreview ?? false;
-            set
-            {
-                if (ConfigProvider.Config != null)
-                {
-                    ConfigProvider.Config.ShowDesktopPreview = value;
-                    OnPropertyChanged(nameof(ShowDesktopPreview));
-                    TogglePreview(value);
-                }
-            }
-        }
-
-        [ObservableProperty]
-        private System.Collections.ObjectModel.ObservableCollection<string> _availableMonitors = new();
-        
-        [ObservableProperty]
-        private int _selectedMonitorIndex = 0;
-
-        // Monitor handles
-        private List<IntPtr> _monitorHandles = new();
-
-        partial void OnSelectedMonitorIndexChanged(int value)
-        {
-             if (ShowDesktopPreview)
-             {
-                 TogglePreview(true); // Restart with new monitor
-             }
-        }
-
-        private void TogglePreview(bool enable)
-        {
-            if (enable)
-            {
-                // Refresh monitors
-                _monitorHandles.Clear();
-                AvailableMonitors.Clear();
-                
-                System.Diagnostics.Debug.WriteLine("[DashboardViewModel] EnumDisplayMonitors started...");
-                EnumDisplayMonitors(HDC.NULL, null, (hMonitor, hdcMonitor, lprcMonitor, dwData) =>
-                {
-                    _monitorHandles.Add((IntPtr)hMonitor);
-                    AvailableMonitors.Add($"Monitor {_monitorHandles.Count}");
-                    return true;
-                }, IntPtr.Zero);
-                
-                System.Diagnostics.Debug.WriteLine($"[DashboardViewModel] Found {_monitorHandles.Count} monitors.");
-
-                if (SelectedMonitorIndex >= _monitorHandles.Count) SelectedMonitorIndex = 0;
-                
-                if (_monitorHandles.Any())
-                {
-                    try 
-                    {
-                        var handle = _monitorHandles[SelectedMonitorIndex];
-                        System.Diagnostics.Debug.WriteLine($"[DashboardViewModel] Starting capture for handle: {handle}");
-                        _previewService.FrameCaptured += OnFrameCaptured;
-                        _previewService.StartCapture(handle);
-                    }
-                    catch (Exception ex) 
-                    {
-                         // Failed to start
-                         System.Diagnostics.Debug.WriteLine($"[DashboardViewModel] StartCapture failed: {ex}");
-                    }
-                }
-                else
-                {
-                    System.Diagnostics.Debug.WriteLine("[DashboardViewModel] No monitors found!");
-                }
-            }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("[DashboardViewModel] Stopping capture.");
-                _previewService.StopCapture();
-                _previewService.FrameCaptured -= OnFrameCaptured;
-                PreviewImage = null;
-                
-                // Clear monitors list when preview is disabled
-                _monitorHandles.Clear();
-                AvailableMonitors.Clear();
-                SelectedMonitorIndex = 0;
-            }
-        }
-
-        private void OnFrameCaptured(object? sender, System.Windows.Media.Imaging.BitmapSource e)
-        {
-            Application.Current?.Dispatcher.Invoke(() =>
-            {
-                PreviewImage = e;
-                System.Diagnostics.Debug.WriteLine($"[DashboardViewModel] OnFrameCaptured: PreviewImage set to {e.PixelWidth}x{e.PixelHeight}");
-            });
         }
     }
 }

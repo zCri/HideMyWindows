@@ -71,7 +71,7 @@ namespace HideMyWindows.App.Services
         {
             if (ConfigProvider.Config is null) return;
             
-            var persistentRules = ConfigProvider.Config.WindowRules.Where(rule => rule.Enabled && rule.IsPersistent).ToList();
+            var persistentRules = ConfigProvider.Config.WindowRules.Where(rule => rule.Enabled && rule.Persistent).ToList();
             if (!persistentRules.Any()) return;
 
             // TODO: Respect Config.RuleReapplyIntervalMs (currently hardcoded 100ms loop effectively, need throttling)

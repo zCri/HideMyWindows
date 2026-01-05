@@ -379,4 +379,34 @@ Choisissez le chemin, ainsi que les arguments si nécessaire, puis appuyez sur l
   <data name="Guide_Reopen" xml:space="preserve">
     <value>Rouvrir le guide</value>
   </data>
+  <data name="HideTrayIcon" xml:space="preserve">
+    <value>Masquer l'icône de la barre des tâches</value>
+  </data>
+  <data name="HowOthersWillSeeYourScreen" xml:space="preserve">
+    <value>Voici comment les autres verront votre écran.</value>
+  </data>
+  <data name="Persistent" xml:space="preserve">
+    <value>Persistante (réappliquer automatiquement)</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>Principal</value>
+  </data>
+  <data name="RuleReapplyInterval_InMilliseconds" xml:space="preserve">
+    <value>Intervalle de réapplication des règles (en millisecondes)</value>
+  </data>
+  <data name="UnhideProcessWindows" xml:space="preserve">
+    <value>Démasquer les fenêtres du processus</value>
+  </data>
+  <data name="UnhideTrayIcon" xml:space="preserve">
+    <value>Demasquer l'icône de la barre des tâches</value>
+  </data>
+  <data name="UnhideWindow" xml:space="preserve">
+    <value>Démasquer la fenêtre</value>
+  </data>
+  <data name="UnknownMonitor" xml:space="preserve">
+    <value>Moniteur inconnu</value>
+  </data>
+  <data name="DesktopPreview" xml:space="preserve">
+    <value>Aperçu du bureau</value>
+  </data>
 </root>

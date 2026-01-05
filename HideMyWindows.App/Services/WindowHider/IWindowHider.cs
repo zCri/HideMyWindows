@@ -19,8 +19,8 @@ namespace HideMyWindows.App.Services.WindowHider
         HideWindow,
         UnhideProcess,
         UnhideWindow,
-        HideTaskbarIcon,
-        ShowTaskbarIcon
+        HideTrayIcon,
+        UnhideTrayIcon
     }
 
     public class WindowHiderOptions

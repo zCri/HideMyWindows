@@ -385,7 +385,7 @@ BOOL UnhideAllProcessWindows(DWORD dwOwnerPID)
     return(TRUE);
 }
 
-extern "C" __declspec(dllexport) void UnhideWindow(HideWindowParameter * param) {
+extern "C" __declspec(dllexport) void UnhideWindow(HideWindowParameter* param) {
     _UnhideWindow(param->hwnd);
 }
 
@@ -397,7 +397,7 @@ extern "C" __declspec(dllexport) void UnhideAllWindows() {
 
 #include <shobjidl.h>
 
-void _SetTaskbarIconVisibility(HWND hwnd, bool visible) {
+void _SetTrayIconVisibility(HWND hwnd, bool visible) {
     HRESULT hr;
     ITaskbarList* pTaskbarList = NULL;
 
@@ -417,10 +417,10 @@ void _SetTaskbarIconVisibility(HWND hwnd, bool visible) {
     CoUninitialize();
 }
 
-extern "C" __declspec(dllexport) void HideTaskbarIcon(HideWindowParameter* param) {
-    _SetTaskbarIconVisibility(param->hwnd, false);
+extern "C" __declspec(dllexport) void HideTrayIcon(HideWindowParameter* param) {
+    _SetTrayIconVisibility(param->hwnd, false);
 }
 
-extern "C" __declspec(dllexport) void ShowTaskbarIcon(HideWindowParameter* param) {
-    _SetTaskbarIconVisibility(param->hwnd, true);
+extern "C" __declspec(dllexport) void UnhideTrayIcon(HideWindowParameter* param) {
+    _SetTrayIconVisibility(param->hwnd, true);
 }
