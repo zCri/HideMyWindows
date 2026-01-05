@@ -272,6 +272,26 @@ BOOL WINAPI DetourCreateProcessW(
     return res;
 }
 
+typedef BOOL(WINAPI* SetWindowDisplayAffinityType)(
+    HWND  hWnd,
+    DWORD dwAffinity
+);
+
+SetWindowDisplayAffinityType fpSetWindowDisplayAffinity = NULL;
+
+BOOL WINAPI DetourSetWindowDisplayAffinity(
+    HWND  hWnd,
+    DWORD dwAffinity
+) {
+    if (hideAllWindows) {
+        return fpSetWindowDisplayAffinity(hWnd, WDA_EXCLUDEFROMCAPTURE);
+    }
+    else {
+        // Force unhide if we are not in hiding mode, preventing the app from hiding itself
+        return fpSetWindowDisplayAffinity(hWnd, WDA_NONE);
+    }
+}
+
 BOOL APIENTRY DllMain(HMODULE hModule,
     DWORD  ul_reason_for_call,
     LPVOID lpReserved
@@ -291,6 +311,8 @@ BOOL APIENTRY DllMain(HMODULE hModule,
         MH_EnableHook(&CreateProcessA);
         MH_CreateHookApi(L"kernel32.dll", "CreateProcessW", &DetourCreateProcessW, (LPVOID*)&fpCreateProcessW);
         MH_EnableHook(&CreateProcessW);
+        MH_CreateHookApi(L"user32.dll", "SetWindowDisplayAffinity", &DetourSetWindowDisplayAffinity, (LPVOID*)&fpSetWindowDisplayAffinity);
+        MH_EnableHook(&SetWindowDisplayAffinity);
         //MessageBoxA(NULL, std::to_string(MH_CreateHookApi(L"kernel32.dll", "CreateProcessW", &DetourCreateProcessW, (LPVOID*)&fpCreateProcessW)).c_str(), "Createprocessw:", MB_OK);
         //MessageBoxA(NULL, std::to_string(MH_EnableHook(&CreateProcessW)).c_str(), "Createprocessw enable:", MB_OK);
         //MessageBox(NULL, L"Hooked everything", L"Debug", MB_OK);
@@ -316,4 +338,89 @@ extern "C" __declspec(dllexport) void HideAllWindows() {
     hideAllWindows = true;
     followChildProcesses = true;
     HideAllProcessWindows(GetCurrentProcessId());
+}
+
+void _UnhideWindow(HWND hwnd) {
+         if (!SetWindowDisplayAffinity(hwnd, WDA_NONE)) {
+            //MessageBoxA(NULL, GetLastErrorAsString(), "Debug", MB_OK);
+         }
+}
+
+// Existing windows
+BOOL CALLBACK EnumThreadWndProcUnhide(
+    HWND   hwnd,
+    LPARAM lParam
+) {
+    if (!hideAllWindows)
+        _UnhideWindow(hwnd);
+    return TRUE;
+}
+
+BOOL UnhideAllProcessWindows(DWORD dwOwnerPID)
+{
+    HANDLE hThreadSnap = INVALID_HANDLE_VALUE;
+    THREADENTRY32 te32;
+
+    hThreadSnap = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
+    if (hThreadSnap == INVALID_HANDLE_VALUE)
+        return(FALSE);
+
+    te32.dwSize = sizeof(THREADENTRY32);
+
+    if (!Thread32First(hThreadSnap, &te32))
+    {
+        CloseHandle(hThreadSnap);
+        return(FALSE);
+    }
+
+    do
+    {
+        if (te32.th32OwnerProcessID == dwOwnerPID)
+        {
+            EnumThreadWindows(te32.th32ThreadID, EnumThreadWndProcUnhide, 0);
+        }
+    } while (Thread32Next(hThreadSnap, &te32));
+
+    CloseHandle(hThreadSnap);
+    return(TRUE);
+}
+
+extern "C" __declspec(dllexport) void UnhideWindow(HideWindowParameter * param) {
+    _UnhideWindow(param->hwnd);
+}
+
+extern "C" __declspec(dllexport) void UnhideAllWindows() {
+    hideAllWindows = false;
+    followChildProcesses = false;
+    UnhideAllProcessWindows(GetCurrentProcessId());
+}
+
+#include <shobjidl.h>
+
+void _SetTaskbarIconVisibility(HWND hwnd, bool visible) {
+    HRESULT hr;
+    ITaskbarList* pTaskbarList = NULL;
+
+    hr = CoInitialize(NULL);
+    if (FAILED(hr)) return;
+
+    hr = CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_ITaskbarList, (void**)&pTaskbarList);
+    if (SUCCEEDED(hr)) {
+        pTaskbarList->HrInit();
+        if (visible) {
+            pTaskbarList->AddTab(hwnd);
+        } else {
+            pTaskbarList->DeleteTab(hwnd);
+        }
+        pTaskbarList->Release();
+    }
+    CoUninitialize();
+}
+
+extern "C" __declspec(dllexport) void HideTaskbarIcon(HideWindowParameter* param) {
+    _SetTaskbarIconVisibility(param->hwnd, false);
+}
+
+extern "C" __declspec(dllexport) void ShowTaskbarIcon(HideWindowParameter* param) {
+    _SetTaskbarIconVisibility(param->hwnd, true);
 }

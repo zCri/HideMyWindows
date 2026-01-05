@@ -9,6 +9,7 @@ using HideMyWindows.App.Services.DllInjector;
 using HideMyWindows.App.Services.ProcessWatcher;
 using HideMyWindows.App.Services.WindowClickFinder;
 using HideMyWindows.App.Services.WindowHider;
+using HideMyWindows.App.Services.ConfigProvider;
 using Microsoft.Win32;
 using System.ComponentModel;
 using System.Data;
@@ -30,13 +31,15 @@ namespace HideMyWindows.App.ViewModels.Pages
         private IProcessWatcher ProcessWatcher { get; }
         private ISnackbarService SnackbarService { get; }
         private IWindowClickFinder WindowClickFinder { get; }
+        private IConfigProvider ConfigProvider { get; }
 
-        public DashboardViewModel(IWindowHider windowHider, IProcessWatcher processWatcher, ISnackbarService snackbarService, IWindowClickFinder windowClickFinder)
+        public DashboardViewModel(IWindowHider windowHider, IProcessWatcher processWatcher, ISnackbarService snackbarService, IWindowClickFinder windowClickFinder, IConfigProvider configProvider)
         {
             WindowHider = windowHider;
             ProcessWatcher = processWatcher;
             SnackbarService = snackbarService;
             WindowClickFinder = windowClickFinder;
+            ConfigProvider = configProvider;
 
             ProcessWatcher.ProcessStarted += (_, e) =>
             {
@@ -74,6 +77,9 @@ namespace HideMyWindows.App.ViewModels.Pages
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(InjectIntoProcessCommand))]
+        [NotifyCanExecuteChangedFor(nameof(UnhideIntoProcessCommand))]
+        [NotifyCanExecuteChangedFor(nameof(HideTaskbarIconCommand))]
+        [NotifyCanExecuteChangedFor(nameof(ShowTaskbarIconCommand))]
         private ProcessProxy? _selectedProcess;
 
         [ObservableProperty]
@@ -121,6 +127,53 @@ namespace HideMyWindows.App.ViewModels.Pages
         }
 
         [RelayCommand]
+        private void UnhideIntoProcess()
+        {
+            try
+            {
+                if (SelectedProcess is not null)
+                    WindowHider.ApplyAction(WindowHiderAction.UnhideProcess, SelectedProcess.Process);
+            }
+            catch (Exception e)
+            {
+                SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+            }
+        }
+
+        private bool CanUnhideIntoProcess()
+        {
+            return !SelectedProcess?.Process.HasExited ?? false;
+        }
+
+        [RelayCommand]
+        private void HideWindow()
+        {
+            try
+            {
+                if (SelectedProcess is not null)
+                    WindowHider.ApplyAction(WindowHiderAction.HideWindow, SelectedProcess.Process);
+            }
+            catch (Exception e)
+            {
+                SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+            }
+        }
+
+        [RelayCommand]
+        private void UnhideWindow()
+        {
+            try
+            {
+                if (SelectedProcess is not null)
+                    WindowHider.ApplyAction(WindowHiderAction.UnhideWindow, SelectedProcess.Process);
+            }
+            catch (Exception e)
+            {
+                SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+            }
+        }
+
+        [RelayCommand]
         private void InjectIntoProcess()
         {
             try
@@ -129,13 +182,41 @@ namespace HideMyWindows.App.ViewModels.Pages
                     WindowHider.ApplyAction(WindowHiderAction.HideProcess, SelectedProcess.Process);
             } catch (Exception e)
             {
-                SnackbarService.Show("An error occurred!", e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+                SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
             }
         }
 
         private bool CanInjectIntoProcess()
         {
             return !SelectedProcess?.Process.HasExited ?? false;
+        }
+
+        [RelayCommand]
+        private void HideTaskbarIcon()
+        {
+            try
+            {
+                if (SelectedProcess is not null)
+                    WindowHider.ApplyAction(WindowHiderAction.HideTaskbarIcon, SelectedProcess.Process);
+            }
+            catch (Exception e)
+            {
+                SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+            }
+        }
+
+        [RelayCommand]
+        private void ShowTaskbarIcon()
+        {
+            try
+            {
+                if (SelectedProcess is not null)
+                    WindowHider.ApplyAction(WindowHiderAction.ShowTaskbarIcon, SelectedProcess.Process);
+            }
+            catch (Exception e)
+            {
+                SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+            }
         }
 
         [RelayCommand]
@@ -241,6 +322,107 @@ namespace HideMyWindows.App.ViewModels.Pages
                 WindowRuleTarget.WindowTitle => windowInfo.Title,
                 _ => ""
             };
+        }
+
+        /* Desktop Preview Feature */
+        
+        private HideMyWindows.App.Services.DesktopPreview.DesktopPreviewService _previewService = new();
+        
+        [ObservableProperty]
+        private System.Windows.Media.Imaging.BitmapSource? _previewImage;
+        
+        public bool ShowDesktopPreview 
+        {
+            get => ConfigProvider.Config?.ShowDesktopPreview ?? false;
+            set
+            {
+                if (ConfigProvider.Config != null)
+                {
+                    ConfigProvider.Config.ShowDesktopPreview = value;
+                    OnPropertyChanged(nameof(ShowDesktopPreview));
+                    TogglePreview(value);
+                }
+            }
+        }
+
+        [ObservableProperty]
+        private System.Collections.ObjectModel.ObservableCollection<string> _availableMonitors = new();
+        
+        [ObservableProperty]
+        private int _selectedMonitorIndex = 0;
+
+        // Monitor handles
+        private List<IntPtr> _monitorHandles = new();
+
+        partial void OnSelectedMonitorIndexChanged(int value)
+        {
+             if (ShowDesktopPreview)
+             {
+                 TogglePreview(true); // Restart with new monitor
+             }
+        }
+
+        private void TogglePreview(bool enable)
+        {
+            if (enable)
+            {
+                // Refresh monitors
+                _monitorHandles.Clear();
+                AvailableMonitors.Clear();
+                
+                System.Diagnostics.Debug.WriteLine("[DashboardViewModel] EnumDisplayMonitors started...");
+                EnumDisplayMonitors(HDC.NULL, null, (hMonitor, hdcMonitor, lprcMonitor, dwData) =>
+                {
+                    _monitorHandles.Add((IntPtr)hMonitor);
+                    AvailableMonitors.Add($"Monitor {_monitorHandles.Count}");
+                    return true;
+                }, IntPtr.Zero);
+                
+                System.Diagnostics.Debug.WriteLine($"[DashboardViewModel] Found {_monitorHandles.Count} monitors.");
+
+                if (SelectedMonitorIndex >= _monitorHandles.Count) SelectedMonitorIndex = 0;
+                
+                if (_monitorHandles.Any())
+                {
+                    try 
+                    {
+                        var handle = _monitorHandles[SelectedMonitorIndex];
+                        System.Diagnostics.Debug.WriteLine($"[DashboardViewModel] Starting capture for handle: {handle}");
+                        _previewService.FrameCaptured += OnFrameCaptured;
+                        _previewService.StartCapture(handle);
+                    }
+                    catch (Exception ex) 
+                    {
+                         // Failed to start
+                         System.Diagnostics.Debug.WriteLine($"[DashboardViewModel] StartCapture failed: {ex}");
+                    }
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("[DashboardViewModel] No monitors found!");
+                }
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("[DashboardViewModel] Stopping capture.");
+                _previewService.StopCapture();
+                _previewService.FrameCaptured -= OnFrameCaptured;
+                PreviewImage = null;
+                
+                // Clear monitors list when preview is disabled
+                _monitorHandles.Clear();
+                AvailableMonitors.Clear();
+                SelectedMonitorIndex = 0;
+            }
+        }
+
+        private void OnFrameCaptured(object? sender, System.Windows.Media.Imaging.BitmapSource e)
+        {
+            Application.Current?.Dispatcher.Invoke(() =>
+            {
+                PreviewImage = e;
+                System.Diagnostics.Debug.WriteLine($"[DashboardViewModel] OnFrameCaptured: PreviewImage set to {e.PixelWidth}x{e.PixelHeight}");
+            });
         }
     }
 }

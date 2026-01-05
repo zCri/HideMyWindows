@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>wpfui-icon.ico</ApplicationIcon>
     <Nullable>enable</Nullable>
@@ -10,6 +10,8 @@
     <UseWPF>true</UseWPF>
     <LangVersion>12</LangVersion>
     <Platforms>AnyCPU;x64;x86;ARM32;ARM64</Platforms>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <WindowsSdkPackageVersion>10.0.19041.53</WindowsSdkPackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -37,7 +39,7 @@
   
   <Target Name="BuildDLLs" BeforeTargets="ResolveProjectReferences">
     <MSBuild Projects="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" Properties="Platform=Win32" BuildInParallel="$(BuildInParallel)" ContinueOnError="$(ContinueOnError)" />
-    
+  
     <MSBuild Projects="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" Properties="Platform=x64" BuildInParallel="$(BuildInParallel)" ContinueOnError="$(ContinueOnError)" />
   </Target>
 
@@ -60,6 +62,7 @@
       <Targets>%(_MSBuildProjectReferenceExistent.Targets);BuiltProjectOutputGroup</Targets> <!-- Important (see https://github.com/dotnet/msbuild/issues/2823) -->
     </ProjectReference>
   </ItemGroup>
+
 
   <ItemGroup>
     <Resource Include="Assets\wpfui-icon-256.png" />

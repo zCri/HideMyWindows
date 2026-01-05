@@ -41,6 +41,41 @@ namespace HideMyWindows.App.Services.DllInjector
         {
             InvokeDllMethod(process, handle, "HideAllWindows");
         }
+
+        public void UnhideWindow(Process process, IntPtr handle, IntPtr hwnd)
+        {
+            var parameter = new HideWindowParameter()
+            {
+                hwnd = hwnd
+            };
+
+            InvokeDllMethod(process, handle, "UnhideWindow", parameter);
+        }
+
+        public void UnhideAllWindows(Process process, IntPtr handle)
+        {
+            InvokeDllMethod(process, handle, "UnhideAllWindows");
+        }
+
+        public void HideTaskbarIcon(Process process, IntPtr handle, IntPtr hwnd)
+        {
+            var parameter = new HideWindowParameter()
+            {
+                hwnd = hwnd
+            };
+
+            InvokeDllMethod(process, handle, "HideTaskbarIcon", parameter);
+        }
+
+        public void ShowTaskbarIcon(Process process, IntPtr handle, IntPtr hwnd)
+        {
+            var parameter = new HideWindowParameter()
+            {
+                hwnd = hwnd
+            };
+
+            InvokeDllMethod(process, handle, "ShowTaskbarIcon", parameter);
+        }
     }
 
     [StructLayout(LayoutKind.Sequential)]

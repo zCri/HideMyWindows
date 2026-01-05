@@ -35,6 +35,17 @@ namespace HideMyWindows.App
     /// </summary>
     public partial class App
     {
+        public App()
+        {
+            this.DispatcherUnhandledException += OnDispatcherUnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+            {
+                var logPath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)!, "crash_log_domain.txt");
+                File.AppendAllText(logPath, DateTime.Now.ToString() + ": " + (e.ExceptionObject as Exception)?.ToString() + Environment.NewLine);
+                MessageBox.Show($"A critical error occurred: {(e.ExceptionObject as Exception)?.Message}", "Critical Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            };
+        }
+
         public static readonly Queue<SimpleContentDialogCreateOptions> DeferredContentDialogs = new();
 
         // The.NET Generic Host provides dependency injection, configuration, logging, and other services.
@@ -159,6 +170,11 @@ namespace HideMyWindows.App
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             // For more info see https://docs.microsoft.com/en-us/dotnet/api/system.windows.application.dispatcherunhandledexception?view=windowsdesktop-6.0
+            
+            var logPath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)!, "crash_log.txt");
+            File.AppendAllText(logPath, DateTime.Now.ToString() + ": " + e.Exception.ToString() + Environment.NewLine);
+            
+            MessageBox.Show($"An unhandled exception occurred: {e.Exception.Message}\nCheck crash_log.txt for details.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

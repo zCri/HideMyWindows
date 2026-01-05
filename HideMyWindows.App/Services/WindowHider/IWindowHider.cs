@@ -16,7 +16,11 @@ namespace HideMyWindows.App.Services.WindowHider
     public enum WindowHiderAction
     {
         HideProcess,
-        HideWindow
+        HideWindow,
+        UnhideProcess,
+        UnhideWindow,
+        HideTaskbarIcon,
+        ShowTaskbarIcon
     }
 
     public class WindowHiderOptions

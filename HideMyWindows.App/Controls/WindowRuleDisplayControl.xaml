@@ -99,6 +99,11 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
+
         </Grid>
+        <CheckBox 
+            Margin="0,8,0,0"
+            IsChecked="{Binding WindowRule.IsPersistent}"
+            Content="{lex:Loc PersistentRule}"/>
     </StackPanel>
 </UserControl>

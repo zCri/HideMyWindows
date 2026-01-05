@@ -180,7 +180,7 @@ Consider reinstalling the application to ensure its correct functionality.</valu
     <value>Hide process</value>
   </data>
   <data name="HideProcessWindows" xml:space="preserve">
-    <value>Hide process windows</value>
+    <value>Hide Process Windows</value>
   </data>
   <data name="HideThisAppAutomatically" xml:space="preserve">
     <value>Hide this app automatically</value>
@@ -293,6 +293,21 @@ Consider reinstalling the application to ensure its correct functionality.</valu
   <data name="WindowRules" xml:space="preserve">
     <value>Window rules</value>
   </data>
+  <data name="UnhideProcess" xml:space="preserve">
+    <value>Unhide process</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="HowOthersWillSeeYourScreen" xml:space="preserve">
+    <value>How others will see your screen</value>
+  </data>
+  <data name="ShowDesktopPreview" xml:space="preserve">
+    <value>Show desktop preview</value>
+  </data>
+  <data name="UnhideWindow" xml:space="preserve">
+    <value>Unhide window</value>
+  </data>
   <data name="WindowsVersionIncompatible" xml:space="preserve">
     <value>Windows version incompatible</value>
   </data>
@@ -378,5 +393,20 @@ Choose the path, and the arguments if needed, and press the launch button!</valu
   </data>
   <data name="Guide_Reopen" xml:space="preserve">
     <value>Reopen the guide</value>
+  </data>
+  <data name="RuleReapplyInterval_InMilliseconds" xml:space="preserve">
+    <value>Rule re-apply interval (in milliseconds)</value>
+  </data>
+  <data name="PersistentRule" xml:space="preserve">
+    <value>Persistent (Re-apply automatically)</value>
+  </data>
+  <data name="UnhideProcessWindows" xml:space="preserve">
+    <value>Unhide Process Windows</value>
+  </data>
+  <data name="HideTaskbarIcon" xml:space="preserve">
+    <value>Hide Taskbar Icon</value>
+  </data>
+  <data name="ShowTaskbarIcon" xml:space="preserve">
+    <value>Show Taskbar Icon</value>
   </data>
 </root>
