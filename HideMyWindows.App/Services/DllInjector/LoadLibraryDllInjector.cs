@@ -36,11 +36,11 @@ namespace HideMyWindows.App.Services.DllInjector
                 LoadLibraryWAddr32 = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryW");
             if (LoadLibraryWAddr64 == IntPtr.Zero || LoadLibraryWAddr32 == IntPtr.Zero) throw GetLastError().GetException();
 
-            PopulateOffsetMap(Path.Combine(Directory.GetCurrentDirectory(), IDllInjector.DllName64), DllProcOffsets64);
-            PopulateOffsetMap(Path.Combine(Directory.GetCurrentDirectory(), IDllInjector.DllName32), DllProcOffsets32);
+            PopulateOffsetMap(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, IDllInjector.DllName64), DllProcOffsets64);
+            PopulateOffsetMap(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, IDllInjector.DllName32), DllProcOffsets32);
 
-            DllPath32 = CopyToTemp(Path.Combine(Directory.GetCurrentDirectory(), IDllInjector.DllName32)); // Need to copy DLLs to a temporary, publicly accessible folder for the MSIX build of the program to work, as external applications aren't able to access local app bundle data (therefore can't load the DLL). A cleaner system is welcome.
-            DllPath64 = CopyToTemp(Path.Combine(Directory.GetCurrentDirectory(), IDllInjector.DllName64));
+            DllPath32 = CopyToTemp(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, IDllInjector.DllName32)); // Need to copy DLLs to a temporary, publicly accessible folder for the MSIX build of the program to work, as external applications aren't able to access local app bundle data (therefore can't load the DLL). A cleaner system is welcome.
+            DllPath64 = CopyToTemp(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, IDllInjector.DllName64));
         }
 
         private string CopyToTemp(string sourcePath)
@@ -241,7 +241,7 @@ namespace HideMyWindows.App.Services.DllInjector
 
         public void InvokeDllMethod(Process process, IntPtr handle, string methodName, byte[] parameter)
         {
-            var DllPath = Path.Combine(Directory.GetCurrentDirectory(), IsProcess64Bit(process) ? IDllInjector.DllName64 : IDllInjector.DllName32);
+            var DllPath = IsProcess64Bit(process) ? DllPath64 : DllPath32;
 
             if (!IsProcess64Bit(process))
             {
