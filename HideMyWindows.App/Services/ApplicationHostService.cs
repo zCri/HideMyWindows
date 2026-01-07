@@ -79,9 +79,6 @@ namespace HideMyWindows.App.Services
 
                     var interop = new WindowInteropHelper(window);
                     
-                    // Fix for mysterious white box: Skip internal WPF UI windows
-                    if (window.Title?.StartsWith("wpfui_") == true) continue;
-                    
                     var hwnd = interop.EnsureHandle();
 
                     if (window == Application.Current.MainWindow)
