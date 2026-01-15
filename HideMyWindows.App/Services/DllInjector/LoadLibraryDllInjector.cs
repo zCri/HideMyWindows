@@ -45,6 +45,12 @@ namespace HideMyWindows.App.Services.DllInjector
 
         private string CopyToTemp(string sourcePath)
         {
+            if (!File.Exists(sourcePath))
+            {
+                // Try to find it in the current directory if full path fails, or just throw
+                throw new FileNotFoundException($"DLL file not found at: {sourcePath}. Please ensure the DLL project is built.");
+            }
+
             string tempDir = Path.GetTempPath();
             string fileName = Path.GetFileName(sourcePath);
             string destPath = Path.Combine(tempDir, fileName);
@@ -53,7 +59,15 @@ namespace HideMyWindows.App.Services.DllInjector
             {
                 File.Copy(sourcePath, destPath, overwrite: true);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                // If the file is in use, we reuse the existing one.
+                // This happens when re-injecting into a process that has the DLL loaded.
+                if (!File.Exists(destPath))
+                {
+                     throw new IOException($"Failed to copy DLL to temp and it does not exist: {destPath}", ex);
+                }
+            }
 
             return destPath;
         }
@@ -119,7 +133,18 @@ namespace HideMyWindows.App.Services.DllInjector
 
             if (WaitForSingleObject(thread, INFINITE) == WAIT_STATUS.WAIT_FAILED) throw GetLastError().GetException();
             if (!GetExitCodeThread(thread, out var handle32)) throw GetLastError().GetException();
-            if (handle32 == 0) throw new NullReferenceException("Handle returned by LoadLibrary is null");
+            if (handle32 == 0) throw new InvalidOperationException($"Failed to load DLL into remote process. LoadLibrary returned NULL. Target: {process.ProcessName} (PID {process.Id}). Path: {DllPath}. Possible causes: Missing dependencies (e.g. VCRuntime), Mismatched Architecture, or DllMain returned FALSE.");
+
+            // Always attempt to reconnect the Mailslot, in case the DLL was already loaded (and thus DllMain didn't run)
+            // or the App was restarted.
+            try
+            {
+               InvokeDllMethod(process, new IntPtr(handle32), "Reconnect", Array.Empty<byte>());
+            }
+            catch 
+            {
+               // If Reconnect doesn't exist (old DLL version loaded), ignore.
+            }
 
             return new IntPtr(handle32);
         }

@@ -304,7 +304,15 @@ namespace HideMyWindows.App.ViewModels.Pages
 
                             if (FindWindowRule.Matches(value))
                             {
-                                WindowHider.ApplyAction(FindWindowRule.Action, process);
+                                try
+                                {
+                                    WindowHider.ApplyAction(FindWindowRule.Action, process);
+                                }
+                                catch (Exception e)
+                                {
+                                    Application.Current.Dispatcher.Invoke(() => 
+                                        SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), $"Failed to process {process.ProcessName}: {e.Message}", ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24)));
+                                }
                             }
                         }
                     });
