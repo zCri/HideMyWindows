@@ -400,9 +400,20 @@ extern "C" __declspec(dllexport) void UnhideAllWindows() {
 void _SetTrayIconVisibility(HWND hwnd, bool visible) {
     HRESULT hr;
     ITaskbarList* pTaskbarList = NULL;
+    bool coInitialized = false;
 
     hr = CoInitialize(NULL);
-    if (FAILED(hr)) return;
+    if (SUCCEEDED(hr)) {
+        coInitialized = true;
+    }
+    else if (hr == RPC_E_CHANGED_MODE) {
+        // COM already initialized with a different mode, we can proceed but shouldn't uninitialize
+        hr = S_OK; 
+    }
+    else {
+        // Any other failure
+        return;
+    }
 
     hr = CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_ITaskbarList, (void**)&pTaskbarList);
     if (SUCCEEDED(hr)) {
@@ -414,7 +425,10 @@ void _SetTrayIconVisibility(HWND hwnd, bool visible) {
         }
         pTaskbarList->Release();
     }
-    CoUninitialize();
+    
+    if (coInitialized) {
+        CoUninitialize();
+    }
 }
 
 extern "C" __declspec(dllexport) void HideTrayIcon(HideWindowParameter* param) {
