@@ -38,9 +38,11 @@
   </ItemGroup>
   
   <Target Name="BuildDLLs" BeforeTargets="ResolveProjectReferences">
-    <MSBuild Projects="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" Properties="Platform=Win32" BuildInParallel="$(BuildInParallel)" ContinueOnError="$(ContinueOnError)" />
+    <MSBuild Projects="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" Properties="Platform=Win32;Configuration=$(Configuration)" BuildInParallel="$(BuildInParallel)" ContinueOnError="$(ContinueOnError)" />
+    <Copy SourceFiles="..\HideMyWindows.DLL\Win32\$(Configuration)\HideMyWindows.DLL.Win32.dll" DestinationFolder="$(OutputPath)" />
   
-    <MSBuild Projects="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" Properties="Platform=x64" BuildInParallel="$(BuildInParallel)" ContinueOnError="$(ContinueOnError)" />
+    <MSBuild Projects="..\HideMyWindows.DLL\HideMyWindows.DLL.vcxproj" Properties="Platform=x64;Configuration=$(Configuration)" BuildInParallel="$(BuildInParallel)" ContinueOnError="$(ContinueOnError)" />
+    <Copy SourceFiles="..\HideMyWindows.DLL\x64\$(Configuration)\HideMyWindows.DLL.x64.dll" DestinationFolder="$(OutputPath)" />
   </Target>
 
   <ItemGroup>

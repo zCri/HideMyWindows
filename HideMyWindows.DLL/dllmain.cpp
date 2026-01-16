@@ -75,6 +75,11 @@ BOOL HideAllProcessWindows(DWORD dwOwnerPID)
 }
 
 void ConnectToMailslot() {
+    if (hMailslot != NULL && hMailslot != INVALID_HANDLE_VALUE) {
+        CloseHandle(hMailslot);
+        hMailslot = INVALID_HANDLE_VALUE;
+    }
+
     hMailslot = CreateFile(
         L"\\\\.\\mailslot\\HideMyWindowsMailslot",
         GENERIC_WRITE,
@@ -90,6 +95,21 @@ void ConnectToMailslot() {
     }
 }
 
+BOOL APIENTRY DllMain(HMODULE hModule,
+    DWORD  ul_reason_for_call,
+    LPVOID lpReserved
+)
+{
+    switch (ul_reason_for_call)
+    {
+    case DLL_PROCESS_ATTACH:
+    case DLL_THREAD_ATTACH:
+    case DLL_THREAD_DETACH:
+    case DLL_PROCESS_DETACH:
+        break;
+    }
+    return TRUE;
+}
 void SendPid(int pid) {
     //MessageBox(NULL, L"Sending pid", L"Debug", MB_OK);
     TCHAR buf[128];
@@ -292,38 +312,7 @@ BOOL WINAPI DetourSetWindowDisplayAffinity(
     }
 }
 
-BOOL APIENTRY DllMain(HMODULE hModule,
-    DWORD  ul_reason_for_call,
-    LPVOID lpReserved
-)
-{
-    switch (ul_reason_for_call)
-    {
-    case DLL_PROCESS_ATTACH:
-        //HideAllProcessWindows(GetCurrentProcessId());
-        ConnectToMailslot();
-        MH_Initialize();
-        MH_CreateHookApi(L"user32.dll", "CreateWindowExA", &DetourCreateWindowExA, (LPVOID*)&fpCreateWindowExA);
-        MH_EnableHook(&CreateWindowExA);
-        MH_CreateHookApi(L"user32.dll", "CreateWindowExW", &DetourCreateWindowExW, (LPVOID*)&fpCreateWindowExW);
-        MH_EnableHook(&CreateWindowExW);
-        MH_CreateHookApi(L"kernel32.dll", "CreateProcessA", &DetourCreateProcessA, (LPVOID*)&fpCreateProcessA);
-        MH_EnableHook(&CreateProcessA);
-        MH_CreateHookApi(L"kernel32.dll", "CreateProcessW", &DetourCreateProcessW, (LPVOID*)&fpCreateProcessW);
-        MH_EnableHook(&CreateProcessW);
-        MH_CreateHookApi(L"user32.dll", "SetWindowDisplayAffinity", &DetourSetWindowDisplayAffinity, (LPVOID*)&fpSetWindowDisplayAffinity);
-        MH_EnableHook(&SetWindowDisplayAffinity);
-        //MessageBoxA(NULL, std::to_string(MH_CreateHookApi(L"kernel32.dll", "CreateProcessW", &DetourCreateProcessW, (LPVOID*)&fpCreateProcessW)).c_str(), "Createprocessw:", MB_OK);
-        //MessageBoxA(NULL, std::to_string(MH_EnableHook(&CreateProcessW)).c_str(), "Createprocessw enable:", MB_OK);
-        //MessageBox(NULL, L"Hooked everything", L"Debug", MB_OK);
-        break;
-    case DLL_THREAD_ATTACH:
-    case DLL_THREAD_DETACH:
-    case DLL_PROCESS_DETACH:
-        break;
-    }
-    return TRUE;
-}
+
 
 struct HideWindowParameter
 {
@@ -400,9 +389,20 @@ extern "C" __declspec(dllexport) void UnhideAllWindows() {
 void _SetTrayIconVisibility(HWND hwnd, bool visible) {
     HRESULT hr;
     ITaskbarList* pTaskbarList = NULL;
+    bool coInitialized = false;
 
     hr = CoInitialize(NULL);
-    if (FAILED(hr)) return;
+    if (SUCCEEDED(hr)) {
+        coInitialized = true;
+    }
+    else if (hr == RPC_E_CHANGED_MODE) {
+        // COM already initialized with a different mode, we can proceed but shouldn't uninitialize
+        hr = S_OK; 
+    }
+    else {
+        // Any other failure
+        return;
+    }
 
     hr = CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_ITaskbarList, (void**)&pTaskbarList);
     if (SUCCEEDED(hr)) {
@@ -414,7 +414,10 @@ void _SetTrayIconVisibility(HWND hwnd, bool visible) {
         }
         pTaskbarList->Release();
     }
-    CoUninitialize();
+    
+    if (coInitialized) {
+        CoUninitialize();
+    }
 }
 
 extern "C" __declspec(dllexport) void HideTrayIcon(HideWindowParameter* param) {
@@ -423,4 +426,24 @@ extern "C" __declspec(dllexport) void HideTrayIcon(HideWindowParameter* param) {
 
 extern "C" __declspec(dllexport) void UnhideTrayIcon(HideWindowParameter* param) {
     _SetTrayIconVisibility(param->hwnd, true);
+}
+
+extern "C" __declspec(dllexport) void Reconnect() {
+    ConnectToMailslot();
+
+    static bool isHooksInitialized = false;
+    if (!isHooksInitialized) {
+        MH_Initialize();
+        MH_CreateHookApi(L"user32.dll", "CreateWindowExA", &DetourCreateWindowExA, (LPVOID*)&fpCreateWindowExA);
+        MH_EnableHook(&CreateWindowExA);
+        MH_CreateHookApi(L"user32.dll", "CreateWindowExW", &DetourCreateWindowExW, (LPVOID*)&fpCreateWindowExW);
+        MH_EnableHook(&CreateWindowExW);
+        MH_CreateHookApi(L"kernel32.dll", "CreateProcessA", &DetourCreateProcessA, (LPVOID*)&fpCreateProcessA);
+        MH_EnableHook(&CreateProcessA);
+        MH_CreateHookApi(L"kernel32.dll", "CreateProcessW", &DetourCreateProcessW, (LPVOID*)&fpCreateProcessW);
+        MH_EnableHook(&CreateProcessW);
+        MH_CreateHookApi(L"user32.dll", "SetWindowDisplayAffinity", &DetourSetWindowDisplayAffinity, (LPVOID*)&fpSetWindowDisplayAffinity);
+        MH_EnableHook(&SetWindowDisplayAffinity);
+        isHooksInitialized = true;
+    }
 }
