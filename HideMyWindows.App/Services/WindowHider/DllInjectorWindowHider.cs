@@ -25,13 +25,13 @@ namespace HideMyWindows.App.Services.WindowHider
 
             switch (action)
             {
-                case WindowHiderAction.HideProcess:
+                case WindowHiderAction.HideProcessWindows:
                     DllInjector.HideAllWindows(process, handle);
                     break;
                 case WindowHiderAction.HideWindow:
                     DllInjector.HideWindow(process, handle, process.MainWindowHandle);
                     break;
-                case WindowHiderAction.UnhideProcess:
+                case WindowHiderAction.UnhideProcessWindows:
                     DllInjector.UnhideAllWindows(process, handle);
                     break;
                 case WindowHiderAction.UnhideWindow:
@@ -55,13 +55,13 @@ namespace HideMyWindows.App.Services.WindowHider
 
             switch (action)
             {
-                case WindowHiderAction.HideProcess:
+                case WindowHiderAction.HideProcessWindows:
                     DllInjector.HideAllWindows(process, handle);
                     break;
                 case WindowHiderAction.HideWindow:
                     DllInjector.HideWindow(process, handle, hwnd);
                     break;
-                case WindowHiderAction.UnhideProcess:
+                case WindowHiderAction.UnhideProcessWindows:
                     DllInjector.UnhideAllWindows(process, handle);
                     break;
                 case WindowHiderAction.UnhideWindow:

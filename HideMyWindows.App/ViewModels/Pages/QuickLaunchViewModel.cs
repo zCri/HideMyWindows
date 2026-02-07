@@ -90,7 +90,7 @@ namespace HideMyWindows.App.ViewModels.Pages
                     throw GetLastError().GetException();
                 var process = Process.GetProcessById((int)processInformation.dwProcessId);
 
-                WindowHider.ApplyAction(WindowHiderAction.HideProcess, process);
+                WindowHider.ApplyAction(WindowHiderAction.HideProcessWindows, process);
 
                 if ((int)ResumeThread(processInformation.hThread) == -1)
                     throw GetLastError().GetException();

@@ -95,7 +95,7 @@ namespace HideMyWindows.App.ViewModels.Pages
                 throw GetLastError().GetException();
             var process = Process.GetProcessById((int)processInformation.dwProcessId);
 
-            WindowHider.ApplyAction(WindowHiderAction.HideProcess, process);
+            WindowHider.ApplyAction(WindowHiderAction.HideProcessWindows, process);
             if ((int)ResumeThread(processInformation.hThread) == -1)
                 throw GetLastError().GetException();
 
@@ -131,7 +131,7 @@ namespace HideMyWindows.App.ViewModels.Pages
             try
             {
                 if (SelectedProcess is not null)
-                    WindowHider.ApplyAction(WindowHiderAction.UnhideProcess, SelectedProcess.Process);
+                    WindowHider.ApplyAction(WindowHiderAction.UnhideProcessWindows, SelectedProcess.Process);
             }
             catch (Exception e)
             {
@@ -178,7 +178,7 @@ namespace HideMyWindows.App.ViewModels.Pages
             try
             {
                 if (SelectedProcess is not null)
-                    WindowHider.ApplyAction(WindowHiderAction.HideProcess, SelectedProcess.Process);
+                    WindowHider.ApplyAction(WindowHiderAction.HideProcessWindows, SelectedProcess.Process);
             }
             catch (Exception e)
             {

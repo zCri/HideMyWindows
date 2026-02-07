@@ -15,16 +15,11 @@ namespace HideMyWindows.App.Services.WindowHider
 
     public enum WindowHiderAction
     {
-        HideProcess,
+        HideProcessWindows,
         HideWindow,
-        UnhideProcess,
+        UnhideProcessWindows,
         UnhideWindow,
         HideTrayIcon,
         UnhideTrayIcon
-    }
-
-    public class WindowHiderOptions
-    {
-        public bool FollowChildProcesses { get; set; } = false;
     }
 }

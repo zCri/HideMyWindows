@@ -15,7 +15,7 @@ namespace HideMyWindows.App.Models
         private string _value = string.Empty;
 
         [ObservableProperty]
-        private WindowHiderAction _action = WindowHiderAction.HideProcess;
+        private WindowHiderAction _action = WindowHiderAction.HideProcessWindows;
 
         [ObservableProperty]
         private bool _enabled = false;

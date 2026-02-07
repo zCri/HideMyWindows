@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
@@ -53,6 +54,11 @@ namespace HideMyWindows.TestTarget
         private void BtnShow_Click(object sender, RoutedEventArgs e)
         {
             SetAffinity(WDA_NONE);
+        }
+
+        private void BtnFork_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(Environment.ProcessPath!);
         }
     }
 }

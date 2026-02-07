@@ -113,8 +113,8 @@
                     Content="{lex:Loc UnhideProcessWindows}"
                     Command="{Binding ViewModel.UnhideIntoProcessCommand, Mode=OneWay}"/>
             </Grid>
-            <!-- Hide/Unhide Window Buttons -->
-            <Grid Margin="0,8,0,0">
+            <!-- Hide/Unhide Window Buttons - Removed for simplicity -->
+            <!--<Grid Margin="0,8,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -134,7 +134,7 @@
                     Appearance="Secondary"
                     Content="{lex:Loc UnhideWindow}"
                     Command="{Binding ViewModel.UnhideWindowCommand, Mode=OneWay}"/>
-            </Grid>
+            </Grid>-->
             <Grid Margin="0,8,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

@@ -174,7 +174,7 @@ Envisagez de réinstaller l'application pour garantir son bon fonctionnement.</v
     <value>Fonctionnalité</value>
   </data>
   <data name="HideARunningProcess" xml:space="preserve">
-    <value>Masquer un processus en cours</value>
+    <value>Masquer un processus en cours d’exécution</value>
   </data>
   <data name="HideProcess" xml:space="preserve">
     <value>Masquer le processus</value>
@@ -408,5 +408,8 @@ Choisissez le chemin, ainsi que les arguments si nécessaire, puis appuyez sur l
   </data>
   <data name="DesktopPreview" xml:space="preserve">
     <value>Aperçu du bureau</value>
+  </data>
+  <data name="UnhideProcess" xml:space="preserve">
+    <value>Démasquer le processus</value>
   </data>
 </root>
