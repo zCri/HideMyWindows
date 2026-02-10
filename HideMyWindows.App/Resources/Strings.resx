@@ -412,4 +412,10 @@ Choose the path, and the arguments if needed, and press the launch button!</valu
   <data name="DesktopPreview" xml:space="preserve">
     <value>Desktop preview</value>
   </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
 </root>

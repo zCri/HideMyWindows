@@ -1,5 +1,7 @@
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
@@ -7,8 +9,30 @@ using System.Windows.Threading;
 
 namespace HideMyWindows.TestTarget
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        private string _windowName = "Target Application";
+
+        public string WindowName
+        {
+            get => _windowName;
+            set
+            {
+                if (_windowName != value)
+                {
+                    _windowName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string? name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
         [DllImport("user32.dll")]
         public static extern bool SetWindowDisplayAffinity(IntPtr hwnd, uint dwAffinity);
 
@@ -17,6 +41,8 @@ namespace HideMyWindows.TestTarget
         private const uint WDA_EXCLUDEFROMCAPTURE = 0x00000011;
 
         private DispatcherTimer _timer;
+
+        private int windowCount = 0;
 
         public MainWindow()
         {
@@ -59,6 +85,16 @@ namespace HideMyWindows.TestTarget
         private void BtnFork_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(Environment.ProcessPath!);
+        }
+
+        private void BtnNewWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new MainWindow()
+            {
+                WindowName = $"Window {++windowCount}",
+            };
+
+            window.Show();
         }
     }
 }

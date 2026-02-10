@@ -1,9 +1,10 @@
 <Window x:Class="HideMyWindows.TestTarget.MainWindow"
+        x:Name="Window"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="HideMyWindows Target Test App" Height="310" Width="400">
+        Title="HideMyWindows Target Test App" Height="330" Width="400">
     <StackPanel Margin="20">
-        <TextBlock Text="Target Application" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+        <TextBlock Text="{Binding Path=WindowName, ElementName=Window}" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
         
         <TextBlock x:Name="StatusText" Text="Status: Visible (Affinity 0)" Margin="0,0,0,10"/>
         <TextBlock Text="Use buttons below to simulate app behavior:" Margin="0,0,0,10"/>
@@ -13,6 +14,7 @@
         
         <CheckBox x:Name="ChkPersistent" Content="Persistently Re-apply Hide (Every 1s)" Margin="0,15,0,0"/>
 
-        <Button x:Name="BtnFork" Content="Fork process" Click="BtnFork_Click" Margin="0,15"/>
+        <Button x:Name="BtnFork" Content="Fork process" Click="BtnFork_Click" Margin="0,15,0,5"/>
+        <Button x:Name="BtnNewWindow" Content="Open new Window" Click="BtnNewWindow_Click"/>
     </StackPanel>
 </Window>

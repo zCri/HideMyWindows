@@ -9,7 +9,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <LangVersion>12</LangVersion>
-    <Platforms>AnyCPU;x64;x86;ARM32;ARM64</Platforms>
+    <Platforms>AnyCPU;x64;x86</Platforms>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <WindowsSdkPackageVersion>10.0.19041.53</WindowsSdkPackageVersion>
   </PropertyGroup>

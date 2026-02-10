@@ -412,4 +412,10 @@ Choisissez le chemin, ainsi que les arguments si nécessaire, puis appuyez sur l
   <data name="UnhideProcess" xml:space="preserve">
     <value>Démasquer le processus</value>
   </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Avertissement</value>
+  </data>
 </root>
