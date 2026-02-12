@@ -104,7 +104,7 @@ Text="{lex:Loc Functionality}"/>
 				Margin="0,2,0,0"
 				x:Name="ProcessWatcherDelaySlider"
 				Minimum="50"
-				Maximum="10000"
+				Maximum="5000"
 				TickFrequency="50"
 				IsSnapToTickEnabled="True"
 				Value="{Binding ViewModel.ProcessWatcherDelay, Delay=500}"/>

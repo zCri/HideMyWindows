@@ -9,12 +9,17 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Wpf.Ui.Controls;
 using WPFLocalizeExtension.Engine;
 using static Vanara.PInvoke.User32;
+using static Vanara.PInvoke.Kernel32;
+using Vanara.PInvoke;
 
 namespace HideMyWindows.App.Services
 {
@@ -26,7 +31,12 @@ namespace HideMyWindows.App.Services
         private IWindowHider WindowHider { get; }
         private ISnackbarService SnackbarService { get; }
 
-        public WindowRulesMatcherService(IProcessWatcher processWatcher, IWindowWatcher windowWatcher, IConfigProvider configProvider, IWindowHider windowHider, ISnackbarService snackbarService)
+        public WindowRulesMatcherService(
+            IProcessWatcher processWatcher,
+            IWindowWatcher windowWatcher,
+            IConfigProvider configProvider,
+            IWindowHider windowHider,
+            ISnackbarService snackbarService)
         {
             ProcessWatcher = processWatcher;
             WindowWatcher = windowWatcher;
@@ -37,241 +47,197 @@ namespace HideMyWindows.App.Services
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            await Task.CompletedTask;
-
             ProcessWatcher.ProcessStarted += OnProcessStarted;
             WindowWatcher.WindowCreated += OnWindowCreated;
 
-            _ = Task.Run(async () =>
-            {
-                var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(250)); // Tick every 250ms
-                long lastTick = 0;
-                
-                while (await timer.WaitForNextTickAsync(cancellationToken))
-                {
-                    if (ConfigProvider.Config is null) continue;
+            _ = Task.Run(async () => await RunPersistentRuleLoop(cancellationToken), cancellationToken);
 
-                    // Simple throttling based on config
-                    var interval = ConfigProvider.Config.RuleReapplyIntervalMs;
-                    var now = Environment.TickCount64;
-                    if (now - lastTick < interval) continue;
-                    
-                    lastTick = now;
-                    
-                    try 
-                    {
-                        await ReapplyPersistentRules();
-                    }
-                    catch { }
-                }
-            }, cancellationToken);
+            await Task.CompletedTask;
         }
 
-        private async Task ReapplyPersistentRules()
+        private async Task RunPersistentRuleLoop(CancellationToken cancellationToken)
+        {
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                int delay = ConfigProvider.Config?.RuleReapplyIntervalMs ?? 1000;
+
+                try
+                {
+                    ReapplyPersistentRules();
+                }
+                catch (Exception ex)
+                {
+                    // Log to debug only
+                    Debug.WriteLine($"[WindowRulesMatcher] Loop Error: {ex.Message}");
+                }
+
+                await Task.Delay(delay, cancellationToken);
+            }
+        }
+
+        private void ReapplyPersistentRules()
         {
             if (ConfigProvider.Config is null) return;
-            
-            var persistentRules = ConfigProvider.Config.WindowRules.Where(rule => rule.Enabled && rule.Persistent).ToList();
-            if (!persistentRules.Any()) return;
 
-            // TODO: Respect Config.RuleReapplyIntervalMs (currently hardcoded 100ms loop effectively, need throttling)
-            // For now let's just use the timer tick.
-            
+            var persistentRules = ConfigProvider.Config.WindowRules
+                .Where(rule => rule.Enabled && rule.Persistent);
+
+            if (!persistentRules.Any()) return;
             EnumWindows((hwnd, lParam) =>
             {
-                // Verify window is valid
-                if (!IsWindow(hwnd) || !IsWindowVisible(hwnd)) return true; // Visible check? Persistent rules might want to KEEP hidden so we process hidden too? 
-                // Actually if we want to UNHIDE, we need to process non-visible windows too.
-                // But IsWindowVisible(hwnd) returns false if hidden.
-                // If we want to HIDE, we target visible.
-                // If we want to UNHIDE, we target hidden.
-                // So let's just process all top level windows.
-                
-                // optimization: cache process name/id
-                
-                int? processId = null;
-                string? processName = null;
-                
-                // Get window title/class
-                var length = GetWindowTextLength(hwnd);
-                var sb = new StringBuilder(length + 1);
-                GetWindowText(hwnd, sb, length + 1);
-                var title = sb.ToString();
-                
-                sb = new StringBuilder(256);
-                GetClassName(hwnd, sb, 256);
-                var className = sb.ToString();
+                if (!IsWindow(hwnd) || !IsWindowVisible(hwnd)) return true;
 
-                foreach (var rule in persistentRules)
-                {
-                   string value = string.Empty;
+                CheckAndApplyRulesForWindow(persistentRules, hwnd);
 
-                    if (rule.Target == WindowRuleTarget.WindowTitle)
-                    {
-                        value = title;
-                    }
-                    else if (rule.Target == WindowRuleTarget.WindowClass)
-                    {
-                        value = className;
-                    }
-                    else if (rule.Target == WindowRuleTarget.ProcessName || rule.Target == WindowRuleTarget.ProcessId)
-                    {
-                        if (processId == null)
-                        {
-                            GetWindowThreadProcessId(hwnd, out var pid);
-                            processId = (int)pid;
-                        }
-
-                        if (rule.Target == WindowRuleTarget.ProcessId)
-                        {
-                            value = processId.ToString()!;
-                        }
-                        else if (rule.Target == WindowRuleTarget.ProcessName)
-                        {
-                            if (processName == null)
-                            {
-                                try
-                                {
-                                    using var process = Process.GetProcessById(processId.Value);
-                                    processName = process.ProcessName;
-                                }
-                                catch
-                                {
-                                    processName = string.Empty;
-                                }
-                            }
-                            value = processName;
-                        }
-                    }
-
-                    if (rule.Matches(value))
-                    {
-                        try 
-                        {
-                             // Re-apply!
-                             WindowHider.ApplyAction(rule.Action, (IntPtr)hwnd);
-                        }
-                        catch {}
-                    }
-                }
-                
                 return true;
             }, IntPtr.Zero);
         }
 
-        public async Task StopAsync(CancellationToken cancellationToken)
-        {
-            await Task.CompletedTask;
-        }
-
         private void OnWindowCreated(object? sender, WindowWatchedEventArgs e)
         {
-            if (ConfigProvider.Config is not null)
+            if (ConfigProvider.Config is null) return;
+
+            var activeRules = ConfigProvider.Config.WindowRules
+                .Where(rule => rule.Enabled);
+
+            CheckAndApplyRulesForWindow(activeRules, e.Handle, e.Title, e.Class);
+        }
+
+        private void CheckAndApplyRulesForWindow(IEnumerable<WindowRule> rules, HWND hwnd, string? windowTitle = null, string? windowClass = null)
+        {
+            int? processId = null;
+            string? processName = null;
+
+            foreach (var rule in rules)
             {
-                var rules = ConfigProvider.Config.WindowRules.Where(rule => rule.Enabled);
-                string? processName = null;
-                int? processId = null;
+                string valueToCheck = string.Empty;
 
-                foreach (var rule in rules)
+                try
                 {
-                    string value = string.Empty;
+                    switch (rule.Target)
+                    {
+                        case WindowRuleTarget.WindowTitle:
+                            windowTitle ??= GetWindowTitle(hwnd);
+                            valueToCheck = windowTitle;
+                            break;
 
-                    if (rule.Target == WindowRuleTarget.WindowTitle)
-                    {
-                        value = e.Title;
-                    }
-                    else if (rule.Target == WindowRuleTarget.WindowClass)
-                    {
-                        value = e.Class;
-                    }
-                    else if (rule.Target == WindowRuleTarget.ProcessName || rule.Target == WindowRuleTarget.ProcessId)
-                    {
-                        // Resolve process info lazily
-                        if (processId == null)
-                        {
-                            GetWindowThreadProcessId(e.Handle, out var pid);
-                            processId = (int)pid;
-                        }
+                        case WindowRuleTarget.WindowClass:
+                            windowClass ??= GetWindowClassName(hwnd);
+                            valueToCheck = windowClass;
+                            break;
 
-                        if (rule.Target == WindowRuleTarget.ProcessId)
-                        {
-                            value = processId.ToString()!;
-                        }
-                        else if (rule.Target == WindowRuleTarget.ProcessName)
-                        {
-                            if (processName == null)
-                            {
-                                try
-                                {
-                                    using var process = Process.GetProcessById(processId.Value);
-                                    processName = process.ProcessName; 
-                                    // Note: ProcessName usually doesn't include .exe. 
-                                    // If rules expect .exe, we might need verify how they are created.
-                                    // Helper 'TryGetProcessNameWithExtension' might be better if available/public.
-                                    // For now using ProcessName as per standard .NET
-                                }
-                                catch
-                                {
-                                    processName = string.Empty;
-                                }
-                            }
-                            value = processName;
-                        }
+                        case WindowRuleTarget.ProcessId:
+                            processId ??= GetWindowProcessId(hwnd);
+                            valueToCheck = processId.ToString()!;
+                            break;
+
+                        case WindowRuleTarget.ProcessName:
+                            processId ??= GetWindowProcessId(hwnd);
+                            processName ??= GetProcessNameFromPid(processId.Value);
+                            valueToCheck = processName;
+                            break;
                     }
 
-                    if (rule.Matches(value))
+                    if (!string.IsNullOrEmpty(valueToCheck) && rule.Matches(valueToCheck))
                     {
-                        try
-                        {
-                            WindowHider.ApplyAction(rule.Action, e.Handle);
-                        }
-                        catch (ArgumentException)
-                        {
-                            return;
-                        }
-                        catch (Exception ex)
-                        {
-                            SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), ex.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
-                        }
+                        WindowHider.ApplyAction(rule.Action, hwnd.DangerousGetHandle());
                     }
+                }
+                catch (Exception)
+                {
+                    continue;
                 }
             }
         }
 
         private void OnProcessStarted(object? sender, ProcessWatchedEventArgs e)
         {
-            if (ConfigProvider.Config is not null)
+            if (ConfigProvider.Config is null) return;
+
+            var rules = ConfigProvider.Config.WindowRules
+                .Where(rule => rule.Enabled && (rule.Target == WindowRuleTarget.ProcessName || rule.Target == WindowRuleTarget.ProcessId));
+
+            foreach (var rule in rules)
             {
-                var rules = ConfigProvider.Config.WindowRules.Where(rule => rule.Enabled && rule.Target is WindowRuleTarget.ProcessName or WindowRuleTarget.ProcessId);
-                foreach (var rule in rules)
+                var value = rule.Target switch
                 {
-                    var value = rule.Target switch
+                    WindowRuleTarget.ProcessName => e.Name,
+                    WindowRuleTarget.ProcessId => e.Id.ToString(),
+                    _ => string.Empty
+                };
+
+                if (rule.Matches(value))
+                {
+                    try
                     {
-                        WindowRuleTarget.ProcessName => e.Name,
-                        WindowRuleTarget.ProcessId => e.Id.ToString(),
-                        _ => throw new NotImplementedException(),
-                    };
-
-
-                    if (rule.Matches(value))
+                        using var process = Process.GetProcessById(e.Id);
+                        WindowHider.ApplyAction(rule.Action, process);
+                    }
+                    catch (ArgumentException) { /* Process likely exited immediately */ }
+                    catch (Exception ex)
                     {
-                        try
-                        {
-                            var process = Process.GetProcessById(e.Id);
-
-                            WindowHider.ApplyAction(rule.Action, process);
-                        }
-                        catch (ArgumentException)
-                        {
-                            return;
-                        }
-                        catch (Exception ex)
-                        {
-                            SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), ex.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
-                        }
+                        SnackbarService.Show(
+                            LocalizationUtils.GetString("AnErrorOccurred"),
+                            ex.Message,
+                            ControlAppearance.Danger,
+                            new SymbolIcon(SymbolRegular.ErrorCircle24));
                     }
                 }
             }
+        }
+
+        public async Task StopAsync(CancellationToken cancellationToken)
+        {
+            ProcessWatcher.ProcessStarted -= OnProcessStarted;
+            WindowWatcher.WindowCreated -= OnWindowCreated;
+            await Task.CompletedTask;
+        }
+
+        private string GetWindowTitle(HWND hwnd)
+        {
+            var length = GetWindowTextLength(hwnd);
+            if (length == 0) return string.Empty;
+
+            var sb = new StringBuilder(length + 1);
+            GetWindowText(hwnd, sb, length + 1);
+            return sb.ToString();
+        }
+
+        private string GetWindowClassName(HWND hwnd)
+        {
+            var sb = new StringBuilder(256);
+            GetClassName(hwnd, sb, 256);
+            return sb.ToString();
+        }
+
+        private int GetWindowProcessId(HWND hwnd)
+        {
+            GetWindowThreadProcessId(hwnd, out var pid);
+            return (int)pid;
+        }
+
+        private string GetProcessNameFromPid(int pid)
+        {
+            // PROCESS_QUERY_LIMITED_INFORMATION (0x1000) is sufficient for Windows Vista+
+            // and allows accessing system processes that standard Access Rights might block.
+            using var hProcess = OpenProcess(ACCESS_MASK.FromEnum(ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION | ProcessAccess.PROCESS_VM_READ), false, (uint)pid);
+
+            if (hProcess.IsInvalid) return string.Empty;
+            var sb = new StringBuilder(1024);
+            // GetModuleFileNameEx works better for 32/64 bit interop than GetModuleBaseName in some cases,
+            // providing the full path. We then extract the filename.
+            // Note: Vanara usually exposes this via Psapi or Kernel32. 
+            // Using a fallback safe definition if Vanara structure is complex.
+            uint size = (uint)sb.Capacity;
+            
+            // Assuming Vanara.PInvoke.Psapi is available or Kernel32 for QueryFullProcessImageName
+            // We will try QueryFullProcessImageName as it is the modern replacement
+            if (QueryFullProcessImageName(hProcess, 0, sb, ref size))
+            {
+                return Path.GetFileName(sb.ToString());
+            }
+
+            return string.Empty;
         }
     }
 }
