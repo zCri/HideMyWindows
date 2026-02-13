@@ -118,310 +118,314 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutHideMyWindows" xml:space="preserve">
-    <value>About HideMyWindows</value>
+    <value>Despre HideMyWindows</value>
   </data>
   <data name="AddNewEntry" xml:space="preserve">
-    <value>Add new entry</value>
+    <value>Adaugă o intrare nouă</value>
   </data>
   <data name="AddNewRule" xml:space="preserve">
-    <value>Add new rule</value>
+    <value>Adaugă o regulă nouă</value>
   </data>
   <data name="AnErrorOccurred" xml:space="preserve">
-    <value>An error occurred</value>
+    <value>A apărut o eroare</value>
   </data>
   <data name="BrowsePath" xml:space="preserve">
-    <value>Browse path</value>
+    <value>Răsfoiește calea</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Anulează</value>
   </data>
   <data name="CorruptInstallation" xml:space="preserve">
-    <value>Your installation of HideMyWindows is corrupt</value>
+    <value>Instalarea HideMyWindows este coruptă</value>
   </data>
   <data name="CorruptInstallationMissingFileText" xml:space="preserve">
-    <value>It looks like your installation of HideMyWindows is corrupt. You are missing an important file that is needed for the application to run properly.
-File path: {0}
-Consider reinstalling the application to ensure its correct functionality.</value>
+    <value>Se pare că instalarea HideMyWindows este coruptă.
+Îți lipsește un fișier important necesar pentru ca aplicația să funcționeze corect.
+Calea fișierului: {0}
+Ia în considerare reinstalarea aplicației pentru a asigura funcționalitatea corectă.</value>
   </data>
   <data name="Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Întunecat</value>
   </data>
   <data name="DontShowThisDialogAgain" xml:space="preserve">
-    <value>Don't show this dialog again</value>
+    <value>Nu mai afișa acest dialog</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>Editează</value>
   </data>
   <data name="EditEntry" xml:space="preserve">
-    <value>Edit entry</value>
+    <value>Editează intrarea</value>
   </data>
   <data name="Enable" xml:space="preserve">
-    <value>Enable</value>
+    <value>Activează</value>
   </data>
   <data name="FilterValue" xml:space="preserve">
-    <value>Filter value</value>
+    <value>Valoare filtru</value>
   </data>
   <data name="FindAndHide" xml:space="preserve">
-    <value>Find and hide</value>
+    <value>Găsește și ascunde</value>
   </data>
   <data name="FindAndHideARunningProcess" xml:space="preserve">
-    <value>Find and hide a running process</value>
+    <value>Găsește și ascunde un proces care rulează</value>
   </data>
   <data name="FindByClick" xml:space="preserve">
-    <value>Find by click</value>
+    <value>Găsește prin clic</value>
   </data>
   <data name="Functionality" xml:space="preserve">
-    <value>Functionality</value>
+    <value>Funcționalitate</value>
   </data>
   <data name="HideARunningProcess" xml:space="preserve">
-    <value>Hide a running process</value>
+    <value>Ascunde un proces care rulează</value>
   </data>
   <data name="HideProcess" xml:space="preserve">
-    <value>Hide process</value>
+    <value>Ascunde procesul</value>
   </data>
   <data name="HideProcessWindows" xml:space="preserve">
-    <value>Hide process windows</value>
+    <value>Ascunde ferestrele procesului</value>
   </data>
   <data name="HideThisAppAutomatically" xml:space="preserve">
-    <value>Hide this app automatically</value>
+    <value>Ascunde această aplicație automat</value>
   </data>
   <data name="HideWindow" xml:space="preserve">
-    <value>Hide window</value>
+    <value>Ascunde fereastra</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Home</value>
+    <value>Acasă</value>
   </data>
   <data name="Light" xml:space="preserve">
-    <value>Light</value>
+    <value>Luminos</value>
   </data>
   <data name="MinimizeToTrayIcon" xml:space="preserve">
-    <value>Minimize to tray icon</value>
+    <value>Minimizează în zona de notificare</value>
   </data>
   <data name="MissingPermissions" xml:space="preserve">
-    <value>Missing permissions</value>
+    <value>Permisiuni lipsă</value>
   </data>
   <data name="Name_CanBeLeftEmpty" xml:space="preserve">
-    <value>Name (can be left empty)</value>
+    <value>Nume (poate fi lăsat gol)</value>
   </data>
   <data name="NeedAdminForWMIProcessTraceProcessWatcher" xml:space="preserve">
-    <value>You need to run HideMyWindows as administrator to use the WMI Process Trace process watcher.</value>
+    <value>Trebuie să rulați HideMyWindows ca administrator pentru a utiliza monitorizarea proceselor prin WMI Process Trace.</value>
   </data>
   <data name="NoProcessFound" xml:space="preserve">
-    <value>No process found</value>
+    <value>Niciun proces găsit</value>
   </data>
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>
   </data>
   <data name="Personalization" xml:space="preserve">
-    <value>Personalization</value>
+    <value>Personalizare</value>
   </data>
   <data name="ProcessArguments" xml:space="preserve">
-    <value>Process arguments</value>
+    <value>Argumente proces</value>
   </data>
   <data name="ProcessId" xml:space="preserve">
-    <value>Process ID</value>
+    <value>ID Proces</value>
   </data>
   <data name="ProcessName" xml:space="preserve">
-    <value>Process name</value>
+    <value>Nume proces</value>
   </data>
   <data name="ProcessPath" xml:space="preserve">
-    <value>Process path</value>
+    <value>Cale proces</value>
   </data>
   <data name="ProcessWatcherDelay_InMilliseconds" xml:space="preserve">
-    <value>Process watcher delay (in milliseconds)</value>
+    <value>Întârziere monitorizare proces (în milisecunde)</value>
   </data>
   <data name="ProcessWatchingMethod" xml:space="preserve">
-    <value>Process watching method</value>
+    <value>Metodă monitorizare procese</value>
   </data>
   <data name="QuickLaunch" xml:space="preserve">
-    <value>Quick launch</value>
+    <value>Lansare rapidă</value>
   </data>
   <data name="Quit" xml:space="preserve">
-    <value>Quit</value>
+    <value>Ieșire</value>
   </data>
   <data name="RegexMatches" xml:space="preserve">
-    <value>Regex matches</value>
+    <value>Regex se potrivește cu</value>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>Remove</value>
+    <value>Elimină</value>
   </data>
   <data name="RunAHiddenProcess" xml:space="preserve">
-    <value>Run a hidden process</value>
+    <value>Rulează un proces ascuns</value>
   </data>
   <data name="RunHiddenProcess" xml:space="preserve">
-    <value>Run hidden process</value>
+    <value>Rulează proces ascuns</value>
   </data>
   <data name="SaveEntries" xml:space="preserve">
-    <value>Save entries</value>
+    <value>Salvează intrările</value>
   </data>
   <data name="SaveRules" xml:space="preserve">
-    <value>Save rules</value>
+    <value>Salvează regulile</value>
   </data>
   <data name="SaveSettings" xml:space="preserve">
-    <value>Save settings</value>
+    <value>Salvează setările</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Setări</value>
   </data>
   <data name="Show" xml:space="preserve">
-    <value>Show</value>
+    <value>Afișează</value>
   </data>
   <data name="ShowThisAppInTheTaskbar" xml:space="preserve">
-    <value>Show this app in the taskbar</value>
+    <value>Afișează această aplicație în bara de activități</value>
   </data>
   <data name="StringContains" xml:space="preserve">
-    <value>String contains</value>
+    <value>Conține șirul</value>
   </data>
   <data name="StringEndsWith" xml:space="preserve">
-    <value>String ends with</value>
+    <value>Se termină cu șirul</value>
   </data>
   <data name="StringEquals" xml:space="preserve">
-    <value>String equals</value>
+    <value>Este egal cu șirul</value>
   </data>
   <data name="StringStartsWith" xml:space="preserve">
-    <value>String starts with</value>
+    <value>Începe cu șirul</value>
   </data>
   <data name="Theme" xml:space="preserve">
-    <value>Theme</value>
+    <value>Temă</value>
   </data>
   <data name="ToApplyTheseSettingsSaveAndRestart" xml:space="preserve">
-    <value>To apply these settings, save the settings and restart the application</value>
+    <value>Pentru a aplica aceste setări, salvați și reporniți aplicația</value>
   </data>
   <data name="WindowClass" xml:space="preserve">
-    <value>Window class</value>
+    <value>Clasă fereastră</value>
   </data>
   <data name="WindowRules" xml:space="preserve">
-    <value>Window rules</value>
+    <value>Reguli ferestre</value>
   </data>
   <data name="UnhideProcess" xml:space="preserve">
-    <value>Unhide process</value>
+    <value>Dez-ascunde procesul</value>
   </data>
   <data name="HowOthersWillSeeYourScreen" xml:space="preserve">
-    <value>This is how others will see your screen.</value>
+    <value>Așa vor vedea alții ecranul tău.</value>
   </data>
   <data name="UnhideWindow" xml:space="preserve">
-    <value>Unhide window</value>
+    <value>Dez-ascunde fereastra</value>
   </data>
   <data name="WindowsVersionIncompatible" xml:space="preserve">
-    <value>Windows version incompatible</value>
+    <value>Versiune Windows incompatibilă</value>
   </data>
   <data name="WindowsVersionIncompatibleText" xml:space="preserve">
-    <value>Your Windows version is too old and does not support the features required to run HideMyWindows properly.
-For more information check out the project's README.</value>
+    <value>Versiunea ta de Windows este prea veche și nu suportă funcționalitățile necesare pentru a rula corect HideMyWindows.
+Pentru mai multe informații consultă README-ul proiectului.</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>Window title</value>
+    <value>Titlu fereastră</value>
   </data>
   <data name="WindowWatchingMethod" xml:space="preserve">
-    <value>Window watching method</value>
+    <value>Metodă monitorizare ferestre</value>
   </data>
   <data name="Guide_WelcomeTitle" xml:space="preserve">
-    <value>Welcome!</value>
+    <value>Bun venit!</value>
   </data>
   <data name="Guide_WelcomeText" xml:space="preserve">
-    <value>I'll give you a short tour of HideMyWindows and teach you how to use it.</value>
+    <value>Îți voi face un scurt tur al HideMyWindows și te voi învăța cum să o folosești.</value>
   </data>
   <data name="Guide_StartHereTitle" xml:space="preserve">
-    <value>Start here!</value>
+    <value>Începe aici!</value>
   </data>
   <data name="Guide_StartHereText" xml:space="preserve">
-    <value>If you want to start a hidden application, you can do it here!
-Choose the path, and the arguments if needed, and press the launch button!</value>
+    <value>Dacă vrei să pornești o aplicație ascunsă, o poți face aici!
+Alege calea, și argumentele dacă este necesar, și apasă butonul de lansare!</value>
   </data>
   <data name="Guide_AlreadyRunningTitle" xml:space="preserve">
-    <value>Your app is already running?</value>
+    <value>Aplicația ta rulează deja?</value>
   </data>
   <data name="Guide_AlreadyRunningText" xml:space="preserve">
-    <value>If your app is already running, you can always select it here and hide it!</value>
+    <value>Dacă aplicația ta rulează deja, o poți selecta oricând de aici și o poți ascunde!</value>
   </data>
   <data name="Guide_CantFindTitle" xml:space="preserve">
-    <value>Can't find it?</value>
+    <value>Nu o poți găsi?</value>
   </data>
   <data name="Guide_CantFindText" xml:space="preserve">
-    <value>To quickly select your app, press this button, then click on your app! It will automatically be selected by HideMyWindows.</value>
+    <value>Pentru a selecta rapid aplicația, apasă acest buton, apoi dă clic pe aplicația ta!
+Va fi selectată automat de HideMyWindows.</value>
   </data>
   <data name="Guide_FinerControlTitle" xml:space="preserve">
-    <value>Need finer control?</value>
+    <value>Ai nevoie de un control mai fin?</value>
   </data>
   <data name="Guide_FinerControlText" xml:space="preserve">
-    <value>If you really can't find your app, or you need finer control over the selection, here you can easily filter all the apps and find the ones you are looking for!</value>
+    <value>Dacă chiar nu îți poți găsi aplicația, sau ai nevoie de un control mai precis asupra selecției, aici poți filtra ușor toate aplicațiile pentru a le găsi pe cele căutate!</value>
   </data>
   <data name="Guide_QuickLaunchOftenTitle" xml:space="preserve">
-    <value>Using the same app very often?</value>
+    <value>Folosești aceeași aplicație foarte des?</value>
   </data>
   <data name="Guide_QuickLaunchOftenText" xml:space="preserve">
-    <value>In the 'Quick launch' page you can add apps that you often need to launch hidden, so you always have them ready!</value>
+    <value>În pagina 'Lansare rapidă' poți adăuga aplicațiile pe care trebuie să le lansezi des ascunse, astfel încât să le ai mereu pregătite!</value>
   </data>
   <data name="Guide_SimpleAndQuickTitle" xml:space="preserve">
-    <value>Simple and quick!</value>
+    <value>Simplu și rapid!</value>
   </data>
   <data name="Guide_SimpleAndQuickText" xml:space="preserve">
-    <value>Just click on the icon and your app will open, already hidden! Right click to edit or remove the entry.</value>
+    <value>Doar dă clic pe iconiță și aplicația ta se va deschide deja ascunsă!
+Click dreapta pentru a edita sau elimina intrarea.</value>
   </data>
   <data name="Guide_AutoHideTitle" xml:space="preserve">
-    <value>Want to hide your app automatically?</value>
+    <value>Vrei să ascunzi aplicația automat?</value>
   </data>
   <data name="Guide_AutoHideText" xml:space="preserve">
-    <value>Using 'Window rules', you can make it so HideMyWindows automatically detects starting apps and windows, and immediately hides them!</value>
+    <value>Folosind 'Reguli ferestre', poți face ca HideMyWindows să detecteze automat pornirea aplicațiilor și ferestrelor, și să le ascundă imediat!</value>
   </data>
   <data name="Guide_ManyFilteringOptionsTitle" xml:space="preserve">
-    <value>Many filtering options!</value>
+    <value>Multe opțiuni de filtrare!</value>
   </data>
   <data name="Guide_ManyFilteringOptionsText" xml:space="preserve">
-    <value>Filter based on the process name, window name, window class, or process ID. Once a new window matches your criteria, it will automatically be hidden!</value>
+    <value>Filtrează pe baza numelui procesului, titlului ferestrei, clasei ferestrei sau ID-ului procesului.
+Odată ce o nouă fereastră corespunde criteriilor tale, va fi ascunsă automat!</value>
   </data>
   <data name="Guide_TweakSettingsTitle" xml:space="preserve">
-    <value>Need to tweak something?</value>
+    <value>Trebuie să ajustezi ceva?</value>
   </data>
   <data name="Guide_TweakSettingsText" xml:space="preserve">
-    <value>In the settings page you can change various options, such as hiding HideMyWindows itself, its tray icon, or whether it should minimize to the tray.</value>
+    <value>În pagina de setări poți schimba diverse opțiuni, cum ar fi ascunderea HideMyWindows în sine, a iconiței sale din tray, sau dacă ar trebui să se minimizeze în tray.</value>
   </data>
   <data name="Guide_AllSetTitle" xml:space="preserve">
-    <value>All set</value>
+    <value>Totul e pregătit</value>
   </data>
   <data name="Guide_AllSetText" xml:space="preserve">
-    <value>You can reopen this guide anytime from the 'About HideMyWindows' tab in the settings.</value>
+    <value>Poți redeschide acest ghid oricând din tab-ul 'Despre HideMyWindows' din setări.</value>
   </data>
   <data name="Guide_TempQuickLaunchEntryName" xml:space="preserve">
-    <value>Your app!</value>
+    <value>Aplicația ta!</value>
   </data>
   <data name="Guide_Reopen" xml:space="preserve">
-    <value>Reopen the guide</value>
+    <value>Redeschide ghidul</value>
   </data>
   <data name="RuleReapplyInterval_InMilliseconds" xml:space="preserve">
-    <value>Rule re-apply interval (in milliseconds)</value>
+    <value>Interval reaplicare regulă (în millisecondi)</value>
   </data>
   <data name="Persistent" xml:space="preserve">
-    <value>Persistent (re-apply automatically)</value>
+    <value>Persistent (reaplică automat)</value>
   </data>
   <data name="UnhideProcessWindows" xml:space="preserve">
-    <value>Unhide process windows</value>
+    <value>Dez-ascunde ferestrele procesului</value>
   </data>
   <data name="HideTrayIcon" xml:space="preserve">
-    <value>Hide tray icon</value>
+    <value>Ascunde iconița din zona de notificare</value>
   </data>
   <data name="UnhideTrayIcon" xml:space="preserve">
-    <value>Unhide tray icon</value>
+    <value>Arată iconița din zona de notificare</value>
   </data>
   <data name="UnknownMonitor" xml:space="preserve">
-    <value>Unknown monitor</value>
+    <value>Monitor necunoscut</value>
   </data>
   <data name="Primary" xml:space="preserve">
-    <value>Primary</value>
+    <value>Principal</value>
   </data>
   <data name="DesktopPreview" xml:space="preserve">
-    <value>Desktop preview</value>
+    <value>Previzualizare desktop</value>
   </data>
   <data name="Info" xml:space="preserve">
     <value>Info</value>
   </data>
   <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
+    <value>Avertisment</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Language</value>
+    <value>Limbă</value>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>Reset</value>
+    <value>Resetează</value>
   </data>
 </root>

@@ -172,7 +172,13 @@ Text="{lex:Loc Personalization}" />
 	Content="{lex:Loc Dark}"
 	GroupName="themeSelect"
 	IsChecked="{Binding ViewModel.ConfigProvider.Config.CurrentTheme, Converter={StaticResource ApplicationThemeEnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}" />
-				</StackPanel>
+                    <Label Margin="0,12,0,0"
+		   Content="{lex:Loc Language}"/>
+                    <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
+                        <ComboBox SelectedItem="{Binding ViewModel.SelectedCulture}" ItemsSource="{Binding ViewModel.AvailableCultures}" DisplayMemberPath="NativeName"/>
+                        <ui:Button Margin="10,0,0,0" Content="{lex:Loc Reset}" Command="{Binding ViewModel.ResetCultureChoiceCommand, Mode=OneWay}"/>
+                    </StackPanel>
+                </StackPanel>
 			</TabItem>
 			<TabItem>
 				<TabItem.Header>

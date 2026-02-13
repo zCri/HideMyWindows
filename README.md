@@ -1,6 +1,6 @@
 # 🪟 HideMyWindows
 
-> 🌐 Available in: [English](README.md) | [Français](README.fr.md)
+> 🌐 Available in: [English](README.md) | [Français](README.fr.md) | [Italiano](README.it.md) | [Română](README.ro.md) | [Polski](README.pl.md)
 
 ![Logo Placeholder](https://placehold.co/120x120.png?text=Logo)  
 
@@ -37,8 +37,9 @@ It’s designed for **privacy-minded users, streamers, and students** who want b
 ### Build from Source
 ```bash
 git clone https://github.com/zCri/HideMyWindows.git
-cd HideMyWindows
-# Open the solution in Visual Studio and build
+cd HideMyWindows/HideMyWindows.App/
+msbuild
+# Or open the solution in Visual Studio and build
 ```
 
 ---
@@ -101,8 +102,11 @@ See [LICENSE.txt](LICENSE) for details.
 
 ## 🌍 Localization
 
-- 🇬🇧 English  
-- 🇫🇷 Français  
+- 🇬🇧 English
+- 🇫🇷 Français
+- 🇮🇹 Italiano
+- 🇷🇴 Română
+- 🇵🇱 Polski
 - ... more coming soon!
 
 ---

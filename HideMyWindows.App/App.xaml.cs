@@ -22,6 +22,7 @@ using Microsoft.Extensions.Hosting;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Windows.Threading;
 using Vanara.PInvoke;
@@ -46,6 +47,8 @@ namespace HideMyWindows.App
                 MessageBox.Show($"A critical error occurred: {(e.ExceptionObject as Exception)?.Message}", "Critical Error", MessageBoxButton.OK, MessageBoxImage.Error);
             };
         }
+
+        public static readonly CultureInfo OriginalCulture = CultureInfo.CurrentUICulture;
 
         public static readonly Queue<SimpleContentDialogCreateOptions> DeferredContentDialogs = new();
 
@@ -141,8 +144,6 @@ namespace HideMyWindows.App
             {
                 Directory.SetCurrentDirectory(currentDirectory);
             }
-
-            LocalizeDictionary.Instance.Culture = CultureInfo.CurrentUICulture;
 
             var hMailslot = CreateFile(@"\\.\mailslot\HideMyWindowsMailslot", Vanara.PInvoke.Kernel32.FileAccess.GENERIC_WRITE, 0, null, FileMode.Open, 0, HFILE.NULL);
             if (!hMailslot.IsInvalid)

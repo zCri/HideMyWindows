@@ -118,310 +118,314 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutHideMyWindows" xml:space="preserve">
-    <value>About HideMyWindows</value>
+    <value>O HideMyWindows</value>
   </data>
   <data name="AddNewEntry" xml:space="preserve">
-    <value>Add new entry</value>
+    <value>Dodaj nowy wpis</value>
   </data>
   <data name="AddNewRule" xml:space="preserve">
-    <value>Add new rule</value>
+    <value>Dodaj nową regułę</value>
   </data>
   <data name="AnErrorOccurred" xml:space="preserve">
-    <value>An error occurred</value>
+    <value>Wystąpił błąd</value>
   </data>
   <data name="BrowsePath" xml:space="preserve">
-    <value>Browse path</value>
+    <value>Przeglądaj ścieżkę</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Anuluj</value>
   </data>
   <data name="CorruptInstallation" xml:space="preserve">
-    <value>Your installation of HideMyWindows is corrupt</value>
+    <value>Twoja instalacja HideMyWindows jest uszkodzona</value>
   </data>
   <data name="CorruptInstallationMissingFileText" xml:space="preserve">
-    <value>It looks like your installation of HideMyWindows is corrupt. You are missing an important file that is needed for the application to run properly.
-File path: {0}
-Consider reinstalling the application to ensure its correct functionality.</value>
+    <value>Wygląda na to, że twoja instalacja HideMyWindows jest uszkodzona.
+Brakuje ważnego pliku, który jest wymagany do poprawnego działania aplikacji.
+Ścieżka pliku: {0}
+Rozważ ponowną instalację aplikacji, aby zapewnić jej poprawne działanie.</value>
   </data>
   <data name="Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Ciemny</value>
   </data>
   <data name="DontShowThisDialogAgain" xml:space="preserve">
-    <value>Don't show this dialog again</value>
+    <value>Nie pokazuj więcej tego okna</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>Edytuj</value>
   </data>
   <data name="EditEntry" xml:space="preserve">
-    <value>Edit entry</value>
+    <value>Edytuj wpis</value>
   </data>
   <data name="Enable" xml:space="preserve">
-    <value>Enable</value>
+    <value>Włącz</value>
   </data>
   <data name="FilterValue" xml:space="preserve">
-    <value>Filter value</value>
+    <value>Wartość filtra</value>
   </data>
   <data name="FindAndHide" xml:space="preserve">
-    <value>Find and hide</value>
+    <value>Znajdź i ukryj</value>
   </data>
   <data name="FindAndHideARunningProcess" xml:space="preserve">
-    <value>Find and hide a running process</value>
+    <value>Znajdź i ukryj działający proces</value>
   </data>
   <data name="FindByClick" xml:space="preserve">
-    <value>Find by click</value>
+    <value>Znajdź kliknięciem</value>
   </data>
   <data name="Functionality" xml:space="preserve">
-    <value>Functionality</value>
+    <value>Funkcjonalność</value>
   </data>
   <data name="HideARunningProcess" xml:space="preserve">
-    <value>Hide a running process</value>
+    <value>Ukryj działający proces</value>
   </data>
   <data name="HideProcess" xml:space="preserve">
-    <value>Hide process</value>
+    <value>Ukryj proces</value>
   </data>
   <data name="HideProcessWindows" xml:space="preserve">
-    <value>Hide process windows</value>
+    <value>Ukryj okna procesu</value>
   </data>
   <data name="HideThisAppAutomatically" xml:space="preserve">
-    <value>Hide this app automatically</value>
+    <value>Ukryj tę aplikację automatycznie</value>
   </data>
   <data name="HideWindow" xml:space="preserve">
-    <value>Hide window</value>
+    <value>Ukryj okno</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Home</value>
+    <value>Strona główna</value>
   </data>
   <data name="Light" xml:space="preserve">
-    <value>Light</value>
+    <value>Jasny</value>
   </data>
   <data name="MinimizeToTrayIcon" xml:space="preserve">
-    <value>Minimize to tray icon</value>
+    <value>Minimalizuj do zasobnika systemowego</value>
   </data>
   <data name="MissingPermissions" xml:space="preserve">
-    <value>Missing permissions</value>
+    <value>Brak uprawnień</value>
   </data>
   <data name="Name_CanBeLeftEmpty" xml:space="preserve">
-    <value>Name (can be left empty)</value>
+    <value>Nazwa (może pozostać pusta)</value>
   </data>
   <data name="NeedAdminForWMIProcessTraceProcessWatcher" xml:space="preserve">
-    <value>You need to run HideMyWindows as administrator to use the WMI Process Trace process watcher.</value>
+    <value>Musisz uruchomić HideMyWindows jako administrator, aby używać obserwatora procesów WMI Process Trace.</value>
   </data>
   <data name="NoProcessFound" xml:space="preserve">
-    <value>No process found</value>
+    <value>Nie znaleziono procesu</value>
   </data>
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>
   </data>
   <data name="Personalization" xml:space="preserve">
-    <value>Personalization</value>
+    <value>Personalizacja</value>
   </data>
   <data name="ProcessArguments" xml:space="preserve">
-    <value>Process arguments</value>
+    <value>Argumenty procesu</value>
   </data>
   <data name="ProcessId" xml:space="preserve">
-    <value>Process ID</value>
+    <value>ID procesu</value>
   </data>
   <data name="ProcessName" xml:space="preserve">
-    <value>Process name</value>
+    <value>Nazwa procesu</value>
   </data>
   <data name="ProcessPath" xml:space="preserve">
-    <value>Process path</value>
+    <value>Ścieżka procesu</value>
   </data>
   <data name="ProcessWatcherDelay_InMilliseconds" xml:space="preserve">
-    <value>Process watcher delay (in milliseconds)</value>
+    <value>Opóźnienie obserwatora procesów (w milisekundach)</value>
   </data>
   <data name="ProcessWatchingMethod" xml:space="preserve">
-    <value>Process watching method</value>
+    <value>Metoda obserwacji procesów</value>
   </data>
   <data name="QuickLaunch" xml:space="preserve">
-    <value>Quick launch</value>
+    <value>Szybkie uruchamianie</value>
   </data>
   <data name="Quit" xml:space="preserve">
-    <value>Quit</value>
+    <value>Wyjdź</value>
   </data>
   <data name="RegexMatches" xml:space="preserve">
-    <value>Regex matches</value>
+    <value>Regex pasuje do</value>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>Remove</value>
+    <value>Usuń</value>
   </data>
   <data name="RunAHiddenProcess" xml:space="preserve">
-    <value>Run a hidden process</value>
+    <value>Uruchom ukryty proces</value>
   </data>
   <data name="RunHiddenProcess" xml:space="preserve">
-    <value>Run hidden process</value>
+    <value>Uruchom ukryty proces</value>
   </data>
   <data name="SaveEntries" xml:space="preserve">
-    <value>Save entries</value>
+    <value>Zapisz wpisy</value>
   </data>
   <data name="SaveRules" xml:space="preserve">
-    <value>Save rules</value>
+    <value>Zapisz reguły</value>
   </data>
   <data name="SaveSettings" xml:space="preserve">
-    <value>Save settings</value>
+    <value>Zapisz ustawienia</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Ustawienia</value>
   </data>
   <data name="Show" xml:space="preserve">
-    <value>Show</value>
+    <value>Pokaż</value>
   </data>
   <data name="ShowThisAppInTheTaskbar" xml:space="preserve">
-    <value>Show this app in the taskbar</value>
+    <value>Pokaż tę aplikację na pasku zadań</value>
   </data>
   <data name="StringContains" xml:space="preserve">
-    <value>String contains</value>
+    <value>Ciąg zawiera</value>
   </data>
   <data name="StringEndsWith" xml:space="preserve">
-    <value>String ends with</value>
+    <value>Ciąg kończy się na</value>
   </data>
   <data name="StringEquals" xml:space="preserve">
-    <value>String equals</value>
+    <value>Ciąg jest równy</value>
   </data>
   <data name="StringStartsWith" xml:space="preserve">
-    <value>String starts with</value>
+    <value>Ciąg zaczyna się od</value>
   </data>
   <data name="Theme" xml:space="preserve">
-    <value>Theme</value>
+    <value>Motyw</value>
   </data>
   <data name="ToApplyTheseSettingsSaveAndRestart" xml:space="preserve">
-    <value>To apply these settings, save the settings and restart the application</value>
+    <value>Aby zastosować te ustawienia, zapisz je i zrestartuj aplikację</value>
   </data>
   <data name="WindowClass" xml:space="preserve">
-    <value>Window class</value>
+    <value>Klasa okna</value>
   </data>
   <data name="WindowRules" xml:space="preserve">
-    <value>Window rules</value>
+    <value>Reguły okien</value>
   </data>
   <data name="UnhideProcess" xml:space="preserve">
-    <value>Unhide process</value>
+    <value>Odkryj proces</value>
   </data>
   <data name="HowOthersWillSeeYourScreen" xml:space="preserve">
-    <value>This is how others will see your screen.</value>
+    <value>Tak inni będą widzieć Twój ekran.</value>
   </data>
   <data name="UnhideWindow" xml:space="preserve">
-    <value>Unhide window</value>
+    <value>Odkryj okno</value>
   </data>
   <data name="WindowsVersionIncompatible" xml:space="preserve">
-    <value>Windows version incompatible</value>
+    <value>Wersja Windows niekompatybilna</value>
   </data>
   <data name="WindowsVersionIncompatibleText" xml:space="preserve">
-    <value>Your Windows version is too old and does not support the features required to run HideMyWindows properly.
-For more information check out the project's README.</value>
+    <value>Twoja wersja Windows jest zbyt stara i nie obsługuje funkcji wymaganych do poprawnego działania HideMyWindows.
+Aby uzyskać więcej informacji, sprawdź plik README projektu.</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>Window title</value>
+    <value>Tytuł okna</value>
   </data>
   <data name="WindowWatchingMethod" xml:space="preserve">
-    <value>Window watching method</value>
+    <value>Metoda obserwacji okien</value>
   </data>
   <data name="Guide_WelcomeTitle" xml:space="preserve">
-    <value>Welcome!</value>
+    <value>Witaj!</value>
   </data>
   <data name="Guide_WelcomeText" xml:space="preserve">
-    <value>I'll give you a short tour of HideMyWindows and teach you how to use it.</value>
+    <value>Oprowadzę cię krótko po HideMyWindows i nauczę, jak go używać.</value>
   </data>
   <data name="Guide_StartHereTitle" xml:space="preserve">
-    <value>Start here!</value>
+    <value>Zacznij tutaj!</value>
   </data>
   <data name="Guide_StartHereText" xml:space="preserve">
-    <value>If you want to start a hidden application, you can do it here!
-Choose the path, and the arguments if needed, and press the launch button!</value>
+    <value>Jeśli chcesz uruchomić ukrytą aplikację, możesz to zrobić tutaj!
+Wybierz ścieżkę, a także argumenty, jeśli są potrzebne, i naciśnij przycisk uruchomienia!</value>
   </data>
   <data name="Guide_AlreadyRunningTitle" xml:space="preserve">
-    <value>Your app is already running?</value>
+    <value>Twoja aplikacja już działa?</value>
   </data>
   <data name="Guide_AlreadyRunningText" xml:space="preserve">
-    <value>If your app is already running, you can always select it here and hide it!</value>
+    <value>Jeśli twoja aplikacja już działa, zawsze możesz wybrać ją tutaj i ukryć!</value>
   </data>
   <data name="Guide_CantFindTitle" xml:space="preserve">
-    <value>Can't find it?</value>
+    <value>Nie możesz jej znaleźć?</value>
   </data>
   <data name="Guide_CantFindText" xml:space="preserve">
-    <value>To quickly select your app, press this button, then click on your app! It will automatically be selected by HideMyWindows.</value>
+    <value>Aby szybko wybrać aplikację, naciśnij ten przycisk, a następnie kliknij na swoją aplikację!
+Zostanie ona automatycznie wybrana przez HideMyWindows.</value>
   </data>
   <data name="Guide_FinerControlTitle" xml:space="preserve">
-    <value>Need finer control?</value>
+    <value>Potrzebujesz większej kontroli?</value>
   </data>
   <data name="Guide_FinerControlText" xml:space="preserve">
-    <value>If you really can't find your app, or you need finer control over the selection, here you can easily filter all the apps and find the ones you are looking for!</value>
+    <value>Jeśli naprawdę nie możesz znaleźć swojej aplikacji, lub potrzebujesz dokładniejszej kontroli nad wyborem, tutaj możesz łatwo przefiltrować wszystkie aplikacje i znaleźć te, których szukasz!</value>
   </data>
   <data name="Guide_QuickLaunchOftenTitle" xml:space="preserve">
-    <value>Using the same app very often?</value>
+    <value>Często używasz tej samej aplikacji?</value>
   </data>
   <data name="Guide_QuickLaunchOftenText" xml:space="preserve">
-    <value>In the 'Quick launch' page you can add apps that you often need to launch hidden, so you always have them ready!</value>
+    <value>W stronie 'Szybkie uruchamianie' możesz dodać aplikacje, które często musisz uruchamiać jako ukryte, aby zawsze mieć je pod ręką!</value>
   </data>
   <data name="Guide_SimpleAndQuickTitle" xml:space="preserve">
-    <value>Simple and quick!</value>
+    <value>Prosto i szybko!</value>
   </data>
   <data name="Guide_SimpleAndQuickText" xml:space="preserve">
-    <value>Just click on the icon and your app will open, already hidden! Right click to edit or remove the entry.</value>
+    <value>Po prostu kliknij na ikonę, a twoja aplikacja otworzy się już ukryta!
+Kliknij prawym przyciskiem, aby edytować lub usunąć wpis.</value>
   </data>
   <data name="Guide_AutoHideTitle" xml:space="preserve">
-    <value>Want to hide your app automatically?</value>
+    <value>Chcesz ukryć aplikację automatycznie?</value>
   </data>
   <data name="Guide_AutoHideText" xml:space="preserve">
-    <value>Using 'Window rules', you can make it so HideMyWindows automatically detects starting apps and windows, and immediately hides them!</value>
+    <value>Używając 'Reguł okien', możesz sprawić, że HideMyWindows automatycznie wykryje uruchamiane aplikacje i okna, i natychmiast je ukryje!</value>
   </data>
   <data name="Guide_ManyFilteringOptionsTitle" xml:space="preserve">
-    <value>Many filtering options!</value>
+    <value>Wiele opcji filtrowania!</value>
   </data>
   <data name="Guide_ManyFilteringOptionsText" xml:space="preserve">
-    <value>Filter based on the process name, window name, window class, or process ID. Once a new window matches your criteria, it will automatically be hidden!</value>
+    <value>Filtruj na podstawie nazwy procesu, tytułu okna, klasy okna lub ID procesu.
+Gdy nowe okno spełni twoje kryteria, zostanie automatycznie ukryte!</value>
   </data>
   <data name="Guide_TweakSettingsTitle" xml:space="preserve">
-    <value>Need to tweak something?</value>
+    <value>Musisz coś zmienić?</value>
   </data>
   <data name="Guide_TweakSettingsText" xml:space="preserve">
-    <value>In the settings page you can change various options, such as hiding HideMyWindows itself, its tray icon, or whether it should minimize to the tray.</value>
+    <value>Na stronie ustawień możesz zmienić różne opcje, takie jak ukrywanie samego HideMyWindows, jego ikony w zasobniku, czy też minimalizowanie do zasobnika.</value>
   </data>
   <data name="Guide_AllSetTitle" xml:space="preserve">
-    <value>All set</value>
+    <value>Wszystko gotowe</value>
   </data>
   <data name="Guide_AllSetText" xml:space="preserve">
-    <value>You can reopen this guide anytime from the 'About HideMyWindows' tab in the settings.</value>
+    <value>Możesz ponownie otworzyć ten przewodnik w dowolnym momencie z zakładki 'O HideMyWindows' w ustawieniach.</value>
   </data>
   <data name="Guide_TempQuickLaunchEntryName" xml:space="preserve">
-    <value>Your app!</value>
+    <value>Twoja aplikacja!</value>
   </data>
   <data name="Guide_Reopen" xml:space="preserve">
-    <value>Reopen the guide</value>
+    <value>Otwórz ponownie przewodnik</value>
   </data>
   <data name="RuleReapplyInterval_InMilliseconds" xml:space="preserve">
-    <value>Rule re-apply interval (in milliseconds)</value>
+    <value>Interwał ponownego stosowania reguł (w milisekundach)</value>
   </data>
   <data name="Persistent" xml:space="preserve">
-    <value>Persistent (re-apply automatically)</value>
+    <value>Trwałe (stosuj ponownie automatycznie)</value>
   </data>
   <data name="UnhideProcessWindows" xml:space="preserve">
-    <value>Unhide process windows</value>
+    <value>Odkryj okna procesu</value>
   </data>
   <data name="HideTrayIcon" xml:space="preserve">
-    <value>Hide tray icon</value>
+    <value>Ukryj ikonę w zasobniku</value>
   </data>
   <data name="UnhideTrayIcon" xml:space="preserve">
-    <value>Unhide tray icon</value>
+    <value>Odkryj ikonę w zasobniku</value>
   </data>
   <data name="UnknownMonitor" xml:space="preserve">
-    <value>Unknown monitor</value>
+    <value>Nieznany monitor</value>
   </data>
   <data name="Primary" xml:space="preserve">
-    <value>Primary</value>
+    <value>Główny</value>
   </data>
   <data name="DesktopPreview" xml:space="preserve">
-    <value>Desktop preview</value>
+    <value>Podgląd pulpitu</value>
   </data>
   <data name="Info" xml:space="preserve">
     <value>Info</value>
   </data>
   <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
+    <value>Ostrzeżenie</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Language</value>
+    <value>Język</value>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>Reset</value>
+    <value>Zresetuj</value>
   </data>
 </root>

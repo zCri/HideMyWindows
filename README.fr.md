@@ -1,6 +1,6 @@
 # 🪟 HideMyWindows
 
-> 🌐 Disponible en : [Anglais](README.md) | [Français](README.fr.md)
+> 🌐 Disponible en: [English](README.md) | [Français](README.fr.md) | [Italiano](README.it.md) | [Română](README.ro.md) | [Polski](README.pl.md)
 
 ![Logo Placeholder](https://placehold.co/120x120.png?text=Logo)  
 
@@ -37,8 +37,9 @@ Elle est conçue pour les **utilisateurs soucieux de leur vie privée, les strea
 ### Compiler depuis les sources
 ```bash
 git clone https://github.com/zCri/HideMyWindows.git
-cd HideMyWindows
-# Ouvrez la solution dans Visual Studio et compilez
+cd HideMyWindows/HideMyWindows.App/
+msbuild
+# Ou ouvrez la solution dans Visual Studio et compilez
 ```
 
 ---
@@ -52,8 +53,8 @@ cd HideMyWindows
 5. Réduisez dans la barre d’état système et laissez fonctionner en arrière-plan.  
 
 📸 **Captures & Démo** (bientôt disponibles)  
-- Image temporaire :  
-  ![Capture temporaire](https://placehold.co/800x450.png?text=Capture+à+venir)  
+- Image placeholder :  
+  ![Capture placeholder](https://placehold.co/800x450.png?text=Capture+à+venir)  
 
 🎥 [Tutoriel YouTube – Bientôt](#)  
 
@@ -101,8 +102,11 @@ Voir [LICENSE.txt](LICENSE) pour plus de détails.
 
 ## 🌍 Localisation
 
-- 🇬🇧 English  
-- 🇫🇷 Français  
+- 🇬🇧 English
+- 🇫🇷 Français
+- 🇮🇹 Italiano
+- 🇷🇴 Română
+- 🇵🇱 Polski
 - ... d’autres arrivent bientôt!
 
 ---

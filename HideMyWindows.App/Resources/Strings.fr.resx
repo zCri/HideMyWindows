@@ -418,4 +418,10 @@ Choisissez le chemin, ainsi que les arguments si nécessaire, puis appuyez sur l
   <data name="Warning" xml:space="preserve">
     <value>Avertissement</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Langue</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Réinitialiser</value>
+  </data>
 </root>

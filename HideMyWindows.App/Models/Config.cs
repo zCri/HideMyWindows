@@ -1,6 +1,7 @@
 ﻿using HideMyWindows.App.Services.ProcessWatcher;
 using HideMyWindows.App.Services.WindowWatcher;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows.Interop;
 using Wpf.Ui.Appearance;
 using static Vanara.PInvoke.User32;
@@ -44,6 +45,9 @@ namespace HideMyWindows.App.Models
 
         [ObservableProperty]
         private BindingList<QuickLaunchEntry> _quickLaunchEntries = new();
+
+        [ObservableProperty]
+        private CultureInfo? selectedCulture = null;
 
         partial void OnCurrentThemeChanged(ApplicationTheme value)
         {

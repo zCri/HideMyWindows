@@ -10,8 +10,10 @@ using HideMyWindows.App.Views.Pages;
 using HideMyWindows.App.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Globalization;
 using System.Windows.Interop;
 using Wpf.Ui.Appearance;
+using WPFLocalizeExtension.Engine;
 using static Vanara.PInvoke.User32;
 
 namespace HideMyWindows.App.Services
@@ -55,15 +57,18 @@ namespace HideMyWindows.App.Services
 
             if (!Application.Current.Windows.OfType<MainWindow>().Any())
             {
+                var configProvider = _serviceProvider.GetService<IConfigProvider>();
+                configProvider?.Load();
+
+                if (configProvider?.Config!.SelectedCulture is not null) CultureInfo.CurrentUICulture = configProvider.Config.SelectedCulture;
+                LocalizeDictionary.Instance.Culture = CultureInfo.CurrentUICulture; 
                 var navigationWindow = (
                     _serviceProvider.GetService(typeof(INavigationWindow)) as INavigationWindow
                 )!;
+                
                 navigationWindow!.ShowWindow();
 
                 navigationWindow.Navigate(typeof(DashboardPage));
-
-                var configProvider = _serviceProvider.GetService<IConfigProvider>();
-                configProvider?.Load();
 
                 // Weird behaviour with the JSON deserialization (?), not calling the property setter if the value in the config is equal to the default, might be fixable with JsonSerializerOptions.PreferredObjectCreationHandling (?) but it's .NET 8+.
                 // Just a quick hack before i actually decide what to do with it, also causes the configuration options to apply twice if they are not the default values.

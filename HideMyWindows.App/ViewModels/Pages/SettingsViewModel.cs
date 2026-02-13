@@ -8,6 +8,8 @@ using HideMyWindows.App.Services.ConfigProvider;
 using HideMyWindows.App.Services.ProcessWatcher;
 using HideMyWindows.App.Services.TourService;
 using HideMyWindows.App.Services.WindowWatcher;
+using System.Globalization;
+using System.IO;
 using System.Reflection;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -31,6 +33,7 @@ namespace HideMyWindows.App.ViewModels.Pages
             configProvider.Load();
             ConfigProvider.Config!.CurrentTheme = ApplicationThemeManager.GetAppTheme();
             AppVersion = $"HideMyWindows — {GetAssemblyVersion()}";
+            AvailableCultures = CultureInfo.GetCultures(CultureTypes.NeutralCultures).Where(culture => Directory.Exists(culture.TwoLetterISOLanguageName) || culture.TwoLetterISOLanguageName == "en");
         }
 
         public ProcessWatcherType? ProcessWatcherType { 
@@ -69,6 +72,21 @@ namespace HideMyWindows.App.ViewModels.Pages
             }
         }
 
+        public IEnumerable<CultureInfo> AvailableCultures { get; init; }
+
+        public CultureInfo SelectedCulture { 
+            get => ConfigProvider.Config!.SelectedCulture ?? 
+                (CultureInfo.CurrentUICulture.IsNeutralCulture
+                    ? CultureInfo.CurrentUICulture
+                    : CultureInfo.CurrentUICulture.Parent);
+            set {
+                ConfigProvider.Config!.SelectedCulture = value;
+                CultureInfo.CurrentUICulture = value;
+                LocalizeDictionary.Instance.Culture = value;
+                SnackbarService.Show(LocalizationUtils.GetString("Settings"), LocalizationUtils.GetString("ToApplyTheseSettingsSaveAndRestart"), ControlAppearance.Info, new SymbolIcon(SymbolRegular.Info24));
+            }
+        }
+
         [ObservableProperty]
         private string _appVersion = string.Empty;
 
@@ -97,6 +115,16 @@ namespace HideMyWindows.App.ViewModels.Pages
         private void RestartTour()
         {
             TourService.Start();
+        }
+
+        [RelayCommand]
+        private void ResetCultureChoice()
+        {
+            ConfigProvider.Config!.SelectedCulture = null;
+            CultureInfo.CurrentUICulture = App.OriginalCulture;
+            LocalizeDictionary.Instance.Culture = App.OriginalCulture;
+            SnackbarService.Show(LocalizationUtils.GetString("Settings"), LocalizationUtils.GetString("ToApplyTheseSettingsSaveAndRestart"), ControlAppearance.Info, new SymbolIcon(SymbolRegular.Info24));
+            OnPropertyChanged(nameof(SelectedCulture));
         }
 
         [RelayCommand]
