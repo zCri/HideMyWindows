@@ -29,10 +29,10 @@ namespace HideMyWindows.App.ViewModels.Pages
         private BitmapSource? _previewImage;
 
         [ObservableProperty]
-        private BindingList<IntPtr> _availableMonitors = new();
+        private BindingList<HMONITOR> _availableMonitors = new();
 
         [ObservableProperty]
-        private IntPtr? selectedMonitor;
+        private HMONITOR? selectedMonitor;
 
         public void ResetSelectedMonitor() // Hacky way to refresh combobox binding converter
         {
@@ -57,7 +57,7 @@ namespace HideMyWindows.App.ViewModels.Pages
                 Debug.WriteLine($"[DashboardViewModel] Found {AvailableMonitors.Count} monitors.");
             }
 
-            if (AvailableMonitors.Count != 0 && SelectedMonitor is IntPtr handle)
+            if (AvailableMonitors.Count != 0 && SelectedMonitor is HMONITOR handle)
             {
                 try
                 {
@@ -88,7 +88,7 @@ namespace HideMyWindows.App.ViewModels.Pages
             AvailableMonitors.Clear();
         }
 
-        partial void OnSelectedMonitorChanged(IntPtr? value)
+        partial void OnSelectedMonitorChanged(HMONITOR? value)
         {
             StartCapture(); // Restart with new monitor
         }

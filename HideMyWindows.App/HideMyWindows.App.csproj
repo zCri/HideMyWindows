@@ -21,9 +21,10 @@
   <ItemGroup>
     <PackageReference Include="PeNet" Version="5.1.0" />
     <PackageReference Include="System.Management" Version="9.0.7" />
-    <PackageReference Include="Vanara.Core" Version="4.1.6" />
-    <PackageReference Include="Vanara.PInvoke.Kernel32" Version="4.1.6" />
-    <PackageReference Include="Vanara.PInvoke.User32" Version="4.1.6" />
+    <PackageReference Include="Vanara.Core" Version="5.0.0" />
+    <PackageReference Include="Vanara.PInvoke.Kernel32" Version="5.0.0" />
+    <PackageReference Include="Vanara.PInvoke.Shell32" Version="5.0.0" />
+    <PackageReference Include="Vanara.PInvoke.User32" Version="5.0.0" />
     <PackageReference Include="WPF-UI" Version="4.0.3" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.7" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />

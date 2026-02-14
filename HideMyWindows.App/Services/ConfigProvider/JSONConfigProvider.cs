@@ -22,8 +22,10 @@ namespace HideMyWindows.App.Services.ConfigProvider
 
             JsonOptions = new()
             {
-                WriteIndented = true
+                WriteIndented = true,
             };
+
+            JsonOptions.Converters.Add(new CultureInfoConverter());
         }
 
         public void Reload(string path)

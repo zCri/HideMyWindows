@@ -15,6 +15,7 @@ using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
 using WPFLocalizeExtension.Engine;
+using static Vanara.PInvoke.Shell32;
 
 namespace HideMyWindows.App.ViewModels.Pages
 {
@@ -131,6 +132,33 @@ namespace HideMyWindows.App.ViewModels.Pages
         private void SaveConfig()
         {
             ConfigProvider.Save();
+        }
+
+        [RelayCommand]
+        private void OpenConfigFolder()
+        {
+            try
+            {
+                var configPath = ConfigProvider.ConfigPath;
+                var folderPath = Path.GetFullPath(Path.GetDirectoryName(configPath)!);
+                var filePath = Path.GetFullPath(configPath);
+
+                SHParseDisplayName(folderPath, IntPtr.Zero, out var folderPidl, 0, out _).ThrowIfFailed();
+                if (!folderPidl) return;
+
+                SHParseDisplayName(filePath, IntPtr.Zero, out var filePidl, 0, out _).ThrowIfFailed();
+                if (!filePidl) return;
+
+                using (folderPidl)
+                using (filePidl)
+                {
+                    IntPtr[] filePidls = [filePidl.DangerousGetHandle()];
+                    SHOpenFolderAndSelectItems(folderPidl, (uint)filePidls.Length, filePidls, OFASI.OFASI_NONE);
+                }
+            } catch (Exception e)
+            {
+                SnackbarService.Show(LocalizationUtils.GetString("AnErrorOccurred"), e.Message, ControlAppearance.Danger, new SymbolIcon(SymbolRegular.ErrorCircle24));
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using Vanara.PInvoke;
 using Windows.Graphics.Capture;
 using WinRT;
 
@@ -25,11 +26,11 @@ namespace HideMyWindows.App.Helpers
                 out IntPtr result);
         }
 
-        public static GraphicsCaptureItem CreateItemForMonitor(IntPtr hmon)
+        public static GraphicsCaptureItem CreateItemForMonitor(HMONITOR handle)
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine($"[CaptureHelper] Creating item for monitor {hmon}");
+                System.Diagnostics.Debug.WriteLine($"[CaptureHelper] Creating item for monitor {handle}");
                 var iid = typeof(IGraphicsCaptureItemInterop).GUID;
                 var interop = GetActivationFactory<IGraphicsCaptureItemInterop>("Windows.Graphics.Capture.GraphicsCaptureItem", iid);
                 
@@ -38,7 +39,8 @@ namespace HideMyWindows.App.Helpers
                 // IGraphicsCaptureItem IID
                 var itemIID = new Guid("79C3F95B-31F7-4EC2-A464-632EF5D30760"); 
                 
-                int hr = interop.CreateForMonitor(hmon, ref itemIID, out IntPtr itemPointer);
+                // HMONITOR should be valid
+                int hr = interop.CreateForMonitor(handle.DangerousGetHandle(), ref itemIID, out IntPtr itemPointer);
                 
                 System.Diagnostics.Debug.WriteLine($"[CaptureHelper] CreateForMonitor HRESULT: {hr} (0x{hr:X})");
 

@@ -428,4 +428,7 @@ Gdy nowe okno spełni twoje kryteria, zostanie automatycznie ukryte!</value>
   <data name="Reset" xml:space="preserve">
     <value>Zresetuj</value>
   </data>
+  <data name="OpenSettingsFolder" xml:space="preserve">
+    <value>Otwórz folder ustawień</value>
+  </data>
 </root>

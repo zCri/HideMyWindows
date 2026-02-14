@@ -428,4 +428,7 @@ Odată ce o nouă fereastră corespunde criteriilor tale, va fi ascunsă automat
   <data name="Reset" xml:space="preserve">
     <value>Resetează</value>
   </data>
+  <data name="OpenSettingsFolder" xml:space="preserve">
+    <value>Deschide folderul de setări</value>
+  </data>
 </root>

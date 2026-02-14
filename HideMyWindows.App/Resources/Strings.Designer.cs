@@ -604,6 +604,15 @@ namespace HideMyWindows.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open settings folder.
+        /// </summary>
+        public static string OpenSettingsFolder {
+            get {
+                return ResourceManager.GetString("OpenSettingsFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Persistent (re-apply automatically).
         /// </summary>
         public static string Persistent {

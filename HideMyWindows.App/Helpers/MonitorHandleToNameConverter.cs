@@ -14,7 +14,7 @@ namespace HideMyWindows.App.Helpers
     {
         public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if (value is not IntPtr handle || handle == IntPtr.Zero)
+            if (value is not HMONITOR handle || handle.IsInvalid)
             {
                 return string.Empty;
             }

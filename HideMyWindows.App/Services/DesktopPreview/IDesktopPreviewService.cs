@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using Vanara.PInvoke;
 
 namespace HideMyWindows.App.Services.DesktopPreview
 {
@@ -11,7 +12,7 @@ namespace HideMyWindows.App.Services.DesktopPreview
     {
         public event EventHandler<BitmapSource>? FrameCaptured;
 
-        public void StartCapture(IntPtr hmon);
+        public void StartCapture(HMONITOR handle);
         public void StopCapture();
     }
 }

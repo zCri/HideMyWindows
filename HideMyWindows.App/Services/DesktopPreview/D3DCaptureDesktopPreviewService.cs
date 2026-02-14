@@ -6,6 +6,7 @@ using System.Windows.Threading;
 using HideMyWindows.App.Helpers;
 using Windows.Graphics.Capture;
 using Windows.Graphics.DirectX.Direct3D11;
+using Vanara.PInvoke;
 using System.IO;
 
 namespace HideMyWindows.App.Services.DesktopPreview
@@ -127,10 +128,10 @@ namespace HideMyWindows.App.Services.DesktopPreview
             
         }
 
-        public void StartCapture(IntPtr hmon)
+        public void StartCapture(HMONITOR handle)
         {
             try {
-                Debug.WriteLine($"[DesktopPreviewService] StartCapture called for monitor: {hmon}");
+                Debug.WriteLine($"[DesktopPreviewService] StartCapture called for monitor: {handle}");
                 StopCapture();
 
                 if (_device == null) {
@@ -138,7 +139,7 @@ namespace HideMyWindows.App.Services.DesktopPreview
                     return;
                 }
 
-                var item = D3DCaptureHelper.CreateItemForMonitor(hmon);
+                var item = D3DCaptureHelper.CreateItemForMonitor(handle);
                 Debug.WriteLine($"[DesktopPreviewService] CaptureItem created. Size: {item.Size}");
                 
                 // Create Frame Pool

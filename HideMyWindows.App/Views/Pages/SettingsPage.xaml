@@ -194,13 +194,18 @@ Text="{lex:Loc AboutHideMyWindows}" />
                 </StackPanel>
 			</TabItem>
 		</TabControl>
-		<ui:Button
-			Grid.Row="1"
-			Icon="{ui:SymbolIcon Save24}"
-			Appearance="Primary"
-			HorizontalAlignment="Right"
-			Margin="0,0,0,20"
-			Content="{lex:Loc SaveSettings}"
-			Command="{Binding ViewModel.SaveConfigCommand}"/>
-	</Grid>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,20" HorizontalAlignment="Right">
+            <ui:Button
+                Margin="0,0,10,0"
+				Icon="{ui:SymbolIcon Folder24}"
+				Appearance="Secondary"
+				Content="{lex:Loc OpenSettingsFolder}"
+				Command="{Binding ViewModel.OpenConfigFolderCommand}"/>
+            <ui:Button
+				Icon="{ui:SymbolIcon Save24}"
+				Appearance="Primary"
+				Content="{lex:Loc SaveSettings}"
+				Command="{Binding ViewModel.SaveConfigCommand}"/>
+        </StackPanel>
+    </Grid>
 </Page>

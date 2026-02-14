@@ -424,4 +424,7 @@ Choisissez le chemin, ainsi que les arguments si nécessaire, puis appuyez sur l
   <data name="Reset" xml:space="preserve">
     <value>Réinitialiser</value>
   </data>
+  <data name="OpenSettingsFolder" xml:space="preserve">
+    <value>Ouvrir le dossier des paramètres</value>
+  </data>
 </root>
