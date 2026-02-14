@@ -51,9 +51,8 @@ msbuild
 4. Applica le **regole finestre** per nascondere automaticamente le app.
 5. Riduci a icona nell'area di notifica e lascialo funzionare in background.
 
-📸 **Screenshot e Demo** (prossimamente)
-- Immagine placeholder:
-  ![Screenshot placeholder](https://placehold.co/800x450.png?text=Screenshot+Coming+Soon)  
+📸 **Screenshot e Demo (prossimamente)**
+![Thumbnail](assets/Thumbnail.png)
 
 🎥 [Tutorial YouTube – Prossimamente](#)
 

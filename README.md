@@ -52,9 +52,8 @@ msbuild
 4. Apply **window rules** to auto-hide apps.  
 5. Minimize to tray and let it run in the background.  
 
-📸 **Screenshots & Demo** (coming soon)  
-- Placeholder image:  
-  ![Screenshot Placeholder](https://placehold.co/800x450.png?text=Screenshot+Coming+Soon)  
+📸 **Screenshots & Demo (coming soon)**
+![Thumbnail](assets/Thumbnail.png)
 
 🎥 [YouTube Tutorial – Coming Soon](#)  
 

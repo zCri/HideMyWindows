@@ -51,9 +51,8 @@ msbuild
 4. Aplică **reguli pentru ferestre** pentru a ascunde automat aplicații.
 5. Minimizează în zona de notificare și las-o să ruleze în fundal.
 
-📸 **Screenshot-uri & Demo** (în curând)
-- Imagine placeholder:
-  ![Screenshot placeholder](https://placehold.co/800x450.png?text=Screenshot+Coming+Soon)  
+📸 **Screenshot-uri & Demo (în curând)**
+![Thumbnail](assets/Thumbnail.png)
 
 🎥 [Tutorial YouTube – În curând](#)
 

@@ -52,9 +52,8 @@ msbuild
 4. Appliquez des **règles de fenêtres** pour masquer automatiquement des programmes.  
 5. Réduisez dans la barre d’état système et laissez fonctionner en arrière-plan.  
 
-📸 **Captures & Démo** (bientôt disponibles)  
-- Image placeholder :  
-  ![Capture placeholder](https://placehold.co/800x450.png?text=Capture+à+venir)  
+📸 **Captures & Démo (bientôt disponible)**  
+![Thumbnail](assets/Thumbnail.png)
 
 🎥 [Tutoriel YouTube – Bientôt](#)  
 

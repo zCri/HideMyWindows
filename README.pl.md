@@ -50,9 +50,8 @@ msbuild
 4. Zastosuj **reguły okien**, aby automatycznie ukrywać aplikacje.
 5. Zminimalizuj do zasobnika i pozwól aplikacji działać w tle.
 
-📸 **Zrzuty ekranu i Demo** (wkrótce)
-- Obraz placeholder:
-  ![Screenshot placeholder](https://placehold.co/800x450.png?text=Screenshot+Coming+Soon)  
+📸 **Zrzuty ekranu i Demo (wkrótce)**
+![Thumbnail](assets/Thumbnail.png)
 
 🎥 [Tutorial YouTube – Wkrótce](https://www.google.com/search?q=%23)
 
