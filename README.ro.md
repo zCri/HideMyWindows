@@ -52,7 +52,7 @@ msbuild
 5. Minimizează în zona de notificare și las-o să ruleze în fundal.
 
 📸 **Screenshot-uri & Demo (în curând)**
-![Thumbnail](assets/Thumbnail.png)
+![Thumbnail](Assets/Thumbnail.png)
 
 🎥 [Tutorial YouTube – În curând](#)
 

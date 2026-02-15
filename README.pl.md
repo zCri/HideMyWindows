@@ -51,7 +51,7 @@ msbuild
 5. Zminimalizuj do zasobnika i pozwól aplikacji działać w tle.
 
 📸 **Zrzuty ekranu i Demo (wkrótce)**
-![Thumbnail](assets/Thumbnail.png)
+![Thumbnail](Assets/Thumbnail.png)
 
 🎥 [Tutorial YouTube – Wkrótce](https://www.google.com/search?q=%23)
 

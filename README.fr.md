@@ -53,7 +53,7 @@ msbuild
 5. Réduisez dans la barre d’état système et laissez fonctionner en arrière-plan.  
 
 📸 **Captures & Démo (bientôt disponible)**  
-![Thumbnail](assets/Thumbnail.png)
+![Thumbnail](Assets/Thumbnail.png)
 
 🎥 [Tutoriel YouTube – Bientôt](#)  
 

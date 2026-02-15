@@ -52,7 +52,7 @@ msbuild
 5. Riduci a icona nell'area di notifica e lascialo funzionare in background.
 
 📸 **Screenshot e Demo (prossimamente)**
-![Thumbnail](assets/Thumbnail.png)
+![Thumbnail](Assets/Thumbnail.png)
 
 🎥 [Tutorial YouTube – Prossimamente](#)
 

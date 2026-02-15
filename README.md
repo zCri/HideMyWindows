@@ -53,7 +53,7 @@ msbuild
 5. Minimize to tray and let it run in the background.  
 
 📸 **Screenshots & Demo (coming soon)**
-![Thumbnail](assets/Thumbnail.png)
+![Thumbnail](Assets/Thumbnail.png)
 
 🎥 [YouTube Tutorial – Coming Soon](#)  
 
