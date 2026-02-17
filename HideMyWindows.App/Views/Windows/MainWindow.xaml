@@ -36,7 +36,7 @@
             Grid.Row="0"
             CloseWindowByDoubleClickOnIcon="True">
             <ui:TitleBar.Icon>
-                <ui:ImageIcon Source="pack://application:,,,/Assets/wpfui-icon-256.png" />
+                <ui:ImageIcon Source="pack://application:,,,/Assets/icon-512.png" />
             </ui:TitleBar.Icon>
         </ui:TitleBar>
 
@@ -73,7 +73,7 @@
             Grid.Row="0"
             x:Name="NotifyIcon"
             FocusOnLeftClick="True"
-            Icon="pack://application:,,,/Assets/wpfui-icon-256.png"
+            Icon="pack://application:,,,/Assets/icon-32.png"
             MenuOnRightClick="True"
             LeftClick="ShowMenuItem_Click"
             TooltipText="HideMyWindows">

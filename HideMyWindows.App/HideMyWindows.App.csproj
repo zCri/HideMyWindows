@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>wpfui-icon.ico</ApplicationIcon>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wpfui-icon.ico" />
+    <Content Include="icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,8 +34,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Assets\wpfui-icon-256.png" />
-    <None Remove="Assets\wpfui-icon-1024.png" />
+    <None Remove="Assets\icon-512.png" />
+    <None Remove="Assets\icon-32.png" />
   </ItemGroup>
   
   <Target Name="BuildDLLs" BeforeTargets="ResolveProjectReferences">
@@ -68,8 +68,8 @@
 
 
   <ItemGroup>
-    <Resource Include="Assets\wpfui-icon-256.png" />
-    <Resource Include="Assets\wpfui-icon-1024.png" />
+    <Resource Include="Assets\icon-512.png" />
+    <Resource Include="Assets\icon-32.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,7 +2,7 @@
 
 > 🌐 Dostępne w językach: [English](README.md) | [Français](README.fr.md) | [Italiano](README.it.md) | [Română](README.ro.md) | [Polski](README.pl.md)
 
-![Logo Placeholder](https://placehold.co/120x120.png?text=Logo)  
+![Banner](Assets/Banner.png)
 
 **HideMyWindows** to aplikacja dla systemu Microsoft Windows, która pozwala **ukryć okna pulpitu przed metodami przechwytywania ekranu** (zrzuty ekranu, nagrywanie wideo, oprogramowanie do streamingu takie jak OBS).  
 Została zaprojektowana dla **użytkowników dbających o prywatność, streamerów i studentów**, którzy chcą mieć lepszą kontrolę nad tym, co inni widzą podczas udostępniania ekranu.

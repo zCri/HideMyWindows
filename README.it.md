@@ -2,7 +2,7 @@
 
 > 🌐 Disponibile in: [English](README.md) | [Français](README.fr.md) | [Italiano](README.it.md) | [Română](README.ro.md) | [Polski](README.pl.md)
 
-![Logo Placeholder](https://placehold.co/120x120.png?text=Logo)  
+![Banner](Assets/Banner.png)
 
 **HideMyWindows** è un'applicazione per Microsoft Windows che ti permette di **nascondere le finestre del desktop dai metodi di cattura schermo** (screenshot, registrazioni video, software di streaming come OBS).  
 È progettata per **utenti attenti alla privacy, streamer e studenti** che desiderano un controllo migliore su ciò che gli altri possono vedere durante la condivisione dello schermo.
